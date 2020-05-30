@@ -75,7 +75,7 @@ Congrats ! You are done with the first part.
 
 In the next step we'll install the kubernetes dashboard.   
   
-[![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org "Thats the live dashboard you'lll install on your own server")
+[![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 
 The MicroK8s docs [contain a chapter on this](https://microk8s.io/docs/addon-dashboard) on how to set up the dashboard.
 While its a good excercise to just follow these steps and already learn about terminology and components its hard to imagine that you'll soon fall in love with this kind of installation.

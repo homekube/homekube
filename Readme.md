@@ -10,17 +10,17 @@ Its got lots of components and endless options to glue them altogether and once 
 
 Following this tutorial you should have Kubernetes and a sample application installed as well as the most useful and popular administration components on your local Ubuntu server:
 
-- [Kubernetes **Dashboard**](https://dashboard.homekube.org)
-- [**Prometheus** Metrics](https://prometheus.homekube.org)
-- [**Grafana** Monitoring](https://grafana.homekube.org)
-- [Sample **WhoamI** application](https://whoami.homekube.org)
+- [![](images/ico/color/homekube_16.png) Kubernetes **Dashboard**](https://dashboard.homekube.org)
+- [![](images/ico/color/homekube_16.png) **Prometheus** Metrics](https://prometheus.homekube.org)
+- [![](images/ico/color/homekube_16.png) **Grafana** Monitoring](https://grafana.homekube.org)
+- [![](images/ico/color/homekube_16.png) Sample **WhoamI** application](https://whoami.homekube.org)
 
 As an extra step there'll be some instructions on how to make your installation publicly available in the internet.
 
-There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [**MicroK8s installation recipes**](https://microk8s.io/docs).  
+There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).  
 Is this really for you ? If you are in doubt read the [considerations](considerations.md) before you start.
 
-The [MicroK8s docs](https://microk8s.io/docs) we'll follow are pretty much straightforward for the first steps.
+The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) we'll follow are pretty much straightforward for the first steps.
 However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed to set up a complete working environment including dashboard, monitoring and a sample app.
 If you are already familiar with the concepts and terminology thats not a problem for you because you know how to go ahead.
 But hey - for the rest of us this means googling like hell and if you really were familiar with that stuff you won't be here - won't you ?
@@ -54,7 +54,7 @@ Open a terminal on your computer and connect to your server
 ```bash
 ssh mykube@192.168.1.100
 ```
-Then follow the [**steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
+Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
 
 Finally in your terminal window execute
@@ -77,7 +77,7 @@ In the next step we'll install the kubernetes dashboard.
   
 [![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 
-The MicroK8s docs [contain a chapter on this](https://microk8s.io/docs/addon-dashboard) on how to set up the dashboard.
+The MicroK8s docs [![](images/ico/color/ubuntu_16.png) contain a chapter on this](https://microk8s.io/docs/addon-dashboard) on how to set up the dashboard.
 While its a good excercise to just follow these steps and already learn about terminology and components its hard to imagine that you'll soon fall in love with this kind of installation.
 By default the dashboard is just internal to your kubernetes cluster and only accessible from the outside by another command line instruction `microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0` 
 

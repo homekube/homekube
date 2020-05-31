@@ -26,7 +26,7 @@ Kelsey is a google cloud advocate and as a conference speaker he is well-known f
 
 #### A local installation with opinionated settings
 
-There are a couple of opinionated simpler installation options, you can [read more about them here](https://www.reddit.com/r/kubernetes/comments/be0415/k3s_minikube_or_microk8s).
+There are a couple of opinionated other installation options, you can [read more about them here](https://www.reddit.com/r/kubernetes/comments/be0415/k3s_minikube_or_microk8s).
 They have all different pros and cons but the main reasons for picking Canonicals [Microk8s](https://microk8s.io/) are simplicity and its 'Linux by nature' character.
 No VMs required (which would add another layer [of complexity]) the only requirement is to have a Linux box with Ubuntu installed.
 Requirements from the [**Microk8s docs**](https://microk8s.io/docs):

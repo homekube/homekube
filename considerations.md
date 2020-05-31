@@ -19,9 +19,9 @@ Or are you going to host the next Google Maps ? Obviously this will make a big $
 ##### A local installation from the sources
 
 If you want to understand Kubernetes at a deeper level and you don't mind spending the time for investigation then these educational videos
-[Kubernetes the hard way - ![](images/ico/youtube_24.png) Part 1](https://www.youtube.com/watch?v=NvQY5tuxALY) and [![](images/ico/youtube_24.png) Part 2](https://www.youtube.com/watch?v=2bVK-e-GuYI) might be for you.
+[Kubernetes the hard way - ![](images/ico/youtube_20.png) Part 1](https://www.youtube.com/watch?v=NvQY5tuxALY) and [![](images/ico/youtube_20.png) Part 2](https://www.youtube.com/watch?v=2bVK-e-GuYI) might be for you.
 Venkat is a mastermind of [professional educational **tutorial videos** about OpenSource](https://www.youtube.com/user/wenkatn).
-The author will go through the nitty-gritty details of Kelsey Hightowers [![](images/ico/youtube_24.png) Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way) recipe of setting up a complete installation from zero.
+The author will go through the nitty-gritty details of Kelsey Hightowers [![](images/ico/youtube_20.png) Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way) recipe of setting up a complete installation from zero.
 Kelsey is a google cloud advocate and as a conference speaker he is well-known for his entertaining talks.
 
 ##### A local installation with opinionated settings

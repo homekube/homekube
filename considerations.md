@@ -19,9 +19,10 @@ Or are you going to host the next Google Maps ? Obviously this will make a big $
 #### A local installation from the sources
 
 If you want to understand Kubernetes at a deeper level and you don't mind spending the time for investigation then these educational videos
-[Kubernetes the hard way - ![](images/ico/color/youtube_16.png) Part 1](https://www.youtube.com/watch?v=NvQY5tuxALY) and [![](images/ico/color/youtube_16.png) Part 2](https://www.youtube.com/watch?v=2bVK-e-GuYI) might be for you.
-Venkat is a mastermind of [professional educational **tutorial videos** about OpenSource](https://www.youtube.com/user/wenkatn).
-The author will go through the nitty-gritty details of Kelsey Hightowers [![](images/ico/github_16.png) Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way) recipe of setting up a complete installation from zero.
+[Kubernetes the hard way - ![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) Part 1](https://www.youtube.com/watch?v=NvQY5tuxALY) 
+and [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) Part 2](https://www.youtube.com/watch?v=2bVK-e-GuYI) might be for you.
+The author Venkat is a mastermind of [professional educational ![](images/ico/color/youtube_16.png) tutorials on **OpenSource**](https://www.youtube.com/user/wenkatn).
+He will go through the nitty-gritty details of Kelsey Hightowers [![](images/ico/github_16.png) Kubernetes the hard way](https://github.com/kelseyhightower/kubernetes-the-hard-way) recipe of setting up a complete installation from zero.
 Kelsey is a google cloud advocate and as a conference speaker he is well-known for his entertaining talks.
 
 #### A local installation with opinionated settings
@@ -35,5 +36,3 @@ Requirements from the [![](images/ico/color/ubuntu_16.png) **Microk8s docs**](ht
 (or another operating system which supports snapd - see the snapd documentation)
 * At least 20G of disk space and 4G of memory are recommended
 * An internet connection
-
-Its all [![](images/ico/color/kubernetes_16.png) about Kubernetes](https://kubernetes.io)

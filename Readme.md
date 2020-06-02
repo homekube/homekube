@@ -12,13 +12,14 @@ Following this tutorial you should have Kubernetes and a sample application inst
 
 - [![](images/ico/color/homekube_16.png) Kubernetes **Dashboard**](https://dashboard.homekube.org)
 - [![](images/ico/color/homekube_16.png) **Prometheus** Metrics](https://prometheus.homekube.org)
-- [![](images/ico/color/homekube_16.png) **Grafana** Monitoring](https://grafana.homekube.org)
+- [![](images/ico/color/homekube_16.png) **Grafana** Monitoring](https://grafana.homekube.org/d/9CWBz0bik/1-node-exporter-0-16-for-prometheus-monitoring-display-board?orgId=1&refresh=1m&from=1590319468858&to=1590924268858&var-interval=5s&var-env=All&var-name=All&var-node=All&var-maxmount=%2F)
 - [![](images/ico/color/homekube_16.png) Sample **WhoamI** application](https://whoami.homekube.org)
 
 As an extra step there'll be some instructions on how to make your installation publicly available in the internet.
 
-There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).  
+There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
 Is this really for you ? If you are in doubt read the [considerations](considerations.md) before you start.
+
 
 The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) we'll follow are pretty much straightforward for the first steps.
 However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed to set up a complete working environment including dashboard, monitoring and a sample app.
@@ -44,7 +45,7 @@ For the purpose of this tutorial it is assumed that
 1) Your homenet is in the portrange `192.168.1.0 - 192.168.1.255` (A class C subnet 192.168.1.0/24) 
 2) Your servers ip is fixed `192.168.1.100` and the username is `mykube`
 3) You have a free range of unassigned ips that are excluded from your routers dhcp address range.
-We will use these addresses to emulate the functionality of a cloud providers LoadBalancer for all your incoming traffic.
+We will use these addresses to substitute the functionality of a cloud providers LoadBalancer for all your incoming traffic.
 These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) portrange is `192.168.1.200 - 192.168.1.220`
 You'll need a minimum of 5 IPs but its better to have some headroom for extensions and your own exercises. 
 
@@ -54,7 +55,7 @@ Open a terminal on your computer and connect to your server
 ```bash
 ssh mykube@192.168.1.100
 ```
-Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
+> Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
 
 Finally in your terminal window execute
@@ -68,8 +69,37 @@ The response will be something like
 Client Version: v1.18.2-41+b5cdb79a4060a3   
 Server Version: v1.18.2-41+b5cdb79a4060a3
 ```
-
 Congrats ! You are done with the first part.
+
+## Enable Add-Ons
+
+Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](images/ico/color/ubuntu_16.png) couple of add-ons](https://microk8s.io/docs/addons)
+but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
+
+```bash
+microk8s enable dns metallb helm3
+```
+
+[![](images/ico/color/ubuntu_16.png) DNS](https://microk8s.io/docs/addon-dns) points by default to googles dns servers and resolves local names.
+DNS should always be enabled. 
+[![](images/ico/color/kubernetes_16.png) Details ...](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/) 
+[![](images/ico/github_16.png) More details ...](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
+
+[Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
+Thats the gateway from where all incoming traffic will flow into our kube.
+You will be prompted for the portrange as commented above [Prerequisites](#Prerequisites) 3) `192.168.1.200 - 192.168.1.220`
+[![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
+
+[![](images/ico/color/helm_16.png) Helm charts](https://helm.sh/) are a convenient way to configure all sorts of curated applications in our cluster 
+(like databases, dashboards, visualizations, ...).
+[Helm hub](https://hub.helm.sh) is for kubernetes what [Docker hub](https://hub.docker.com/) is for containers.
+For almost all components we will install later its more convenient to use **helm charts** because its a templating solution.
+Instead of copy and paste a **configuration .yaml** file for each new installation with helm we will only have to provide the differences from the defaults.
+In MircroK8s there are 2 different helm add-ons. One named **helm** and the other on **helm3**.
+We will go ahead with the new version 3 which makes use of **rbac** (for role based authentication) which is a preferred authentication scheme.
+
+For the moment we will **not enable rbac** which is another option of the MicroK8s add-ons as we are going to install the dashboard with minimum effort first.
+
 
 ## Next steps
 
@@ -79,5 +109,9 @@ In the next step we'll install the kubernetes dashboard.
 
 The MicroK8s docs [![](images/ico/color/ubuntu_16.png) contain a chapter on this](https://microk8s.io/docs/addon-dashboard) on how to set up the dashboard.
 While its a good excercise to just follow these steps and already learn about terminology and components its hard to imagine that you'll soon fall in love with this kind of installation.
-By default the dashboard is just internal to your kubernetes cluster and only accessible from the outside by another command line instruction `microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0` 
+By default the dashboard is just internal to your kubernetes cluster and only accessible from the outside by another command line instruction 
+
+```bash
+microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
+``` 
 

@@ -55,8 +55,11 @@ Open a terminal on your computer and connect to your server
 ```bash
 ssh mykube@192.168.1.100
 ```
+
+---
 > Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
+---
 
 Finally in your terminal window execute
 
@@ -80,23 +83,23 @@ but explanations are rather short and we will only install basic components so t
 microk8s enable dns metallb helm3
 ```
 
-[![](images/ico/color/ubuntu_16.png) DNS](https://microk8s.io/docs/addon-dns) points by default to googles dns servers and resolves local names.
-DNS should always be enabled. 
+[![](images/ico/color/ubuntu_16.png) DNS](https://microk8s.io/docs/addon-dns) should always be anabled.
+It will resolve internal and external references of the installed components.  
 [![](images/ico/color/kubernetes_16.png) Details ...](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/) 
 [![](images/ico/github_16.png) More details ...](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
 
 [Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
 Thats the gateway from where all incoming traffic will flow into our kube.
-You will be prompted for the portrange as commented above [Prerequisites](#Prerequisites) 3) `192.168.1.200 - 192.168.1.220`
+You will be prompted for the portrange as commented above [Prerequisites](#Prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
 [![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
 
-[![](images/ico/color/helm_16.png) Helm charts](https://helm.sh/) are a convenient way to configure all sorts of curated applications in our cluster 
+[![](images/ico/color/helm_16.png) Helm charts](https://helm.sh/) are a convenient way to install all sorts of curated applications in our cluster 
 (like databases, dashboards, visualizations, ...).
-[Helm hub](https://hub.helm.sh) is for kubernetes what [Docker hub](https://hub.docker.com/) is for containers.
-For almost all components we will install later its more convenient to use **helm charts** because its a templating solution.
-Instead of copy and paste a **configuration .yaml** file for each new installation with helm we will only have to provide the differences from the defaults.
-In MircroK8s there are 2 different helm add-ons. One named **helm** and the other on **helm3**.
-We will go ahead with the new version 3 which makes use of **rbac** (for role based authentication) which is a preferred authentication scheme.
+[Helm hub](https://hub.helm.sh) is for Kubernetes what [Docker hub](https://hub.docker.com/) is for containers. 
+Helm charts are very convenient because they provide a simple to use templating solution.
+Once you have to maintain similar variants of your deployments e.g. development/production or 
+[blue/green runtime environments](https://octopus.com/docs/deployment-patterns/blue-green-deployments) they are a big time saver.  
+[![](images/ico/color/helm_16.png) more about Helm 3 ...](https://helm.sh/blog/helm-3-released/)
 
 For the moment we will **not enable rbac** which is another option of the MicroK8s add-ons as we are going to install the dashboard with minimum effort first.
 

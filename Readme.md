@@ -106,15 +106,7 @@ For the moment we will **not enable rbac** which is another option of the MicroK
 
 ## Next steps
 
-In the next step we'll install the kubernetes dashboard.   
+Lets proceed installing the [kubernetes dashboard](dashboard.md)    
   
 [![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
-
-The MicroK8s docs [![](images/ico/color/ubuntu_16.png) contain a chapter on this](https://microk8s.io/docs/addon-dashboard) on how to set up the dashboard.
-While its a good excercise to just follow these steps and already learn about terminology and components its hard to imagine that you'll soon fall in love with this kind of installation.
-By default the dashboard is just internal to your kubernetes cluster and only accessible from the outside by another command line instruction 
-
-```bash
-microk8s kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 --address 0.0.0.0
-``` 
 

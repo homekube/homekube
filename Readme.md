@@ -18,13 +18,16 @@ Following this tutorial you should have Kubernetes and a sample application inst
 As an extra step there'll be some instructions on how to make your installation publicly available in the internet.
 
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-Is this really for you ? If you are in doubt read the [considerations](considerations.md) before you start.
+Is this really for you ? If you are in doubt read the [![](images/ico/instructor_16.png)considerations](considerations.md) before you start.
 
 
-The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) we'll follow are pretty much straightforward for the first steps.
-However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed to set up a complete working environment including dashboard, monitoring and a sample app.
+The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 
+we'll follow are pretty much straightforward for the first steps.
+However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed
+ to set up a complete working environment including dashboard, monitoring and a sample app.
 If you are already familiar with the concepts and terminology thats not a problem for you because you know how to go ahead.
-But hey - for the rest of us this means googling like hell and if you really were familiar with that stuff you won't be here - won't you ?
+But hey - for the rest of us this means googling like hell and if you really were familiar with that stuff
+you won't be here - won't you ?
 Thats where this tutorial jumps in as a leaflet and reference with pointers to further in-depth documents, concepts and resources.
 
 ## Basic installation

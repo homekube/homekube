@@ -11,7 +11,7 @@ Benefits are:
 * Provision of a wildcard certificate for homekube.org and all of its subdomains
 * Automated certificate renewal
 
-Cert-Manager Kubernetes provides an integrated open source solution that does this (and much).
+Cert-Manager Kubernetes provides an integrated open source solution that does this (and much more).
 The common term for the method we use is **ACME/DNS01** provider where ACME stands for **'Automated Certificate Management Environment** and 
 **DNS01** is the method by which LetsEncrypt validates ownership of a requested validation for a wildcard domain. 
 [![](images/ico/book_16.png) Read more about Letsencrypt challenges and the DN01 challenge type](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
@@ -55,8 +55,7 @@ Open a local terminal and register:
 curl -s -X POST https://auth.acme-dns.io/register | python -m json.tool
 ```
 
-A random response will be generated. We will use this data for the configuration of the automated update process
-Response Example:
+A random response will be generated. Example:
 ```json
 {
     "allowfrom": [],
@@ -69,7 +68,8 @@ Response Example:
 
 #### Update
 
-We will use the response for configuration. First we need to update our DNS providers CNAME settings.
+We will use the response for configuration. First we need to update our DNS providers CNAME settings
+with the fulldomain value of the response. ``_acme-challenge.yourdomain.tld`` is the key required by LetsEncrypt.
 In common bind notation we'd define
 ```bash
 _acme-challenge.homekube.org   IN CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.auth.acme-dns.io.
@@ -112,7 +112,7 @@ and save the registration response into a .json file ``acme-dns.json`` on the se
 }
 ```
 
-As a last step we create a kubernetes secrets containing the credentials needed for the automated update:
+As a last step we create a kubernetes secret containing the credentials needed for the automated update:
 
 ```bash
 kubectl create secret generic homekube-acme-dns -n cert-manager --from-file acmedns.json

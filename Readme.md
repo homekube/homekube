@@ -58,7 +58,10 @@ Open a terminal on your computer and connect to your server
 ```bash
 ssh mykube@192.168.1.100
 ```
-
+then create kubernetes working dir on your server:
+```bash
+mkdir k8s
+```
 ---
 > Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
@@ -67,7 +70,7 @@ At this point you are done with a base installation and this tutorial will lead 
 Finally in your terminal window execute
 
 ```bash
-microk8s kubectl version --short
+kubectl version --short
 ```
 
 The response will be something like

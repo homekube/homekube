@@ -1,3 +1,7 @@
+#
+# Replace all occurrences of 'homekube.org' with your domain.tld
+# Replace all occurrences of 'homekube' with your domain
+#
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:

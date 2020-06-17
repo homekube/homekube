@@ -86,29 +86,10 @@ Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](imag
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
-microk8s enable dns metallb helm3
+microk8s enable dns rbac ingress dashboard metallb helm3
 ```
 
-[![](images/ico/color/ubuntu_16.png) DNS](https://microk8s.io/docs/addon-dns) should always be anabled.
-It will resolve internal and external references of the installed components.  
-[![](images/ico/color/kubernetes_16.png) Details ...](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/) 
-[![](images/ico/github_16.png) More details ...](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
-
-[Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
-Thats the gateway from where all incoming traffic will flow into our kube.
-You will be prompted for the portrange as commented above [Prerequisites](#Prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
-[![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
-
-[![](images/ico/color/helm_16.png) Helm charts](https://helm.sh/) are a convenient way to install all sorts of curated applications in our cluster 
-(like databases, dashboards, visualizations, ...).
-[Helm hub](https://hub.helm.sh) is for Kubernetes what [Docker hub](https://hub.docker.com/) is for containers. 
-Helm charts are very convenient because they provide a simple to use templating solution.
-Once you have to maintain similar variants of your deployments e.g. development/production or 
-[blue/green runtime environments](https://octopus.com/docs/deployment-patterns/blue-green-deployments) they are a big time saver.  
-[![](images/ico/color/helm_16.png) more about Helm 3 ...](https://helm.sh/blog/helm-3-released/)
-
-For the moment we will **not enable rbac** which is another option of the MicroK8s add-ons as we are going to install the dashboard with minimum effort first.
-
+[![](images/ico/instructor_16.png) Read more ...](docs/microk8s-addons.md) 
 
 ## Next steps
 

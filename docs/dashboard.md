@@ -20,8 +20,8 @@ Lets quickly check the installation. `192.168.1.100` is our server ip when follo
 ```bash
 kubectl expose service kubernetes-dashboard --external-ip 192.168.1.100 --port 10443 --name dashboard -n kubernetes-dashboard
 ``` 
-In case of problems exposing the installed manifests there is an 
-[![](../images/ico/instructor_16.png) alternative access](dashboard-background.md#port-forwarding) description.
+In case of problems exposing the installed manifests there is an alternative method via
+[![](../images/ico/instructor_16.png) port-forwarding](dashboard-background.md#port-forwarding) .
 
 In your **local browser open `https://192.168.1.100:10443`**
 

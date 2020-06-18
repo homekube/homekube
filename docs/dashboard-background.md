@@ -42,6 +42,12 @@ simple-user-token-nj2qx            kubernetes.io/service-account-token   3      
 The token names are generated and contain the secret name from the manifest e.g. `admin-account-token`
 and a random trailing sequence `-274ww`.
 
+Once the name of the token is known we can retrieve its details:
+
+```bash
+kubectl describe secret admin-user-token-274ww -n kubernetes-dashboard 
+```
+
 ## Port forwarding
 
 Instead of exposing the service we can also port-forward the kubernetes-dashboard:

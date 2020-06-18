@@ -47,7 +47,8 @@ is a basic DNS server that acts on behalf of your providers DNS service for the 
 
 ### ACME-DNS
 
-The author of Acme-dns recommends you install your own helper service (official terminology [![](../images/ico/book_16.png) CertBot client](https://certbot.eff.org/)) 
+The author of Acme-dns recommends you install your own helper service (official terminology 
+[![](../images/ico/book_16.png) CertBot client](https://certbot.eff.org/)) 
 which can be done following the [![](../images/ico/github_16.png) usage instructions](https://github.com/joohoi/acme-dns#usage).
 
 While its generally advisable to be in control of this component we will take the short-path here and use a public service

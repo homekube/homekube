@@ -8,7 +8,7 @@ In case its already installed we will **disable** it first.
 microk8s disable dashboard
 ``
 
-Instead we just install the upstream 
+Instead we simply install the upstream 
 [![](../images/ico/github_16.png) community version](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
 
 ```bash
@@ -45,7 +45,7 @@ provide some more instructions.
 kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-admin-user.json
 kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-simple-user.json
 ```
-Now we inspect the created secrets (account tokens):
+Now we inspect the created secrets (account tokens) Execute:
 
 ```bash
 name=simple-user # or 'simple-user'
@@ -53,8 +53,8 @@ namespace=kubernetes-dashboard
 token=$(kubectl -n $namespace get secret | grep ${name}-token | cut -d " " -f1)
 kubectl -n $namespace describe secret $token 
 ``` 
-From the output copy the **token:** encrypted secret in the DATA section (with a double click) to the clipboard and paste it
-into `Enter token *` input field.
+From the output copy the `token:` **encrypted secret** in the DATA section (with a double click) to the clipboard and paste it
+into `Enter token *` input field and sign in.
 
 ```
 Name:         simple-user-token-nj2qx
@@ -73,7 +73,7 @@ ca.crt:     1103 bytes
 
 ```
 
-**Congrats** The dashboard is up and running and exposed as a service !!
+**Congrats !!** The dashboard is up and running and exposed as a service !!
 
 ![](../images/dashboard.png)
 

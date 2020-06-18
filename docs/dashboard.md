@@ -21,7 +21,7 @@ Lets quickly check the installation. `192.168.1.100` is our server ip when follo
 kubectl expose service kubernetes-dashboard --external-ip 192.168.1.100 --port 10443 --name dashboard -n kubernetes-dashboard
 ``` 
 In case of problems exposing the installed manifests there is an 
-[![](../images/ico/instructor_16.png) alternative access](dashboard-background.md) in the  `Port-forwarding` section.
+[![](../images/ico/instructor_16.png) alternative access](dashboard-background.md#port-forwarding) description.
 
 In your **local browser open `https://192.168.1.100:10443`**
 
@@ -47,7 +47,8 @@ kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-simple-
 ```
 These manifests create the required 
 [![](../images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  
-Now we inspect the created secrets (account tokens) Execute:
+Now we inspect the created secrets (account tokens) 
+[![](../images/ico/instructor_16.png) manually](dashboard-background.md#get-token) or execute the script:
 
 ```bash
 name=simple-user # or 'simple-user'
@@ -82,3 +83,4 @@ ca.crt:     1103 bytes
 Now try the other token that we created for `simple-user` as well. The simple user has restricted rights. For example
 he can't view any secrets.
 
+If you want to repeat the steps as an exercise [![](../images/ico/instructor_16.png) cleanup first](dashboard-background.md#cleanup).

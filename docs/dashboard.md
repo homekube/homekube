@@ -38,13 +38,15 @@ it is possible to just type **thisisunsafe** or **badidea** to proceed anyway.
 We take care of the untrusted certificate later.
 
 For login next we create two users. One that has full admin rights and one with limited rights.  
-[![](../images/ico/github_16.png) Create sample user docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
-provide some more instructions.
+The [![](../images/ico/github_16.png) Create sample user docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
+provide some more details about that. Here is the short path:
 
 ```bash
 kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-admin-user.json
 kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-simple-user.json
 ```
+These manifests create the required 
+[![](../images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  
 Now we inspect the created secrets (account tokens) Execute:
 
 ```bash

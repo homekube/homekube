@@ -24,23 +24,18 @@ Port-forward is just a temporary solution for development. When the session is t
 Alternatively you might prefer a 
 [![](../images/ico/color/homekube_16.png) permanent solution.](dashboard-background.md#exposing-dashboard) .
 
-
 In your **local browser open `https://192.168.1.100:10443`**
 
-A warning about an untrusted certificate will show up and upon confirmation **in firefox**
-you'd see the dashboards sign-in page. 
-
-> **NOTE** In some chrome versions you do not get the option to bypass the `NET::ERR_CERT_INVALID` error.
-Due to a
-[hidden function in chrome](https://medium.com/@dblazeski/chrome-bypass-net-err-cert-invalid-for-development-daefae43eb12)
-it is possible to just type **thisisunsafe** or **badidea** to proceed anyway. 
-
+A warning about an untrusted certificate will show up and upon confirmation **in Firefox**
+you'd see the dashboards sign-in page. This may not work for you. 
+[![](../images/ico/color/homekube_16.png) Read why and troubleshoot ...](dashboard-background.md#troubleshoot-certificate) 
+ 
 ![](../images/dashboard-signin.png)
 
 We will create appropriate [![](../images/ico/color/homekube_16.png) certificates ](cert-manager.md)
 with LetsEncrypt later and install them in the [![](../images/ico/color/homekube_16.png) Ingress](ingress.md) part of this tutorial.
 
-For login next we create two users. One that has full admin rights and one with limited rights.  
+For login next we create two users. One that has full admin rights and one with restricted rights.  
 The [![](../images/ico/github_16.png) Create sample user docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 provide some more details about that. Here is the short path:
 

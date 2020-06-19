@@ -88,12 +88,11 @@ but explanations are rather short and we will only install basic components so t
 ```bash
 microk8s enable dns rbac ingress metallb helm3
 ```
-
-[![](images/ico/instructor_16.png) Read more ...](docs/microk8s-addons.md) 
+More [![](images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
 
 ## Next steps
 
-Lets proceed installing the [kubernetes dashboard =>](docs/dashboard.md)    
+Lets proceed installing the [![](images/ico/color/homekube_16.png) kubernetes dashboard](docs/dashboard.md)    
   
 [![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 

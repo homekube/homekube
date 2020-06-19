@@ -1,5 +1,7 @@
 
 # Links & Icons
+
+![](../images/ico/color/homekube_16.png) Homekube  
 ![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) Video with hands-on training lesson  
 ![](../images/ico/color/youtube_16.png) ![](../images/ico/instructor_16.png) Instructional tutorial video
 

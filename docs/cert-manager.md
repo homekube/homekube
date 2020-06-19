@@ -43,7 +43,7 @@ its not able to communicate with LetsEncyrypt services directly. Instead it dele
 which in turn makes use of another helper service. [![](../images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
 is a basic DNS server that acts on behalf of your providers DNS service for the sole purpose of renewing LetsEncrypt certificates.
 
-[![](../images/ico/instructor_16.png) Learn more about the principles of operation](cert-manager-long.md) 
+[![](../images/ico/color/homekube_16.png) Learn more about the principles of operation](cert-manager-long.md) 
 
 ### ACME-DNS
 

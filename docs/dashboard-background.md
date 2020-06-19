@@ -5,8 +5,8 @@ The MicroK8s docs contains a brief chapter on how to
 [![](../images/ico/color/ubuntu_16.png) set up the dashboard](https://microk8s.io/docs/addon-dashboard).
 There is a slight but annoying difference in the way the Microk8s people install the dashboard 
 and how the upstream kubernetes resources do it.
-Basically it breaks down that the official version use their own namespace ``kubernetes-dashboard`` 
-and MicroK8s is using the existing ``kube-system``.
+Basically it breaks down that the official version use their own namespace `kubernetes-dashboard` 
+and MicroK8s is using the existing `kube-system` namespace.
 
 Execute a `git diff` to see the differences: 
 
@@ -48,32 +48,28 @@ Once the name of the token is known we can retrieve its details:
 kubectl describe secret admin-user-token-274ww -n kubernetes-dashboard 
 ```
 
-## Port forwarding
+## Exposing dashboard
 
-Instead of exposing the service we can also port-forward the kubernetes-dashboard:
+The dashboard service can also be exposed permanently:
 
 ```bash
-kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 10443:443 --address 0.0.0.0
+kubectl expose service kubernetes-dashboard --external-ip 192.168.1.100 --port 10443 --target-port 8443 --name dashboard -n kubernetes-dashboard
 ``` 
-The disadvantage of this approach is that `port-forward` blocks the terminal session and once the session
-gets closed the command gets terminated.
-
-An alternative check can be executed from the command line of a **local ! terminal**:
+Check with the browser or on the command line of a **local ! terminal**:
   
 ```bash
 curl -k https://192.168.1.100:10443
 ```
-
 ## Cleanup
 
-Cleanup simply by removing the dashboard namespace
+Remove everything simply by removing the dashboard namespace:
 
 ```bash
 kubectl delete namespace kubernetes-dashboard
 ```
-
-We could also cleanup only parts of it:
-
 ```bash
-kubectl delete -f <filename.yaml or url_of_a_yaml_file>
+# cleanup the exposed dashboard service only:
+kubectl delete service dashboard -n kubernetes-dashboard
+# or cleanup instructions we installed from a file or url. example:
+kubectl delete -f create-admin-user.yaml
 ```

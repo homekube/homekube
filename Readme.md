@@ -18,7 +18,7 @@ Following this tutorial you should have Kubernetes and a sample application inst
 As an extra step there'll be some instructions on how to make your installation publicly available in the internet.
 
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-Is this really for you ? If you are in doubt read the [![](images/ico/instructor_16.png)considerations](considerations.md) before you start.
+Is this really for you ? If you are in doubt read the [![](images/ico/color/homekube_16.png)considerations](docs/considerations.md) before you start.
 
 
 The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 
@@ -86,7 +86,7 @@ Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](imag
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
-microk8s enable dns rbac ingress metallb helm3
+microk8s enable dns rbac helm3
 ```
 More [![](images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
 

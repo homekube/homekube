@@ -53,12 +53,20 @@ It is possible to proceed anyway by just typing **thisisunsafe** or **badidea** 
 
 ### Linux workaround ?
 
-There is 
-[![](../images/ico/color/kubernetes_16.png) another way](https://kubernetes.io/docs/concepts/cluster-administration/certificates/#distributing-self-signed-ca-certificate)
-to install the ca.crt on your local client. In 
-[![](../images/ico/color/ubuntu_16.png) Ubuntu the ca.crt](https://microk8s.io/docs/ports#heading--auth)
+Its possible to 
+[![](../images/ico/color/kubernetes_16.png) distribute the self-signed CA certificate](https://kubernetes.io/docs/concepts/cluster-administration/certificates/#distributing-self-signed-ca-certificate)
+to install the ca.crt on your local client. In [![](../images/ico/color/ubuntu_16.png) Ubuntu the ca.crt](https://microk8s.io/docs/ports#heading--auth)
 is installed on `/var/snap/microk8s/current/certs/`. Documentation suggests that copying the root certificate 
-from the server to our local client might solve that problem. For some reason this does not work in Microk8s.
+from the server to our local client might solve that problem. However that does not work for certificate validation
+[![](../images/ico/book_16.png) in a browser](https://serverfault.com/questions/946139/how-do-i-implement-ssl-on-a-private-ip)
+[![](../images/ico/book_16.png) Read more ...](https://cabforum.org/).
+
+There is a workaround that keeps the security warning page but will provide the 'Go ahead anyway option' even in Chrome.
+The solution is to provide a self-signed 
+[![](../images/ico/github_16.png) certificate to the dashboard](https://github.com/kubernetes/dashboard/issues/2995#issuecomment-551309479)
+
+Its questionable if that's worth the effort as the better solution is to install
+[![](../images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md).
 
 ## Get token
 

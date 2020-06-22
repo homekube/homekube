@@ -2,14 +2,14 @@
 
 ### DNS
 [![](../images/ico/color/ubuntu_16.png) DNS](https://microk8s.io/docs/addon-dns) should always be anabled.
-It will resolve internal and external references of the installed components.  
+It is the default implementation for service discovery in a kubernetes environment.  
 [![](../images/ico/color/kubernetes_16.png) Details ...](https://kubernetes.io/docs/tasks/administer-cluster/dns-custom-nameservers/) 
 [![](../images/ico/github_16.png) More details ...](https://github.com/kubernetes/dns/blob/master/docs/specification.md)
 
 ### MetalLb
-[Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
-Thats the gateway from where all incoming traffic will flow into our kube.
-You will be prompted for the portrange as commented [Prerequisites](#Prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
+[![](../images/ico/book_16.png) Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
+That's the gateway from where all incoming traffic will flow into our kube.
+You will be prompted for the portrange as commented [Prerequisites](#prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
 [![](../images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
 
 ### Helm(3) charts
@@ -55,6 +55,10 @@ Internet --> LoadBalancer (Cloud or bare metal) --> service1
          |-> LoadBalancer (Cloud or bare metal) --> service1  
          |-> LoadBalancer (Cloud or bare metal) --> service1  
 ```
+
+As a side note there are other Ingress replacements available which serve the same purpose but all have their own pros and cons
+and do not share a common configuration (Envoy, Gloo, Heptio Contour, Istio, Ambassador, ...)
+
 ### Dashboard
 
 The dashboard is the default kubernetes community maintained ui.

@@ -28,7 +28,7 @@ In your **local browser open `https://192.168.1.100:10443`**
 
 A warning about an untrusted certificate will show up and upon confirmation **in Firefox**
 you'd see the dashboards sign-in page. This may not work for you. 
-[![](../images/ico/color/homekube_16.png) Read why and troubleshoot ...](dashboard-background.md#troubleshoot-certificate) 
+[![](../images/ico/color/homekube_16.png) Read why and troubleshoot ...](dashboard-background.md#troubleshoot-certificates) 
  
 ![](../images/dashboard-signin.png)
 
@@ -44,8 +44,7 @@ kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-admin-u
 kubectl apply -f https://github.com/a-hahn/homekube/src/dashboard/create-simple-user.json
 ```
 These manifests create the required 
-[![](../images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  
-Now we inspect the created secrets (account tokens) 
+[![](../images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). Now we inspect the created secrets (account tokens) 
 [![](../images/ico/color/homekube_16.png) manually](dashboard-background.md#get-token) or execute the script:
 
 ```bash
@@ -81,4 +80,8 @@ ca.crt:     1103 bytes
 Now try the other token that we created for `simple-user` as well. The simple user has restricted rights. For example
 he can't view any secrets.
 
-If you want to repeat the steps as an exercise [![](../images/ico/color/homekube_16.png) cleanup first](dashboard-background.md#cleanup).
+If you want to repeat the steps as an exercise
+[![](../images/ico/color/homekube_16.png) cleanup first](dashboard-background.md#cleanup).
+
+As the next step we will configure dashboard access via 
+[![](../images/ico/color/homekube_16.png) Ingress](ingress.md).

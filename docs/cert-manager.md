@@ -2,6 +2,8 @@
 
 In this step we will install [![](../images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/).   
 
+>**NOTE:** Before you proceed you need a domain that you own. In this tutorial we use 'homekube.org'
+
 We might skip this because it is not strictly required in the first place.
 The downside is that while browsing our application the browser will respond with warnings about 'Untrusted - your website is not secure'. 
 

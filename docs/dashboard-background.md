@@ -2,7 +2,7 @@
 ## Dashboard background
 
 The MicroK8s docs contains a brief chapter on how to
-[![](../images/ico/color/ubuntu_16.png) set up the dashboard](https://microk8s.io/docs/addon-dashboard).
+[![](images/ico/color/ubuntu_16.png) set up the dashboard](https://microk8s.io/docs/addon-dashboard).
 There is a slight but annoying difference in the way the Microk8s people install the dashboard 
 and how the upstream kubernetes resources do it.
 Basically it breaks down that the official version use their own namespace `kubernetes-dashboard` 
@@ -39,7 +39,7 @@ curl -k https://192.168.1.100:10443
 ## Troubleshoot certificates
 
 The installation procedure of Kubernetes (MicroK8s and others as well) has
-[![](../images/ico/color/ubuntu_16.png) generated a lot of certificates](https://microk8s.io/docs/ports#heading--auth)
+[![](images/ico/color/ubuntu_16.png) generated a lot of certificates](https://microk8s.io/docs/ports#heading--auth)
 including a Certifcate authority as a root for all the other certificates. Its no surprise that browsers don't
 trust this authority - its just not on their trust list.
 So they won't accept any certificates that are signed by this authority and chrome refuses to even offer the
@@ -53,15 +53,15 @@ It is possible to proceed anyway by just typing **thisisunsafe** or **badidea** 
 
 ### More options
 
-In the [![](../images/ico/color/homekube_16.png) Ingress](ingress.md)
-and [![](../images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md)
+In the [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
+and [![](images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md)
 parts of the tutorial better ways to deal with certificates and authorization are explained.
 
 For completness there exist also other resources on this topid:
 
-* [![](../images/ico/github_16.png) Dashboard installation docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/installation.md)
-* [![](../images/ico/color/kubernetes_16.png) Distribute the kubernetes self-signed CA certificate](https://kubernetes.io/docs/concepts/cluster-administration/certificates/#distributing-self-signed-ca-certificate)
-* [![](../images/ico/color/ubuntu_16.png) Microk8s auth](https://microk8s.io/docs/ports#heading--auth)
+* [![](images/ico/github_16.png) Dashboard installation docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/installation.md)
+* [![](images/ico/color/kubernetes_16.png) Distribute the kubernetes self-signed CA certificate](https://kubernetes.io/docs/concepts/cluster-administration/certificates/#distributing-self-signed-ca-certificate)
+* [![](images/ico/color/ubuntu_16.png) Microk8s auth](https://microk8s.io/docs/ports#heading--auth)
 
 ## Get token
 

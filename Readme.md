@@ -1,27 +1,23 @@
-![Homekube](images/Homekube.png)
+![Homekube](docs/images/Homekube.png)
 
 # Kubernetes at home for fun and education
 
-Homekube aims to set up a full operational kubernetes environment on a baremetal Ubuntu server.
-There is already a lot of documentation out there and a lot of terminology to learn so what is new and where is the fun part ?
+Homekube aims to set up a full operational kubernetes environment on a baremetal Ubuntu server. 
+The focus is getting something done first and learn along a happy path while extending your working environment.  
 
-Kubernetes is sort-of the new [Lego](https://lego.com) for adults. If you liked to play with all the bricks and pieces as a child and if you are an IT-minded person you'll probably have some fun with kubernetes too.
-Its got lots of components and endless options to glue them altogether and once you have mastered the initial learning steps it unlocks endless possibilities of creativity.
+Following this tutorial you should have Kubernetes and a sample application installed 
+along with the most useful and popular administration components on your local Ubuntu server:
 
-Following this tutorial you should have Kubernetes and a sample application installed as well as the most useful and popular administration components on your local Ubuntu server:
+- [![](docs/images/ico/color/homekube_16.png) Kubernetes **Dashboard**](https://dashboard.homekube.org)
+- [![](docs/images/ico/color/homekube_16.png) **Prometheus** Metrics](https://prometheus.homekube.org)
+- [![](docs/images/ico/color/homekube_16.png) **Grafana** Monitoring](https://grafana.homekube.org/d/9CWBz0bik/1-node-exporter-0-16-for-prometheus-monitoring-display-board?orgId=1&refresh=1m&from=1590319468858&to=1590924268858&var-interval=5s&var-env=All&var-name=All&var-node=All&var-maxmount=%2F)
+- [![](docs/images/ico/color/homekube_16.png) Sample **WhoamI** application](https://whoami.homekube.org)
 
-- [![](images/ico/color/homekube_16.png) Kubernetes **Dashboard**](https://dashboard.homekube.org)
-- [![](images/ico/color/homekube_16.png) **Prometheus** Metrics](https://prometheus.homekube.org)
-- [![](images/ico/color/homekube_16.png) **Grafana** Monitoring](https://grafana.homekube.org/d/9CWBz0bik/1-node-exporter-0-16-for-prometheus-monitoring-display-board?orgId=1&refresh=1m&from=1590319468858&to=1590924268858&var-interval=5s&var-env=All&var-name=All&var-node=All&var-maxmount=%2F)
-- [![](images/ico/color/homekube_16.png) Sample **WhoamI** application](https://whoami.homekube.org)
-
-As an extra step there'll be some instructions on how to make your installation publicly available in the internet.
-
-There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-Is this really for you ? If you are in doubt read the [![](images/ico/color/homekube_16.png)considerations](docs/considerations.md) before you start.
+There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
+Is this really for you ? If you are in doubt read the [![](docs/images/ico/color/homekube_16.png)considerations](docs/considerations.md) before you start.
 
 
-The [![](images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 
+The [![](docs/images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 
 we'll follow are pretty much straightforward for the first steps.
 However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed
  to set up a complete working environment including dashboard, monitoring and a sample app.
@@ -72,7 +68,7 @@ git clone git@github.com:a-hahn/homekube.git
 ```
 
 ---
-> Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
+> Then follow the [![](docs/images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
 ---
 
@@ -91,17 +87,17 @@ Congrats ! You are done with the first part.
 
 ## Enable Add-Ons
 
-Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](images/ico/color/ubuntu_16.png) couple of add-ons](https://microk8s.io/docs/addons)
+Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](docs/images/ico/color/ubuntu_16.png) couple of add-ons](https://microk8s.io/docs/addons)
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
 microk8s enable dns rbac helm3
 ```
-More [![](images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
+More [![](docs/images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
 
 ## Next steps
 
-Lets proceed installing the [![](images/ico/color/homekube_16.png) kubernetes dashboard](docs/dashboard.md)    
+Lets proceed installing the [![](docs/images/ico/color/homekube_16.png) kubernetes dashboard](docs/dashboard.md)    
   
-[![Dashboard](images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
+[![Dashboard](docs/images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 

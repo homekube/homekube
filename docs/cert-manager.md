@@ -1,6 +1,6 @@
 # Cert Manager
 
-In this step we will install [![](../images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/).   
+In this step we will install [![](images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/).   
 
 >**NOTE:** Before you proceed you need a domain that you own. In this tutorial we use 'homekube.org'
 
@@ -16,7 +16,7 @@ Benefits are:
 Cert-Manager Kubernetes provides an integrated open source solution that does this (and much more).
 The common term for the method we use is **ACME/DNS01** provider where ACME stands for **'Automated Certificate Management Environment** and 
 **DNS01** is the method by which LetsEncrypt validates ownership of a requested validation for a wildcard domain. 
-[![](../images/ico/book_16.png) Read more about Letsencrypt challenges and the DNS01 challenge type](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
+[![](images/ico/book_16.png) Read more about Letsencrypt challenges and the DNS01 challenge type](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
 
 ## Preparation
 
@@ -28,29 +28,29 @@ A ``pwd`` should now show something like ``/home/mykube/k8s/cert-manager``.
 
 ## Installation
 
-Following the [![](../images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
+Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
 kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.1/cert-manager.yaml
 ```
 
-Its recommended to [![](../images/ico/color/kubernetes_16.png) verify the installation](https://cert-manager.io/docs/installation/kubernetes/#verifying-the-installation) .
+Its recommended to [![](images/ico/color/kubernetes_16.png) verify the installation](https://cert-manager.io/docs/installation/kubernetes/#verifying-the-installation) .
 
 ## Configuration of Helpers
 
 While Cert-Manager cares about automation renewal and integration of the certificates on the kubernetes level 
 its not able to communicate with LetsEncyrypt services directly. Instead it delegates this task to its 
-[![](../images/ico/color/kubernetes_16.png) ACMEDNS adapter](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
-which in turn makes use of another helper service. [![](../images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
+[![](images/ico/color/kubernetes_16.png) ACMEDNS adapter](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
+which in turn makes use of another helper service. [![](images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
 is a basic DNS server that acts on behalf of your providers DNS service for the sole purpose of renewing LetsEncrypt certificates.
 
-[![](../images/ico/color/homekube_16.png) Learn more about the principles of operation](cert-manager-long.md) 
+[![](images/ico/color/homekube_16.png) Learn more about the principles of operation](cert-manager-long.md) 
 
 ### ACME-DNS
 
 The author of Acme-dns recommends you install your own helper service (official terminology 
-[![](../images/ico/book_16.png) CertBot client](https://certbot.eff.org/)) 
-which can be done following the [![](../images/ico/github_16.png) usage instructions](https://github.com/joohoi/acme-dns#usage).
+[![](images/ico/book_16.png) CertBot client](https://certbot.eff.org/)) 
+which can be done following the [![](images/ico/github_16.png) usage instructions](https://github.com/joohoi/acme-dns#usage).
 
 While its generally advisable to be in control of this component we will take the short-path here and use a public service
 located at ``https://auth.acme-dns.io``
@@ -90,7 +90,7 @@ _acme-challenge.homekube.org   IN CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.aut
 
 Usually you have to use your dns providers console or webinterface for that. 
 Homekube's DNS host is [Artfiles.de](https://artfiles.de) and a 
-[screenshot of the dns webinterface modifications](../images/artfiles_dns_webui.png) is provided as a reference. 
+[screenshot of the dns webinterface modifications](images/artfiles_dns_webui.png) is provided as a reference. 
 
 > Note again the **trailing dot .**  ! 
 
@@ -106,10 +106,10 @@ The response will contain a line like
 _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.auth.acme-dns.io.
 ```
 
-[![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png)4:15 Acme-Dns manual update demo](https://asciinema.org/a/94903)
+[![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png)4:15 Acme-Dns manual update demo](https://asciinema.org/a/94903)
 
 Next we follow the 
-[![](../images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
+[![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
 and save the registration response into a .json file ``acme-dns-homekube.json`` on the server with the domain name as a key and the response as its value. 
 Replace ``homekube.org`` with a domain name of your choice.
 **Example** looks like:
@@ -160,11 +160,11 @@ tls.key:  1679 bytes
 ```
 
 The important part here is that both **tls.crt** and **tls.key** must be present and not empty.
-In case of errors follow the [![](../images/ico/color/kubernetes_16.png) troubleshooting section](https://cert-manager.io/docs/faq/acme/).
+In case of errors follow the [![](images/ico/color/kubernetes_16.png) troubleshooting section](https://cert-manager.io/docs/faq/acme/).
 Note that you need to append all commands with `` -n cert-manager-homekube`` as thats the namespace that we use.
 
 If everything goes well we can obtain the 'real' certficate form LetsEncrypt production endpoint. LetsEncrypt has quite
-[![](../images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage
+[![](images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage
 of its production endpoint so you better double-check with the staging-endpoint.
 
 The production manifest are the same as staging except that:
@@ -181,3 +181,8 @@ When the resulting secret
 kubectl describe secret homekube-tls-prod -n cert-manager-homekube
 ```
 contains a non-empty **tls.crt** and **tls.key** you are done
+
+## Next steps
+
+Now lets improve dashboards annoying login procedure with
+[![](images/ico/color/homekube_16.png) Single sign on](single-sign-on.md).

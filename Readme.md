@@ -58,10 +58,19 @@ Open a terminal on your computer and connect to your server
 ```bash
 ssh mykube@192.168.1.100
 ```
-then create kubernetes working dir on your server:
+
+Its recommended to fork the repo on github and clone your fork to your server.
+This way you might save all your local changes or additions to your own repo and if you notice errors
+or suggest improvements you might easily sumbit a PR to improve homekube. 
+
 ```bash
-mkdir k8s
+# Recommended
+git clone git@github.com:<your clone>/homekube.git
+
+# Alternative
+git clone git@github.com:a-hahn/homekube.git
 ```
+
 ---
 > Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.

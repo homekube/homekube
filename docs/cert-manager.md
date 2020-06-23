@@ -22,8 +22,7 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 
 Create a cert-manager working directory on your server and cd into that:
 ```bash
-mkdir ~/k8s/cert-manager -p
-cd ~/k8s/cert-manager
+cd ~/homekube/src/cert-manager
 ```
 A ``pwd`` should now show something like ``/home/mykube/k8s/cert-manager``.
 

@@ -7,12 +7,17 @@ which serves as a replacement for cloud-based LoadBalancers. In a typical cloud 
 traffic will flow into a kubernetes cluster from the LoadBalancer and MetalLb is a compatible 
 replacement for non-cloud installations.
 
+Data flow will be
+
+```
+                             Nginx      Dashboard
+Internet -> LoadBalancer ->  Ingress -> service 
+```
+
 ## Preparation
 
-Create an ingress working directory on your server and cd into that:
 ```bash
-mkdir ~/k8s/ingress -p
-cd ~/k8s/ingress
+cd ~/homekube/src/ingress
 ```
 A ``pwd`` should now show something like `/home/mykube/k8s/ingress`.
 
@@ -28,25 +33,40 @@ as commented in [Prerequisites #3](../Readme.md#prerequisites)
 ## Configuration
 
 As a next step we need to define a service which serves as an entrypoint for all traffic that is routed through
-an Ingress. This might have been a part of the installation but there are a couple of configuration options so
-we will do that now.
+an Ingress. Our service configuration `ingress-service.yaml` accepts http and https connections on port 80 and 443
+and forwards them to the appropriate endpoints of the ingress-controller-pod - that is an nginx runtime 
+wrapped into a container. We configure a MetalLb LoadBalancer `192.168.1.200` ip which will accept the incoming
+traffic. 
 
 ```bash
-curl -O https://raw.githubusercontent.com/a-hahn/homekube/master/src/ingress/ingress-service.yaml
 kubectl apply -f ingress-service.yaml
-
-# or apply the manifest directly from the url
-kubectl apply -f https://raw.githubusercontent.com/a-hahn/homekube/master/src/ingress/ingress-service.yaml
 ```
 
-As a last step we configure the dashboard service. Thats basically the same as configuring a VirtualHost in Apache
-or Nginx. 
+Finally we configure the dashboard service. If you have already configured Apache2 or Nginx reverse proxies 
+this may be a bit familiar for you. The manifest type is `Ingress` and 
+the noticeable difference is that configuration is done through annotations.
+Read more about
+[![](../images/ico/color/kubernetes_16.png) Ingress configuration](https://kubernetes.io/docs/concepts/services-networking/ingress/).  
+There is a long list of 
+[![](../images/ico/color/kubernetes_16.png) available annotations](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/)
+
+We accept https incoming traffic unwrap it and wrap it again in https to forward it to the kubernetes dashboard.
+It is an important detail that the Ingress manifest is defined in the same namespace  `namespace: kubernetes-dashboard`
+where the dashboard service is defined.
 
 ```bash
-curl -O https://raw.githubusercontent.com/a-hahn/homekube/master/src/ingress/ingress-dashboard.yaml
 kubectl apply -f ingress-dashboard.yaml
-
-# or apply the manifest directly from the url
-kubectl apply -f https://raw.githubusercontent.com/a-hahn/homekube/master/src/ingress/ingress-dashboard.yaml
 ```
+In your **local browser open `https://192.168.1.200`**  
+Dashboard now opens via Ingress in addition to the previous configuration. 
 
+![](../images/dashboard-signin.png)
+
+Note that we did not provide a certificate so far. 
+Ingress will present your browser a `Kubernetes Ingress controller Fake Certificate`
+certificate that is different from the one presented by the dashboard service and 
+the default dashboard certificate. Although Chrome again shows the  `NET::ERR_CERT_AUTHORITY_INVALID`
+error it will now show a `Proceed to 192.168.1.200 (unsafe)` option.
+
+We will create our own automated LetsEncrypt certificates in
+[![](../images/ico/color/homekube_16.png) the next step](cert-manager.md). 

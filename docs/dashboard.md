@@ -49,7 +49,7 @@ These manifests create the required
 [![](images/ico/color/homekube_16.png) manually](dashboard-background.md#get-token) or execute the script:
 
 ```bash
-name=simple-user # or 'simple-user'
+name=simple-user # or 'admin-user'
 namespace=kubernetes-dashboard
 token=$(kubectl -n $namespace get secret | grep ${name}-token | cut -d " " -f1)
 kubectl -n $namespace describe secret $token 

@@ -45,15 +45,18 @@ The term **Ingress controller** refers to an Nginx server that is wrapped into a
 A common data flow with an Ingress and 3 services is:
 
 ```
-Internet -> LoadBalancer (Cloud or e.g. MetalLb) --> Ingress --> service1  
-                                                             |-> service2
-                                                             |-> service3
+           Cloud / MetalLb
+Internet -> LoadBalancer  -> Ingress --> service1  
+                                     |-> service2
+                                     |-> service3
 ```
 The same data flow without Ingress requires 3 LoadBalancer instances (which 3 times as costly in some cloud environments).
 ```
-Internet --> LoadBalancer (Cloud or bare metal) --> service1  
-         |-> LoadBalancer (Cloud or bare metal) --> service1  
-         |-> LoadBalancer (Cloud or bare metal) --> service1  
+
+           Cloud / MetalLb
+Internet --> LoadBalancer  -> service1  
+         |-> LoadBalancer  -> service2  
+         |-> LoadBalancer  -> service3  
 ```
 
 As a side note there are other Ingress replacements available which serve the same purpose but all have their own pros and cons

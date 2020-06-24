@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: nginx-ingress-service
-  name: nginx-ingress-service
+    name: nginx-ingress-microk8s
+  name: nginx-ingress-microk8s
   namespace: ingress
 spec:
   ports:
@@ -16,7 +16,7 @@ spec:
       protocol: TCP
       targetPort: 443
   selector:
-    name: nginx-ingress-service
+    name: nginx-ingress-microk8s
   # Lets use the (MetalLb) LoadBalancer instead of NodePort (the other option)
   type: LoadBalancer
   # This is an ip that has to be in the portrange of the metallb configuration

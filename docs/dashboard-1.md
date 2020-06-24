@@ -1,10 +1,11 @@
-# Dashboard
+# Dashboard - Improved
 
 With minor changes to the Ingress dashboard configuration we can add http-basic-auth to our dashboard
 so we get rid of the annoying token-lookup.
 
 Edit the **proxy_set_header** value in `~/homekube/src/ingress/ingress-dashboard-auth.yaml` and replace the bearer token 
-`eyJhbGciOiJSUzI1NiIsImt...aTBSzidQ` with a [![](images/ico/color/homekube_16.png) token generated](dashboard.md) here.
+`eyJhbGciOiJSUzI1NiIsImt...aTBSzidQ` with a 
+[![](images/ico/color/homekube_16.png) token](dashboard.md)  generated previously.
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1

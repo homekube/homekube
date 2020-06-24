@@ -57,7 +57,7 @@ In the [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
 and [![](images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md)
 parts of the tutorial better ways to deal with certificates and authorization are explained.
 
-For completness there exist also other resources on this topid:
+For completeness there exist also other resources on this topic:
 
 * [![](images/ico/github_16.png) Dashboard installation docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/installation.md)
 * [![](images/ico/color/kubernetes_16.png) Distribute the kubernetes self-signed CA certificate](https://kubernetes.io/docs/concepts/cluster-administration/certificates/#distributing-self-signed-ca-certificate)

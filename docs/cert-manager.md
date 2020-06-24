@@ -58,6 +58,9 @@ located at ``https://auth.acme-dns.io``
 > NOTE: You need to be aware that this component is cruicial for automated updates and we have to trust the provider for confidentiality. 
  In case the provider terminates its services or he loses your registration data then the automated renewal gets terminated and needs to be reconfigured
 
+Service usage is a 2 step process.
+First we will register at the service manually and its response data is then used for automated updating.
+   
 #### Registration
 
 Next we will register at the service manually:
@@ -78,7 +81,7 @@ A random response will be generated. Example:
     "username": "81bbffed-f46c-43e5-997e-777e8ab1298f"
 }
 ```
-#### Update
+#### Updating
 
 We will use the response as input for configuration. First we need to update our DNS providers CNAME settings
 with the **fulldomain** value of the response. ``_acme-challenge.yourdomain.tld`` is the key required by LetsEncrypt.
@@ -168,7 +171,7 @@ If everything goes well we can obtain the 'real' certficate form LetsEncrypt pro
 of its production endpoint so you better double-check with the staging-endpoint.
 
 The production manifest are the same as staging except that:
-* the acme server endpoint ``https://acme-staging-v02.api.letsencrypt.org/directory``
+* the acme server endpoint ``https://acme-staging-v02.api.letsencrypt.org/directory``   
 is replaced by ``https://acme-v02.api.letsencrypt.org/directory``
 * all other occurrences of ``staging`` are replace by ``prod``
 

@@ -3,9 +3,9 @@
 With minor changes to the Ingress dashboard configuration we can add http-basic-auth to our dashboard
 so we get rid of the annoying token-lookup.
 
-Edit the **proxy_set_header** value in `~/homekube/src/ingress/ingress-dashboard-auth.yaml` and replace the bearer token 
-`eyJhbGciOiJSUzI1NiIsImt...aTBSzidQ` with a 
-[![](images/ico/color/homekube_16.png) token](dashboard.md)  generated previously.
+`cd ~/homekube/src/ingress/`
+
+and edit `ingress-dashboard-auth.yaml`.  
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -33,10 +33,16 @@ spec:
             path: /
 ```
 
+- Authenticate through an authentication mockup service 
+[![](images/ico/book_16.png) `https://httpbin.org/basic-auth/user/password`](https://httpbin.org) 
+with credentials of your choice e.g. **demo/demo**
+- Replace the Bearer token `eyJhbGciOiJSUzI1NiIsImt...aTBSzidQ` 
+ in the **proxy_set_header** line with an [![](images/ico/color/homekube_16.png) access token](dashboard.md)  generated previously (for admin-user or simple-user).
+
 After applying the changes
 
 ```bash
-kubectl apply -f ~/homekube/src/ingress/homekube-dashboard-auth.yaml
+kubectl apply -f homekube-dashboard-auth.yaml
 ```
 
 Open the dashboard in the **local browser `https://192.168.1.200`** and login with **demo/demo**  
@@ -44,7 +50,7 @@ Open the dashboard in the **local browser `https://192.168.1.200`** and login wi
 You can revert to the previous version when applying the previous configuration
 
 ```bash
-kubectl apply -f ~/homekube/src/ingress/homekube-dashboard.yaml
+kubectl apply -f homekube-dashboard.yaml
 ```
 
 ## Next steps

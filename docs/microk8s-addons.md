@@ -9,7 +9,8 @@ It is the default implementation for service discovery in a kubernetes environme
 ### MetalLb
 [![](images/ico/book_16.png) Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
 That's the gateway from where all incoming traffic will flow into our kube.
-You will be prompted for the portrange as commented [Prerequisites](#prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
+MetalLb will assign an IP from your local network to each consuming service of type `LoadBalancer`. 
+You will be prompted for the portrange as commented [Prerequisites](../Readme.md#prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
 [![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
 
 ### Helm(3) charts
@@ -50,7 +51,7 @@ Internet -> LoadBalancer  -> Ingress --> service1
                                      |-> service2
                                      |-> service3
 ```
-The same data flow without Ingress requires 3 LoadBalancer instances (which 3 times as costly in some cloud environments).
+The same data flow without Ingress requires 3 LoadBalancer instances (which is 3 times as costly in some cloud environments).
 ```
 
            Cloud / MetalLb

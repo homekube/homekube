@@ -41,8 +41,8 @@ provide some more details about that. Here is the short path:
 
 ```bash
 cd ~/homekube/src/dashboard
-kubectl apply -f create-admin-user.json
-kubectl apply -f create-simple-user.json
+kubectl apply -f create-admin-user.yaml
+kubectl apply -f create-simple-user.yaml
 ```
 These manifests create the required 
 [![](images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). Now we inspect the created secrets (account tokens) 

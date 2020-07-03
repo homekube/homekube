@@ -1,0 +1,8 @@
+controller:
+  metrics:
+    enabled: true
+    service:
+      # important for detection of nginx datasource by prometheus
+      annotations: {
+        prometheus.io/scrape: "true" ,
+      }

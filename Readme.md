@@ -45,7 +45,9 @@ For the purpose of this tutorial it is assumed that
 2) Your servers ip is static `192.168.1.100` and the username is `mykube`
 3) You have a free range of unassigned ips that are excluded from your routers dhcp address range.
 We will use these addresses to substitute the functionality of a cloud providers LoadBalancer for all your incoming traffic.
-These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) portrange is `192.168.1.200 - 192.168.1.220`
+These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) 
+portrange is 
+`192.168.1.200-192.168.1.220`  
 You'll need a minimum of 5 IPs but its better to have some headroom for extensions and your own exercises. 
 
 Of course you can choose whatever is appropriate for your environment as long as you modify the commands accordingly.
@@ -68,10 +70,23 @@ git clone git@github.com:a-hahn/homekube.git
 ```
 
 ---
-> Then follow the [![](docs/images/ico/color/ubuntu_16.png) **steps 1-7** in the Microk8s tutorial](https://microk8s.io/docs).
+Then follow the [![](docs/images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs).
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
----
 
+TL;DR:
+
+```bash
+sudo snap install microk8s --classic --channel=1.18/stable
+sudo usermod -a -G microk8s $USER
+sudo chown -f -R $USER ~/.kube
+su - $USER
+microk8s status --wait-ready
+```
+Add an alias for `kubectl` to reduce our typing by appending `~/.bash_aliases` with  
+`alias kubectl='microk8s kubectl'`  
+and activate it instantly `. ~/.bash_aliases`
+
+---
 Finally in your terminal window execute
 
 ```bash
@@ -91,7 +106,7 @@ Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](docs
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
-microk8s enable dns rbac helm3
+microk8s enable dns storage rbac helm3
 ```
 More [![](docs/images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
 

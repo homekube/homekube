@@ -19,16 +19,32 @@ Internet -> LoadBalancer ->  Ingress -> service
 ```bash
 cd ~/homekube/src/ingress
 ```
-A ``pwd`` should now show something like `/home/mykube/k8s/ingress`.
+A ``pwd`` should now show something like `/home/mykube/k8s/ingress`.  
+Make sure you have installed [![](images/ico/color/homekube_16.png) Helm](helm.md) before you proceed.
 
 ## Installation
 
+We will setup own namespaces for metallb and ingress-nginx to allow an easier maintenance later.
+Microk8s default installation tends to install many add-ons in the 'kube-system' namespace. 
+That makes it harder later if it turns out that the default installation needs to be modified or extended.
+
 ```bash
-microk8s enable ingress metallb
+kubectl create namespace metallb-system
+kubectl apply -f metallb-config.yaml
+helm install metallb --namespace metallb-system stable/metallb
 ```
-When prompted for the portrange Enter `192.168.1.200 - 192.168.1.220`
-as commented in [Prerequisites #3](../Readme.md#prerequisites)  
-[![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
+These commands are a helm based replacements for microk8s LoadBalancer enablement `microk8s enable metallb`.
+If you need to reconfigure the default portrange `192.168.1.200-192.168.1.220` please
+edit `metallb-config.yaml` to match your environment.
+
+Next we'll install ingress-nginx. The notable difference to `microk8s enable ingress` is that this configuration 
+prepares ingress for later usage of scraping metrics and provide some traffic visualisation.
+That wasn't easy to extend when using microk8s version.
+  
+```bash
+kubectl create namespace ingress-nginx
+helm install nginx-helm -n ingress-nginx -f ingress-helm-values.yaml ingress-nginx/ingress-nginx
+```
 
 ## Configuration
 
@@ -37,6 +53,7 @@ an Ingress. Our service configuration `ingress-service.yaml` accepts http and ht
 and forwards them to the appropriate endpoints of the ingress-controller-pod - that is an nginx runtime 
 wrapped into a container. We configure a MetalLb LoadBalancer `192.168.1.200` ip which will accept the incoming
 traffic. 
+
 
 ```bash
 kubectl apply -f ingress-service.yaml

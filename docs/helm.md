@@ -30,12 +30,12 @@ alias helm='microk8s helm3'
 Now Helm3 will be the default helm installation.
 
 In many cases `microk8s enable <app>` serves the same purpose as `helm install <chart>`.
-However helm charts have the benefit of more in-depth documentation and usually they offer 
+However helm charts have the benefit of more in-depth documentation and most of them offer 
 many customization options. That's not always a benefit for beginners as its easy to drown
 in options. But there is a huge benefit with helm charts as they will work
 in any cloud environment. 
-From and educational pov there is no difference between your single node 
-microk8s and a multi node cluster.
+From an educational pov there is no difference between your single node 
+microk8s home server and a multi node cluster.
 In this tutorial we will prefer helm charts where it seems appropriate. 
 
 ### Adding applications
@@ -55,7 +55,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 # 3) The 'official' nginx ingress resource which is maintained by the community
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
-Get a list of all repos ready for installation
+# Get a list of all repos ready for installation
 helm search repo
 ```
  

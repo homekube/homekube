@@ -48,18 +48,7 @@ helm install nginx-helm -n ingress-nginx -f ingress-helm-values.yaml ingress-ngi
 
 ## Configuration
 
-As a next step we need to define a service which serves as an entrypoint for all traffic that is routed through
-an Ingress. Our service configuration `ingress-service.yaml` accepts http and https connections on port 80 and 443
-and forwards them to the appropriate endpoints of the ingress-controller-pod - that is an nginx runtime 
-wrapped into a container. We configure a MetalLb LoadBalancer `192.168.1.200` ip which will accept the incoming
-traffic. 
-
-
-```bash
-kubectl apply -f ingress-service.yaml
-```
-
-Finally we configure the dashboard service. If you have already configured Apache2 or Nginx reverse proxies 
+Next we configure the dashboard service. If you have already configured Apache2 or Nginx reverse proxies 
 this may be a bit familiar for you. The manifest type is `Ingress` and 
 the noticeable difference is that configuration is done through annotations.
 Read more about
@@ -70,8 +59,8 @@ Reference of
 [![](images/ico/book_16.png) embedded variables](http://nginx.org/en/docs/http/ngx_http_core_module.html#variables)
 
 We accept https incoming traffic unwrap it and wrap it again in https to forward it to the kubernetes dashboard.
-It is an important detail that the Ingress manifest is defined in the same namespace  `namespace: kubernetes-dashboard`
-where the dashboard service is defined.
+It is an important detail that the  **Ingress manifest must be defined in the same namespace as the service it references** 
+e.g.  `namespace: kubernetes-dashboard` .
 
 ```bash
 kubectl apply -f ingress-dashboard.yaml

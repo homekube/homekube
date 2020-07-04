@@ -63,6 +63,7 @@ It is an important detail that the  **Ingress manifest must be defined in the sa
 e.g.  `namespace: kubernetes-dashboard` .
 
 ```bash
+cd ~/homekube/src/dashboard
 kubectl apply -f ingress-dashboard.yaml
 ```
 In your **local browser open `https://192.168.1.200`**  

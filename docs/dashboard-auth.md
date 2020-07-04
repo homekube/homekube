@@ -16,19 +16,15 @@ source secure-dashboard.sh
 
 ## Alternative: do it manually
 
+- Copy `homekube-dashboard-auth.yaml` to `temp.yaml`
 - Find the [![](images/ico/color/homekube_16.png) access token](dashboard.md)
   generated previously (for admin-user or simple-user) and copy it to the clipboard.
-- Set the environment variable `HOMEKUBE_DASHBOARD_TOKEN=<your_pasted_token>` with the copied value.
+- Replace the environment variable `${HOMEKUBE_DASHBOARD_TOKEN}` with the copied value.
 - Authentication is performed through an authentication mockup service 
 [![](images/ico/book_16.png) `https://httpbin.org/basic-auth/user/password`](https://httpbin.org) 
 default is **demo/demo**  
-Modify `homekube-dashboard-auth.yaml` with credentials of your choice 
-
-After applying the changes
-
-```bash
-kubectl apply -f homekube-dashboard-auth.yaml
-```
+Modify `temp.yaml` with credentials of your choice
+- Apply changes `kubectl apply -f temp.yaml` and remove the file `rm temp.yaml`
 
 ## Check the result
 
@@ -37,7 +33,7 @@ Open the dashboard in the **local browser `https://192.168.1.200`** and login wi
 You can revert to the previous version when applying the previous configuration
 
 ```bash
-kubectl apply -f homekube-dashboard.yaml
+kubectl apply -f ingress-dashboard.yaml
 ```
 
 ## Next steps

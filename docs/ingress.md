@@ -80,4 +80,4 @@ error it will now show a `Proceed to 192.168.1.200 (unsafe)` option.
 ## Next steps
 
 Lets improve the dashboard and remove the annoying
-[![](images/ico/color/homekube_16.png) token login](dashboard-1.md). 
+[![](images/ico/color/homekube_16.png) token login](dashboard-ingress.md). 

@@ -11,14 +11,14 @@ Execute commands for automated upgrade:
 
 ```bash
 HOMEKUBE_USER_NAME=admin-user   # or: simple-user
-./secure-dashboard.sh
+source secure-dashboard.sh
 ```
 
 ## Alternative: do it manually
 
 - Find the [![](images/ico/color/homekube_16.png) access token](dashboard.md)
   generated previously (for admin-user or simple-user) and copy it to the clipboard.
-- Paste into an environment variable `HOMEKUBE_DASHBOARD_TOKEN=<your_pasted_token>`
+- Set the environment variable `HOMEKUBE_DASHBOARD_TOKEN=<your_pasted_token>` with the copied value.
 - Authentication is performed through an authentication mockup service 
 [![](images/ico/book_16.png) `https://httpbin.org/basic-auth/user/password`](https://httpbin.org) 
 default is **demo/demo**  

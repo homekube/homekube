@@ -1,0 +1,2 @@
+# homekube nfs export
+/srv/nfs/kubedata *(rw,sync,no_subtree_check,no_root_squash,insecure)

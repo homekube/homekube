@@ -5,7 +5,7 @@
 We will install charts later for the various apps. Before executing an installation
 its very easy to check what it will do. Just replace **`install`** with **`template`**
 
-Let's install a sample application ('Who-am-i' app) randomly querying google  
+Let's search the web for a sample **Who-am-i** application that just responds with the requests headers  
 `https://www.google.de/search?q=helm+chart+who-am-i`
 
 We are using one of the first matches:
@@ -40,7 +40,7 @@ NOTES:
   kubectl port-forward $POD_NAME 8080:80
 ```
 
-For well-maintained repos as the `stable` or `bitnami` repo that we installed earlier 
+For well-maintained repos as the `stable` or `bitnami` that we installed earlier 
 the usage instructions are usually properly maintained and accurate 
 but is this case we need small modifications to make it work:
 ```bash

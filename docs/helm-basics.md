@@ -3,9 +3,9 @@
 ## Installation and Verification
 
 We will install charts later for the various apps. Before executing an installation
-its very easy to check what it will do. Just replace <install> with <template>
+its very easy to check what it will do. Just replace **`install`** with **`template`**
 
-Let's install a sample application ('Who-am-i' app) randomly querying google 
+Let's install a sample application ('Who-am-i' app) randomly querying google  
 `https://www.google.de/search?q=helm+chart+who-am-i`
 
 We are using one of the first matches:

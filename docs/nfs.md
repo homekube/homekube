@@ -103,7 +103,7 @@ Lets create a sample pvc and a sample pod that writes a success message
 to the servers storage.
 ```bash
 cd ~/homekube/src/storage/nfs
-kubectl apply -f test-nfs.storage.yaml
+kubectl apply -f test-nfs-storage.yaml
 ```
 
 Navigate to the **storage folder on the server** and check its contents.
@@ -118,7 +118,7 @@ Inside the folder there is an empty file `SUCCESS` created by the volume claim.
 Now lets remove our test code
 ```bash
 cd ~/homekube/src/storage/nfs
-kubectl delete -f test-nfs.storage.yaml
+kubectl delete -f test-nfs-storage.yaml
 ```
 
 ### Cleaning up NFS storage

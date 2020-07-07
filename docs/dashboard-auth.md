@@ -22,7 +22,7 @@ source secure-dashboard.sh
 - Replace the environment variable `${HOMEKUBE_DASHBOARD_TOKEN}` with the copied value.
 - Authentication is performed through an authentication mockup service 
 [![](images/ico/book_16.png) `https://httpbin.org/basic-auth/user/password`](https://httpbin.org) 
-default is **demo/demo**  
+default credentials are **demo/demo**  
 Modify `temp.yaml` with credentials of your choice
 - Apply changes `kubectl apply -f temp.yaml` and remove the file `rm temp.yaml`
 

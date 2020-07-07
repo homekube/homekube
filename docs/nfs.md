@@ -76,7 +76,7 @@ sudo apt purge nfs-common           # remove config from the client
 
 ## Installing the manifest
 
-Next we install the kubernetes part of the storage provider.
+Next we install the kubernetes part of the storage provider.  
 **192.168.1.100** is the IP of the nfs-server which is the ip of your local server
 if you installed the server locally.  
 **/srv/nfs/kubedata** is the path to our data storage on the server.
@@ -107,25 +107,33 @@ kubectl apply -f test-nfs-storage.yaml
 ```
 
 Navigate to the **storage folder on the server** and check its contents.
+As you see there is a folder created with **<pvc-namespace>-<pvc-name>-<resource-id>**
+(pvc=persistent volume claim):
+
 ```bash
 cd /srv/nfs/kubedata/
 ls -l
 drwxrwxrwx 2 root root 4096 Jul  7 17:57 default-test-claim-pvc-ed7d7ff9-a3de-4fa3-a83e-624ebb664a9f
 ```
-As you see there is a folder created with <namespace>-<persistent-volume-claim>-<resource-id>.
-Inside the folder there is an empty file `SUCCESS` created by the volume claim.
+Inside the folder there is an empty file `SUCCESS` created by the test pod.
 
 Now lets remove our test code
 ```bash
 cd ~/homekube/src/storage/nfs
 kubectl delete -f test-nfs-storage.yaml
 ```
+**NOTE** that removing the testing volume claim will also **delete** the folder from
+the server although an archive-folder is created. If we want storage to be kept when
+a persistent volume claim is deleted we need to add  
+`--set storageClass.reclaimPolicy=Retain` to the  
+`helm install nfs-client ...` command above.
+
 
 ### Cleaning up NFS storage
 
 In case we want to get rid of the nfs-storage
 
 ```bash
-helm list --all-namspaces
 helm uninstall nfs-client --namespace=nfs-storage
+helm list --all-namspaces
 ```

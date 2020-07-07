@@ -2,10 +2,9 @@
 
 ## Installation and Verification
 
-We will install charts later for the various apps. Before executing an installation
-its very easy to check what it will do. Just replace **`install`** with **`template`**
-
+Its easier to understand the principles of helm by executing a simple example.
 Let's search the web for a sample **Who-am-i** application that just responds with the requests headers  
+
 `https://www.google.de/search?q=helm+chart+who-am-i`
 
 We are using one of the first matches and add the repo as suggested:
@@ -14,8 +13,19 @@ We are using one of the first matches and add the repo as suggested:
 helm repo add halkeye https://halkeye.github.io/helm-charts/
 ```
 
+Note that this is just a very simple chart. It just illustrates operations. We will see the
+major benefits when installing more complex charts later.
+The real power is helms templating solution which substitutes the charts placeholders
+with parameters during installation. 
+
+Before executing an installation its very easy to check what it will do.  
+Just replace **`helm install ...`** with **`helm template ...`**
+
+
 ### Verify
-Now lets evaluate the charts rendered templates before installation:
+Now lets evaluate the charts rendered templates before installation. 
+No operation is performed, its just output of the manifests to be executed on install:
+
 ```bash
 helm template whoami halkeye/whoami --version 0.3.2
 ```
@@ -112,7 +122,7 @@ NOTES:
   kubectl port-forward $POD_NAME 8080:80
 ```
 
-### See yourself
+### Prove the results
 For well-maintained repos as the `stable` or `bitnami` we installed earlier 
 the usage instructions are usually properly maintained and accurate 
 but in this case we need a few modifications to make it work:
@@ -122,7 +132,8 @@ echo "Visit http://192.168.1.100:8080 to use your application"
 kubectl port-forward $POD_NAME 8080:80 --address=0.0.0.0
 ```
 
-Opening `http://192.168.1.100:8080` shows that our installation is working
+Opening `http://192.168.1.100:8080` in a browser  
+(or execute `curl http://192.168.1.100:8080` in a terminal) results in: 
 ```text
 Hostname: whoami-7b6ff5b56d-675pv
 IP: 127.0.0.1
@@ -143,6 +154,7 @@ Upgrade-Insecure-Requests: 1
 
 ### Checking charts installed
 
+Get a list of installed charts
 ```bash
 helm list --all-namespaces
 ```
@@ -161,6 +173,7 @@ helm uninstall whoami --namespace=default
 
 ### Checking repos installed
 
+Get a list of installed repos
 ```bash
 helm repo list
 ```

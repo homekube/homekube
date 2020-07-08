@@ -109,7 +109,7 @@ The response will contain a line like
 _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.auth.acme-dns.io.
 ```
 
-[![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png)4:15 Acme-Dns manual update demo](https://asciinema.org/a/94903)
+[![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 4:15 Acme-Dns manual update demo](https://asciinema.org/a/94903)
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)

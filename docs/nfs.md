@@ -10,8 +10,9 @@ NFS storage consists of a server and a client module. The server can be installe
 in the local network or it can be on the same node as the client.
 
 ## Preparation
-Lets check if parts of nfs are already installed:
+Lets check if any parts of nfs are already installed:
 ```bash
+cd ~/homekube/src/storage/nfs 
 dpkg -l nfs*
 ```
 Terminal output shows that neither client nor server are installed:
@@ -31,7 +32,6 @@ un  nfs-kernel-server           <none>             <none>             (no descri
 storage available.
 
 ```bash
-cd ~/homekube/src/storage/nfs 
 sudo ./create-nfs-server.sh
 dpkg -l nfs*
 ```
@@ -69,21 +69,27 @@ un  nfs-kernel-server           <none>             <none>             (no descri
 Execute these commands in case you need to uninstall all or parts of nfs:
 ```bash
 sudo apt remove nfs-kernel-server   # remove the server
-sudo apt purge nfs-kernel-server    # remove config files from server
+sudo apt purge nfs-kernel-server    # remove config files for server
 sudo apt remove nfs-common          # remove the client
-sudo apt purge nfs-common           # remove config from the client
+sudo apt purge nfs-common           # remove config for client
 ```
 
 ## Installing the manifest
 
-Next we install the kubernetes part of the storage provider.  
-**192.168.1.100** is the IP of the nfs-server which is the ip of your local server
-if you installed the server locally.  
-**/srv/nfs/kubedata** is the path to our data storage on the server.
+Next we install the kubernetes part of the storage provider. Parameters are
+- storageClass.name=**managed-nfs-storage**  
+This parameter needs to match all correspondings pvc storage class references
+(see test below).
+- storageClass.defaultClass=**true**  
+All pvc that do not specify a storageClass ref will use this default. Can be ommitted.
+- nfs.server=**192.168.1.100**  
+Can be the ip of any nfs-server in the network.  
+**NOTE** that `localhost` or `127.0.0.1` will not work.
+- nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.
 
 ```bash
 kubectl create namespace nfs-storage
-helm install nfs-client \
+helm install nfs-client --version=1.2.8 \
 --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
 --set nfs.server=192.168.1.100 --set nfs.path=/srv/nfs/kubedata \
 --namespace nfs-storage \
@@ -98,42 +104,50 @@ REVISION: 1
 TEST SUITE: None
 ```
 
-## Testing the installation
+### Testing the installation
 Lets create a sample pvc and a sample pod that writes a success message 
 to the servers storage.
 ```bash
-cd ~/homekube/src/storage/nfs
 kubectl apply -f test-nfs-storage.yaml
 ```
 
 Navigate to the **storage folder on the server** and check its contents.
-As you see there is a folder created with **<pvc-namespace>-<pvc-name>-<resource-id>**
+There is a folder created with **<pvc-namespace>-<pvc-name>-<resource-id>**
 (pvc=persistent volume claim):
 
 ```bash
-cd /srv/nfs/kubedata/
-ls -l
+ls - /srv/nfs/kubedata/
 drwxrwxrwx 2 root root 4096 Jul  7 17:57 default-test-claim-pvc-ed7d7ff9-a3de-4fa3-a83e-624ebb664a9f
 ```
 Inside the folder there is an empty file `SUCCESS` created by the test pod.
 
 Now lets remove our test code
 ```bash
-cd ~/homekube/src/storage/nfs
 kubectl delete -f test-nfs-storage.yaml
 ```
-**NOTE** that removing the testing volume claim will also **delete** the folder from
+
+### Installation options
+
+Removing the testing volume claim will also **delete** the folder from
 the server although an archive-folder is created. If we want storage to be kept when
-a persistent volume claim is deleted we need to add  
-`--set storageClass.reclaimPolicy=Retain` to the  
-`helm install nfs-client ...` command above.
+a persistent volume claim is deleted we need another parameter:  
 
+`--set storageClass.reclaimPolicy=Retain`  
 
-### Cleaning up NFS storage
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) More options ...](https://github.com/helm/charts/tree/master/stable/nfs-client-provisioner#configuration) 
 
+### Cleaning up helm installs
 In case we want to get rid of the nfs-storage
 
 ```bash
 helm uninstall nfs-client --namespace=nfs-storage
 helm list --all-namspaces
 ```
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 21:13 Kubernetes volumes explained](https://www.youtube.com/watch?v=0swOh5C3OVM) 
+ PV <-> PVC <-> Storage class  
+ [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 27:28 Dynamically provision NFS persistent volumes in Kubernetes](https://www.youtube.com/watch?v=AavnQzWDTEk)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

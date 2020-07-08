@@ -83,3 +83,12 @@ helm search repo
    images - that means they will not work on ARM architectures (e.g. Raspberry).
 
 **Congrats** - Now we have direct access to a broad range of applications - many of them ready to install with a single command.
+
+## Next steps
+
+[![](images/ico/color/homekube_16.png) More about helm by example](helm-basics.md).
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 14:15 Helm and Helm Charts explained](https://www.youtube.com/watch?v=-ykwb1d0DXU&t=88s) 
+ [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   

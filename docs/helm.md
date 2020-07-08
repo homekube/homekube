@@ -9,7 +9,7 @@
 - Helm installation scripts are called **charts** and provide a simple to use templating solution
 - Many curated and trusted charts already exist for popular applications
 - Deployment of Helm charts is easier to maintain because they relieve from copying/pasting/modifying 
-lengthy manifests.
+lengthy manifests with lots of details
 - Helm charts are a good choice for **development/production** or 
 [**blue/green deployments**](https://octopus.com/docs/deployment-patterns/blue-green-deployments)
 
@@ -66,7 +66,7 @@ helm search repo
    and usually the first place to shop for maintained and documented charts. If a chart is marked
    'DEPRECATED' follow the links to its new location or browse one of the other chart catalogs.
    ```bash
-   # browse the stable repo or inspect a particuale chart
+   # browse the stable repo or inspect a particular chart
    helm search repo stable
    helm show chart stable/prometheus
    ```   

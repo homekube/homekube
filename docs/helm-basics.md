@@ -1,4 +1,4 @@
-# Helm Basics
+# Helm Basics by example
 
 ## Installation and Verification
 

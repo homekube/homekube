@@ -141,7 +141,7 @@ In case we want to get rid of the nfs-storage
 
 ```bash
 helm uninstall nfs-client --namespace=nfs-storage
-helm list --all-namspaces
+helm list --all-namespaces
 ```
 
 ## Tutorials

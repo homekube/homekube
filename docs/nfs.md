@@ -65,15 +65,6 @@ ii  nfs-common                  1:1.3.4-2.1ubuntu5 amd64              NFS suppor
 un  nfs-kernel-server           <none>             <none>             (no description available)
 ```
 
-### Optional uninstall
-Execute these commands in case you need to uninstall all or parts of nfs:
-```bash
-sudo apt remove nfs-kernel-server -y   # remove the server
-sudo apt purge nfs-kernel-server -y    # remove config files for server
-sudo apt remove nfs-common -y          # remove the client
-sudo apt purge nfs-common -y           # remove config files for client
-```
-
 ## Installing the manifest
 
 Next we install the kubernetes part of the storage provider. Parameters are
@@ -136,13 +127,23 @@ a persistent volume claim is deleted we need to change the reclaim policy with a
 
 [![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) More options ...](https://github.com/helm/charts/tree/master/stable/nfs-client-provisioner#configuration) 
 
-### Cleaning up helm installs
+### Cleanup
 In case we want to get rid of the nfs-storage
 
 ```bash
 helm uninstall nfs-client --namespace=nfs-storage
 helm list --all-namespaces
 ```
+
+Additionally remove any previously installed client/server packages on the server.  
+**CAUTION** Executing `sudo apt purge ...` might delete data previously installed  
+```bash
+sudo apt remove nfs-kernel-server -y   # remove the server packages
+sudo apt purge nfs-kernel-server -y    # remove config files for server
+sudo apt remove nfs-common -y          # remove the client packages
+sudo apt purge nfs-common -y           # remove config files for client
+```
+
 
 ## Tutorials
 

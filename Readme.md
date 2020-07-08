@@ -1,4 +1,4 @@
-![Homekube](docs/images/Homekube.png)
+![Homekube](docs/images/homekube.png)
 
 # Kubernetes at home for fun and education
 

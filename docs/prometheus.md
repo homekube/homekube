@@ -5,7 +5,7 @@ What is prometheus ? From the
 
 > Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud. Since its inception in 2012, many companies and organizations have adopted Prometheus, and the project has a very active developer and user community.
 
-Prometheus architecture:
+Prometheus architecture (from their website):
 
 [![](images/3rd-party/prometheus-architecture.png)](https://prometheus.io/docs/introduction/overview/)
 
@@ -81,3 +81,22 @@ kubectl --namespace prometheus port-forward $POD_NAME 9090 --address=0.0.0.0
 Now open a browser on **http://192.168.1.100:9090** and explore prometheus native web interface.
 
 ![](images/prometheus-web.png)
+
+## Cleanup
+
+Removing the installation
+
+```bash
+helm uninstall prometheus --namespace=prometheus
+kubectl delete namespace prometheus
+helm list --all-namespaces
+```
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 
+21:31 How Prometheus Monitoring works](https://www.youtube.com/watch?v=h4Sl21AKiDg)  
+ Prometheus Architecture explained  
+ [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 34:09 Prometheus monitoring for Kubernetes Cluster and Grafana visualization](https://www.youtube.com/watch?v=CmPdyvgmw-A)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

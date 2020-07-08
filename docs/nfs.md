@@ -144,7 +144,6 @@ sudo apt remove nfs-common -y          # remove the client packages
 sudo apt purge nfs-common -y           # remove config files for client
 ```
 
-
 ## Tutorials
 
  - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 21:13 Kubernetes volumes explained](https://www.youtube.com/watch?v=0swOh5C3OVM) 

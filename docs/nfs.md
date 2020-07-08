@@ -3,7 +3,7 @@
 Network File System is a handy storage option for almost any local network.
 Although setup is slightly more complex than local storage it offers much better 
 scalability and usage options. While local storage is fast because as it is tied 
-to a single node it is difficult to migrate on installation changes 
+to a single node it is also difficult to migrate on installation changes 
 or when a cluster has more than one node. 
 
 NFS storage consists of a server and a client module. The server can be installed anywhere
@@ -28,7 +28,7 @@ un  nfs-kernel-server           <none>             <none>             (no descri
 
 ### Preparing the server
 
-**Skip this section** if you have a nfs server in your local network with
+**Skip this section** if you already have a nfs server in your local network with
 storage available.
 
 ```bash
@@ -83,8 +83,8 @@ This parameter needs to match all correspondings pvc storage class references
 - storageClass.defaultClass=**true**  
 All pvc that do not specify a storageClass ref will use this default. Can be ommitted.
 - nfs.server=**192.168.1.100**  
-Can be the ip of any nfs-server in the network.  
-**NOTE** that `localhost` or `127.0.0.1` will not work.
+Ip of any nfs-server in the network (or server on local node).  
+**NOTE** that `localhost` or `127.0.0.1` will not work !
 - nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.
 
 ```bash
@@ -112,11 +112,11 @@ kubectl apply -f test-nfs-storage.yaml
 ```
 
 Navigate to the **storage folder on the server** and check its contents.
-There is a folder created with **<pvc-namespace>-<pvc-name>-<resource-id>**
+There is a folder created with **`<pvc-namespace>-<pvc-name>-<resource-id>`**
 (pvc=persistent volume claim):
 
 ```bash
-ls - /srv/nfs/kubedata/
+ls -la /srv/nfs/kubedata/
 drwxrwxrwx 2 root root 4096 Jul  7 17:57 default-test-claim-pvc-ed7d7ff9-a3de-4fa3-a83e-624ebb664a9f
 ```
 Inside the folder there is an empty file `SUCCESS` created by the test pod.
@@ -130,7 +130,7 @@ kubectl delete -f test-nfs-storage.yaml
 
 Removing the testing volume claim will also **delete** the folder from
 the server although an archive-folder is created. If we want storage to be kept when
-a persistent volume claim is deleted we need another parameter:  
+a persistent volume claim is deleted we need to change the reclaim policy with another parameter:  
 
 `--set storageClass.reclaimPolicy=Retain`  
 

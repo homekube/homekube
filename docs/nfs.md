@@ -95,7 +95,7 @@ REVISION: 1
 TEST SUITE: None
 ```
 
-### Testing the installation
+### Testing
 Lets create a sample pvc and a sample pod that writes a success message 
 to the servers storage.
 ```bash

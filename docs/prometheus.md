@@ -72,7 +72,8 @@ From the output we need to remember the servers url as we later need this for co
 the datasource of the Grafana dashboard:  
 **prometheus-server.prometheus.svc.cluster.local**
 
-Following the instructions we can test our installation. Note the appending --address=0.0.0.0
+## Testing 
+Following the output instructions we can test our installation. Note the appending `--address=0.0.0.0`
 which may be necessary in some local installations.
 ```bash
 export POD_NAME=$(kubectl get pods --namespace prometheus -l "app=prometheus,component=server" -o jsonpath="{.items[0].metadata.name}")
@@ -96,7 +97,7 @@ helm list --all-namespaces
 
  - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 
 21:31 How Prometheus Monitoring works](https://www.youtube.com/watch?v=h4Sl21AKiDg)  
- Prometheus Architecture explained  
+ Prometheus Architecture explained 
  [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   
  - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 34:09 Prometheus monitoring for Kubernetes Cluster and Grafana visualization](https://www.youtube.com/watch?v=CmPdyvgmw-A)  
  [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

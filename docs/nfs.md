@@ -68,10 +68,10 @@ un  nfs-kernel-server           <none>             <none>             (no descri
 ### Optional uninstall
 Execute these commands in case you need to uninstall all or parts of nfs:
 ```bash
-sudo apt remove nfs-kernel-server   # remove the server
-sudo apt purge nfs-kernel-server    # remove config files for server
-sudo apt remove nfs-common          # remove the client
-sudo apt purge nfs-common           # remove config for client
+sudo apt remove nfs-kernel-server -y   # remove the server
+sudo apt purge nfs-kernel-server -y    # remove config files for server
+sudo apt remove nfs-common -y          # remove the client
+sudo apt purge nfs-common -y           # remove config files for client
 ```
 
 ## Installing the manifest

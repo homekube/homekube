@@ -17,7 +17,7 @@ helm install grafana -n grafana --version=5.3.3 \
 --set persistence.storageClassName=managed-nfs-storage \
 --set admin.existingSecret=grafana-creds \
 --set admin.userKey=GF_SECURITY_ADMIN_USER,admin.passwordKey=GF_SECURITY_ADMIN_PASSWORD \
---set sidecar.datasources.enabled=true
+--set sidecar.datasources.enabled=true \
 stable/grafana
 
 ```

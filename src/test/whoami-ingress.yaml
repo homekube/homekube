@@ -9,7 +9,7 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: who-am-i
+              serviceName: whoami
               servicePort: 80
 
 ---
@@ -25,5 +25,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: who-am-i
+              serviceName: whoami
               servicePort: 80

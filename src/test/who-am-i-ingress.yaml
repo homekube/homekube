@@ -1,9 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: web-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: whoami-org-ingress
 spec:
   rules:
     - host: who-am-i.info
@@ -19,12 +17,10 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: web-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: whoami-info-ingress
 spec:
   rules:
-    - host: hello-world.org
+    - host: who-am-i.org
       http:
         paths:
           - path: /

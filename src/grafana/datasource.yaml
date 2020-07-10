@@ -1,0 +1,15 @@
+##
+## Configure grafana datasources
+## ref: http://docs.grafana.org/administration/provisioning/#datasources
+##
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      orgId: 1
+      url: http://prometheus-server.prometheus
+      isDefault: true
+      version: 1
+      editable: true

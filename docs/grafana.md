@@ -12,6 +12,7 @@ kubectl create secret generic grafana-creds -n grafana \
 
 kubectl apply -f datasource-prometheus-secret.yaml
 
+# works only with sidecar.dashboards.enabled=true
 #kubectl -n grafana create cm grafana-dashboard-nginx-performance --from-file=dashboards/nginx-request-handling-performance-2m.json
 #kubectl -n grafana label cm grafana-dashboard-nginx-performance grafana_dashboard=nginx-performance
 

@@ -43,4 +43,13 @@ dashboards:
     nginx-dashboard:
       url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
     nginx-dashboard-request-handling:
-      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+      file: dashboards/nginx-request-handling-performance-2m.json
+      #url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
+    grafana-node-exporter:
+      # Ref: https://grafana.com/dashboards/11207
+      gnetId: 11207
+      datasource: Prometheus
+    grafana-node-exporter-full:
+      # Ref: https://grafana.com/dashboards/11207
+      gnetId: 1860
+      datasource: Prometheus

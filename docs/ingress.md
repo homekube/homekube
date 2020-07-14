@@ -31,7 +31,7 @@ That makes it harder later if it turns out that the default installation needs t
 ```bash
 kubectl create namespace metallb-system
 kubectl apply -f metallb-config.yaml
-helm install metallb --namespace metallb-system stable/metallb
+helm install metallb --version=0.12.0 -n metallb-system stable/metallb
 ```
 These commands are a helm based replacements for microk8s LoadBalancer enablement `microk8s enable metallb`.
 If you need to reconfigure the default portrange `192.168.1.200-192.168.1.220` please
@@ -43,7 +43,9 @@ That wasn't easy to extend when using microk8s version.
   
 ```bash
 kubectl create namespace ingress-nginx
-helm install nginx-helm -n ingress-nginx -f ingress-helm-values.yaml ingress-nginx/ingress-nginx
+helm install nginx-helm -n ingress-nginx --version=2.9.1 \
+-f ingress-helm-values.yaml \
+ingress-nginx/ingress-nginx
 ```
 
 ## Configuration
@@ -81,3 +83,15 @@ error it will now show a `Proceed to 192.168.1.200 (unsafe)` option.
 
 Lets improve the dashboard and remove the annoying
 [![](images/ico/color/homekube_16.png) token login](dashboard-auth.md). 
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 
+23:09 Kubernetes Ingress Tutorial for Beginners](https://www.youtube.com/watch?v=80Ew_fsV4rM)  
+ Ingress simply explained 
+ [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 11:01 Set up MetalLB Load Balancing for Bare Metal Kubernetes](https://www.youtube.com/watch?v=xYiYIjlAgHY)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 22:14 Deploy and use Nginx ingress controller](https://www.youtube.com/watch?v=2VUQ4WjLxDg)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

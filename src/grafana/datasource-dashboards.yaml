@@ -46,12 +46,12 @@ dashboards:
       #file: "dashboards/nginx-request-handling-performance-2m.json"
       #url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
       # TODO should not be loaded per url if location moves ... but file doesn't work --- and ingress original does not work either
-      url: https://raw.githubusercontent.com/a-hahn/homekube/master/src/grafana/dashboards/nginx-request-handling-performance-2m.json?token=AAF54DK7YK7JQOP4PO4VCTC7C5GTE
+      url: https://raw.githubusercontent.com/a-hahn/homekube/master/src/grafana/dashboards/nginx-request-handling-performance-2m.json
     grafana-node-exporter:
       # Ref: https://grafana.com/dashboards/11207
       gnetId: 11207
       datasource: Prometheus
-    grafana-node-exporter-full:
-      # Ref: https://grafana.com/dashboards/11207
-      gnetId: 1860
+    kubernetes-cluster-monitoring:
+      # Ref: https://grafana.com/dashboards/315
+      gnetId: 315
       datasource: Prometheus

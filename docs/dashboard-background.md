@@ -101,3 +101,8 @@ kubectl delete service dashboard -n kubernetes-dashboard
 # or cleanup instructions we installed from a file or url. example:
 kubectl delete -f create-admin-user.yaml
 ```
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 24:23 Install Kubernetes Dashboard Web UI](https://www.youtube.com/watch?v=brqAMyayjrI)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

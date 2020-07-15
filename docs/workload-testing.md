@@ -101,7 +101,7 @@ and when searching for nginx metrics it should look like this
 ![](images/prometheus-nginx.png)
 
 There should be a long list metrics being exposed including some containing the words `"bucket"`.
-Unfortunately there are a couple of issues that might have been gone wrong.
+Unfortunately there are a couple of issues that might have been gone wrong:
 - If you don't see any nginx metrics at all then nginx controller is possibly not configured for scraping.
 We have done that already previously during
 [![](images/ico/color/homekube_16.png) Ingress config](ingress.md)
@@ -115,11 +115,11 @@ the [![](images/ico/color/homekube_16.png) Prometheus instructions](prometheus.m
 
 #### Providing testloads
 
-We provide 2 testloads one for each of the configured endpoints. Open two local terminals and execute 
+We provide 2 testloads one for each of the configured endpoints. Open two **local terminals** and execute 
 ```bash
 while true; do curl -X GET 192.168.1.200/?wait=10ms -H 'host: who-am-i.info'; done
 ```
-We are requesting the `who-am-i.info` host with with a given latency of ~10ms
+We are requesting the `who-am-i.info` host with with a given latency of ~10ms.  
 In the other terminal execute the request for host `who-am-i.org` with a latency of ~100ms.
 
 ```bash

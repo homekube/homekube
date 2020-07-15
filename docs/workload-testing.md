@@ -15,7 +15,7 @@ Now lets explore our installed instrumentation with some simple tests. There are
 containers available and for our tests it should be configurable to simulate different load conditions
 and response times. This one [![](images/ico/color/docker_16.png) containous/whoami](https://hub.docker.com/r/containous/whoami)
 returns the request header and also can be easily parametrized for a delayed response `/?wait=50ms` or
-to add some payload to the response `/data?size=10MB`
+to add some payload to the response `/data?size=10000`
 
 ## Installation
 
@@ -119,18 +119,44 @@ We provide 2 testloads one for each of the configured endpoints. Open two local 
 ```bash
 while true; do curl -X GET 192.168.1.200/?wait=10ms -H 'host: who-am-i.info'; done
 ```
-and in the other terminal execute
+We are requesting the `who-am-i.info` host with with a given latency of ~10ms
+In the other terminal execute the request for host `who-am-i.org` with a latency of ~100ms.
+
 ```bash
 while true; do curl -X GET 192.168.1.200/?wait=100ms -H 'host: who-am-i.org'; done
 ```
 
 #### Explore Grafana
 
-If not done already you'll need to exose Grafana as a service e.g. using port-forwarding.
+If not done already you'll need to expose Grafana as a service e.g. using port-forwarding.
+
+In the upper bar in Grafana select the `NGINX Ingress controller` dashboard.
+Thats the primary nginx dashboard as it is defined by the `nginx.json` on the
+[![](images/ico/color/kubernetes_16.png) ![](images/ico/github_16.png) Nginx dashboards](https://github.com/kubernetes/ingress-nginx/tree/master/deploy/grafana/dashboards)
+page. You see the different workloads for both Ingress. In the lower dashboard section there are 3 different percentiles visible.
+The `P50 Latency` e.g. shows the latency for 50% of the requests. In the `Ingress Request Volume` we see the
+different `Request per second` **reqps** rates.
 
 ![](images/grafana-nginx.png)
 
+The next screenshot shows `Request Handling performance` dashboard with `whoami-info-ingress` service selected.
+This dashboard is defined by the `request-handling-performance.json` on the
+[![](images/ico/color/kubernetes_16.png) ![](images/ico/github_16.png) Nginx dashboards](https://github.com/kubernetes/ingress-nginx/tree/master/deploy/grafana/dashboards)
+page  with some minor modifications. We replaced the time-period occurrences `[1m]` with a longer period `[2m]` because 
+the original settings did not provision the view reliably and instead showed the `no data` markers.
+
 ![](images/grafana-performance-1.png)
+
+This screenshot shows the same dashboard again but with `whoami-org-ingress` service selected. Note the different volume and
+time period scales as expected from the different workloads.
 
 ![](images/grafana-performance-2.png)
 
+Now lets change the workload to ~100kb and see if our dashboards will reflect the changes
+```bash
+while true; do curl -X GET 192.168.1.200/data?size=100000 -H 'host: who-am-i.org'; done
+```
+
+![](images/grafana-performance-3.png)
+
+The screenshot shows that the `Average response size by path` rose to ~100kb - thats exactly the expected amount. 

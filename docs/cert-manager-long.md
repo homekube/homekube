@@ -28,3 +28,10 @@ its not able to communicate with LetsEncyrypt services directly. Instead it dele
 [![](images/ico/color/kubernetes_16.png) ACMEDNS adapter](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
 which in turn makes use of another helper service. [![](images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
 is a basic DNS server that acts on behalf of your providers DNS service for the sole purpose of renewing LetsEncrypt certificates.
+
+## Tutorials
+
+### Helpful background
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 29:36 Setup Lets Encrypt cert-manager in Kubernetes Bare Metal](https://www.youtube.com/watch?v=Hwqm1D2EfFU)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

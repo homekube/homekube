@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: whoami-org-ingress
+  namespace: test-workload
 spec:
   rules:
     - host: who-am-i.info
@@ -18,6 +19,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: whoami-info-ingress
+  namespace: test-workload
 spec:
   rules:
     - host: who-am-i.org

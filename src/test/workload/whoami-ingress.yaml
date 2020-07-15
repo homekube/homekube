@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: whoami-org-ingress
+  name: whoami-info-ingress
   namespace: test-workload
 spec:
   rules:
@@ -18,7 +18,7 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: whoami-info-ingress
+  name: whoami-org-ingress
   namespace: test-workload
 spec:
   rules:

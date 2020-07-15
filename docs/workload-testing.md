@@ -23,3 +23,12 @@ kubectl get service whoami -n test-workload
 kubectl apply -f whoami-ingress.yaml
 
 ```
+
+
+```bash
+while true; do curl -X GET 192.168.1.40 -H 'host: who-am-i.info'; done
+```
+
+```bash
+while true; do curl -X GET 192.168.1.40/?wait=100ms -H 'host: who-am-i.org'; done
+```

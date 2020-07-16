@@ -22,10 +22,8 @@ Add a `alias helm='microk8s helm3'` line to your servers `~/.bash_aliases` and c
 and check with `alias` :
 
 ```bash
-...
 alias kubectl='microk8s kubectl'
 alias helm='microk8s helm3'
-...
 ```
 Now Helm3 will be the default helm installation.
 
@@ -90,5 +88,5 @@ helm search repo
 
 ## Tutorials
 
- - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 14:15 Helm and Helm Charts explained](https://www.youtube.com/watch?v=-ykwb1d0DXU&t=88s) 
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 14:15 Helm and Helm Charts explained](https://www.youtube.com/watch?v=-ykwb1d0DXU) 
  [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   

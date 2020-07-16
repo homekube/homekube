@@ -10,7 +10,7 @@ along with the most useful and popular administration components on your local U
 
 - [![](docs/images/ico/color/homekube_link_16.png) Kubernetes **Dashboard**](https://dashboard.homekube.org)
 - [![](docs/images/ico/color/homekube_link_16.png) **Prometheus** Metrics](https://prometheus.homekube.org)
-- [![](docs/images/ico/color/homekube_link_16.png) **Grafana** Monitoring](https://grafana.homekube.org/d/9CWBz0bik/1-node-exporter-0-16-for-prometheus-monitoring-display-board?orgId=1&refresh=1m&from=1590319468858&to=1590924268858&var-interval=5s&var-env=All&var-name=All&var-node=All&var-maxmount=%2F)
+- [![](docs/images/ico/color/homekube_link_16.png) **Grafana** Monitoring](https://grafana.homekube.org)
 - [![](docs/images/ico/color/homekube_link_16.png) Sample **WhoamI** application](https://whoami.homekube.org)
 
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).

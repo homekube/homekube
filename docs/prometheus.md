@@ -85,13 +85,19 @@ Now open a browser on **http://192.168.1.100:9090** and explore prometheus nativ
 
 ## Cleanup
 
-Removing the installation
+In case you want to remove the installation (e.g. reinstall ....)
 
 ```bash
 helm uninstall prometheus --namespace=prometheus
 kubectl delete namespace prometheus
 helm list --all-namespaces
 ```
+
+## Next steps
+
+Next install the 
+[![](images/ico/color/homekube_16.png) Grafana dashboard](grafana.md) 
+to visualize all those metrics scraped by prometheus.
 
 ## Tutorials
 

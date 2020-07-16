@@ -1,10 +1,10 @@
 # Notes
 
-Grafanas helm chart offer so many configuration options and its not easy to keep track of.
+Grafanas helm chart offers so many configuration options and its not easy to keep track of them all.
 Many options exclude each other and it is not immediately obvious.
 
 For a deeper dive the helm charts
-[![](images/ico/github_16.png) values.yaml](https://github.com/helm/charts/blob/master/stable/grafana/values.yaml)
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) values.yaml](https://github.com/helm/charts/blob/master/stable/grafana/values.yaml)
 is a highly recommended read. As with all helm charts this chart is installed by default before all other
 customizations are installed.
 
@@ -29,9 +29,23 @@ installation script. (`dashboards` - section in `datasource-dashboards.yaml` mus
 
 ## Troubleshooting
 
+### Grafana pod not starting
+
+Unfortunately there is not always a very useful error message available. But there are a couple of common problems to track first.
+
+- StorageClass / PVC don't match
+- Problems when loading dashboards from the specified sources
+
+### Installation response message
+
+NOTES.txt not properly rendered
+
+
+Some common reason
+
 The helm chart only provides proper notes for the most common cases. See 
-[![](images/ico/color/helm_16.png)![](images/ico/github_16.png) NOTES.txt](https://github.com/helm/charts/blob/master/stable/grafana/templates/NOTES.txt)
-which is responsible for a prpoper usage message. The maintainers of the chart not having updated the usage notes properly.
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) NOTES.txt](https://github.com/helm/charts/blob/master/stable/grafana/templates/NOTES.txt)
+which is responsible for a proper usage message. The maintainers of the chart not having updated the usage notes properly.
 
 1) When a secret is provided the installer should omit the password
 
@@ -41,3 +55,7 @@ kubectl get secret --namespace grafana grafana-creds -o jsonpath="{.data.GF_SECU
 
 
 export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
+
+
+### Prometheus datasource not found
+

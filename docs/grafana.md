@@ -11,8 +11,10 @@ They have an online demo to browse and play:
 ## Preparation
 
 Prerequisites are: 
-- [![](images/ico/color/homekube_16.png) Helm](helm.md)
 - [![](images/ico/color/homekube_16.png) Prometheus](prometheus.md) for data aquisition / scraping
+- [![](images/ico/color/homekube_16.png) Helm](helm.md) (already installed for Prometheus)
+- A storage provisioner to fullfill storage claims (e.g. 
+[![](images/ico/color/homekube_16.png) NFS Storage](nfs.md)) (already installed for Prometheus)
 
 ## Installation
 
@@ -26,7 +28,10 @@ In many cases you may want to only install the basic grafana and then configure/
 through the Grafana ui. There are so many options from very easy to very complex and there is also a 
 [![](images/ico/book_16.png) public catalog of dashboards](https://grafana.com/grafana/dashboards).
 
-This installation process will automatically install some dashboards known to work in the context of this tutorial.  
+These installation steps try to keep the manual effort as low as possible and 
+will install some dashboards known to work in the context of this tutorial. We will use the
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) stable/grafana](https://github.com/helm/charts/tree/master/stable/grafana)
+chart.
 
 ```bash
 cd ~/homekube/src/grafana
@@ -45,6 +50,9 @@ helm install grafana -n grafana --version=5.3.3 \
 --set admin.existingSecret=grafana-creds \
 stable/grafana
 ```
+
+Actually a lot of configuration details are "hidden" in the `datasource-dashboards.yaml`. See the comments there.
+We enable persistence and set a storage class. We also provide credentials of our choice for the admin user. 
 
 Installer response:
 
@@ -118,3 +126,7 @@ helm list --all-namespaces
 Browse and check the options of your grafana dashboard. Then you might want to explore the 
 [![](images/ico/color/homekube_16.png) workload behaviour of your cluster](workload-testing.md).
 
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 34:09 Prometheus monitoring for Kubernetes Cluster and Grafana visualization](https://www.youtube.com/watch?v=CmPdyvgmw-A)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

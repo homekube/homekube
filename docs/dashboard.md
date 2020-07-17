@@ -88,3 +88,10 @@ If you want to repeat the steps as an exercise
 
 Lets improve the dashboard access via 
 [![](images/ico/color/homekube_16.png) Ingress](ingress.md).
+
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 24:23 Install Kubernetes Dashboard Web UI](https://youtu.be/brqAMyayjrI?t=969)  
+ Short introduction on how to use the ui (from ~min 16)  
+ [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 

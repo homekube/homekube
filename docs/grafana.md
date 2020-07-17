@@ -110,6 +110,19 @@ In the topmost bar click on `Home` and from the selection pick
 
 ![](images/grafana-node-exporter.png)
 
+## Public Exposure
+
+Optionally deploy the Grafana UI as an Ingress to the public. We do it here for the purpose of demonstration but of course 
+in general thats not recommended for security reasons.
+
+```bash
+kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
+```
+
+Now access 
+[![](images/ico/color/homekube_link_16.png) https://grafana.homekube.org](https://grafana.homekube.org)
+with **demo/demo** credentials and browse the dashboard.
+
 ## Cleanup
 
 In case you want to remove the installation (e.g. reinstall ....)

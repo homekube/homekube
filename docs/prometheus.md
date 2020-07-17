@@ -83,6 +83,18 @@ Now open a browser on **http://192.168.1.100:9090** and explore prometheus nativ
 
 ![](images/prometheus-web.png)
 
+## Public Exposure
+
+Optionally deploy the Prometheus UI as an Ingress to the public. We do it here for the purpose of demonstration but of course 
+in general thats not recommended for security reasons.
+
+```bash
+kubectl apply -f ~/homekube/src/prometheus/ingress-prometheus.yaml
+```
+
+Now access 
+[![](images/ico/color/homekube_link_16.png) https://prometheus.homekube.org](https://prometheus.homekube.org)
+
 ## Cleanup
 
 In case you want to remove the installation (e.g. reinstall ....)

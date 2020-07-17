@@ -14,7 +14,7 @@ HOMEKUBE_USER_NAME=admin-user   # or: simple-user for public access
 source secure-dashboard.sh
 ```
 
-**NOTE !** If you dashboard is publicly accessible you better use the `simple-user`.
+**NOTE !** If your dashboard is publicly accessible you better use the `simple-user`.
 
 ## Alternative: do it manually
 
@@ -37,6 +37,30 @@ You can revert to the previous version when applying the previous configuration
 ```bash
 kubectl apply -f ingress-dashboard.yaml
 ```
+
+## Public Exposure
+
+Optionally deploy the Dashboard to the public. We do it here for the purpose of demonstration but of course 
+in general thats not recommended for security reasons.
+
+In `ingress-dashboard-auth.yaml` uncomment the host part to contain a `host: dashboard.homekube.org` property:
+
+```yaml
+spec:
+  rules:
+    - host: dashboard.homekube.org
+      http:
+        paths:        
+```
+then reapply the commands above:
+```bash
+HOMEKUBE_USER_NAME=simple-user
+source secure-dashboard.sh
+```
+
+Now access 
+[![](images/ico/color/homekube_link_16.png) https://dashboard.homekube.org](https://dashboard.homekube.org) 
+using **demo/demo** credentials.
 
 ## Next steps
 

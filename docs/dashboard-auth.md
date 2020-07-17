@@ -10,9 +10,11 @@ so we get rid of the annoying token-lookup.
 Execute commands for automated upgrade: 
 
 ```bash
-HOMEKUBE_USER_NAME=admin-user   # or: simple-user
+HOMEKUBE_USER_NAME=admin-user   # or: simple-user for public access
 source secure-dashboard.sh
 ```
+
+**NOTE !** If you dashboard is publicly accessible you better use the `simple-user`.
 
 ## Alternative: do it manually
 

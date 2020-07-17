@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  name: ingress-prometheus
+  namespace: prometheus
+spec:
+  rules:
+    - host: prometheus.homekube.org
+      http:
+        paths:
+          - backend:
+              serviceName: prometheus-server
+              servicePort: 443
+            path: /

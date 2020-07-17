@@ -104,7 +104,8 @@ helm pull halkeye/whoami --version 0.3.2
 
 ### Install
 ```bash
-helm install whoami halkeye/whoami --version 0.3.2
+kubectl create namespace whoami
+helm install whoami halkeye/whoami -n whoami --version 0.3.2
 ```
 
 Installer responds with
@@ -117,7 +118,7 @@ REVISION: 1
 TEST SUITE: None
 NOTES:
 1. Get the application URL by running these commands:
-  export POD_NAME=$(kubectl get pods --namespace default -l "app=whoami,release=whoami" -o jsonpath="{.items[0].metadata.name}")
+  export POD_NAME=$(kubectl get pods --namespace whoami -l "app=whoami,release=whoami" -o jsonpath="{.items[0].metadata.name}")
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl port-forward $POD_NAME 8080:80
 ```
@@ -161,13 +162,13 @@ helm list --all-namespaces
 NAME      	NAMESPACE     	REVISION	UPDATED                                 	STATUS  	CHART              	APP VERSION
 metallb   	metallb-system	1       	2020-07-03 17:49:28.611030201 +0200 CEST	deployed	metallb-0.12.0     	0.8.1      
 nginx-helm	ingress-nginx 	1       	2020-07-03 17:58:48.486130759 +0200 CEST	deployed	ingress-nginx-2.9.1	0.33.0     
-whoami    	default       	1       	2020-07-07 13:30:21.940717018 +0200 CEST	deployed	whoami-0.3.2       	v1.4.0     
+whoami    	whoami       	1       	2020-07-07 13:30:21.940717018 +0200 CEST	deployed	whoami-0.3.2       	v1.4.0     
 ```
 
 ### Uninstall a chart
 
 ```bash
-helm uninstall whoami --namespace=default
+helm uninstall whoami --namespace=whoami
 ```
 
 ### Checking repos installed

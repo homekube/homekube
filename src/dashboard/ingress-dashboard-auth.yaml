@@ -13,6 +13,8 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   rules:
+# when deployed on homekube.org
+#   - host: dashboard.homekube.org
     - http:
         paths:
           - backend:

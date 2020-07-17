@@ -112,7 +112,7 @@ Installer responds with
 ```text
 NAME: whoami
 LAST DEPLOYED: Tue Jul  7 10:57:26 2020
-NAMESPACE: default
+NAMESPACE: whoami
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None

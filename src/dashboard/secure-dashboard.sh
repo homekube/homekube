@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ -z "${HOMEKUBE_USER_NAME}" ]
+then
+  echo "HOMEKUBE_USER_NAME variable is not set. Assuming 'simple-user'".
+  HOMEKUBE_USER_NAME=simple-user
+fi
 echo "Read the authentication token for user ${HOMEKUBE_USER_NAME}"
 HOMEKUBE_NAMESPACE=kubernetes-dashboard
 token=$(microk8s.kubectl -n ${HOMEKUBE_NAMESPACE} get secret | grep ${HOMEKUBE_USER_NAME}-token | cut -d " " -f1)

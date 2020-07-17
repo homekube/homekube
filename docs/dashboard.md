@@ -1,7 +1,9 @@
 # Dashboard
 
+[![Dashboard](images/dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
+
 We do not use the MicroK8s dashboard installation manifests for a 
-[![](images/ico/color/homekube_16.png) couple of reasons](dashboard-background.md) .
+[![](images/ico/color/homekube_16.png) couple of reasons](dashboard-background.md) .  
 In case its already installed we will **disable** it first.
 
 ``
@@ -75,8 +77,6 @@ ca.crt:     1103 bytes
 ```
 
 **Congrats !!** The dashboard is up and running and exposed as a service !!
-
-![](images/dashboard.png)
 
 Now try the other token that we created for `simple-user` as well. The simple user has restricted rights. For example
 he can't view any secrets.

@@ -114,5 +114,4 @@ More [![](docs/images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s
 
 Lets proceed installing the [![](docs/images/ico/color/homekube_16.png) kubernetes dashboard](docs/dashboard.md)    
   
-[![Dashboard](docs/images/Dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 

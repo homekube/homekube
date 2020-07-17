@@ -67,4 +67,4 @@ and do not share a common configuration (Envoy, Gloo, Heptio Contour, Istio, Amb
 
 The dashboard is the default kubernetes community maintained ui.
 
-![](images/Dashboard.png)
+![](images/dashboard.png)

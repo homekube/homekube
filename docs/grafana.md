@@ -84,7 +84,7 @@ Before we follow the installers instructions lets first check if the installatio
 kubectl get po -n grafana --watch
 ```
 Depending on the number of pre-configured dashboards it can take quite a while 
-until all the dashboards are configured and grafana shows **STATUS Running**:
+until all the dashboards are configured and grafana shows **STATUS Running** and **READY 1/1**:
  
 ```text
 NAME                       READY   STATUS    RESTARTS   AGE
@@ -95,10 +95,9 @@ If you see `STATUS CrashLoopBackoff` or another status for some time then consul
 
 Lets follow the installers instructions:
 1) Get your 'admin' user password ...  
-We **can ignore this** because the password was already supplied in the `kubectl create secret ...` instruction.
-Unfortunately the prompted command
-specifies a wrong secret name. See the 
-[![](images/ico/color/homekube_16.png) background info](grafana-notes.md#troubleshooting).
+We **can ignore this** because the password was already supplied in the `kubectl create secret ...` instruction.  
+Unfortunately the message prompt 
+[![](images/ico/color/homekube_16.png) is not accurate](grafana-notes.md#installation-response-message).
 2) Execute the instructions but note the appended **--address=0.0.0.0**   
 ```bash
 export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")

@@ -129,7 +129,7 @@ the usage instructions are usually properly maintained and accurate
 but in this case we need a few modifications to make it work. Execute:
 ```bash
 export POD_NAME=$(kubectl get pods -l "app.kubernetes.io/name=whoami" -n whoami -o jsonpath="{.items[0].metadata.name}")
-kubectl port-forward $POD_NAME 8080:80 --address=0.0.0.0
+kubectl port-forward $POD_NAME 8080:80 -n whoami --address=0.0.0.0
 ```
 
 Opening `http://192.168.1.100:8080` in a browser  

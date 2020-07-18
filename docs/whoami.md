@@ -1,17 +1,11 @@
 # Simple echo service
 
-Follow the steps of [![](images/ico/color/homekube_16.png) Helm Basics](helm-basics.md) for deployment of a simple
-'Who-am-i' service. Then create an Ingress for public access 
-[![](images/ico/color/homekube_link_16.png) https://whoami.homekube.org](https://whoami.homekube.org).
-
-```bash
-cd ~/homekube/src/whoami
-kubectl apply -f ingress-whoami.yaml
-```
+Following the instructions of [![](images/ico/color/homekube_16.png) Helm Basics](helm-basics.md) 
+we have created a simple 'Who-am-i' service. 
 
 From the verification steps we already know how to 
 [![](images/ico/color/homekube_16.png) preview a helm installation](helm-basics.md#verify).
-Now lets check whats actually running in our `whoami` namespace:
+Now lets check whats actually created in our `whoami` namespace:
 
 ```bash
 kubectl get all -n whoami
@@ -30,7 +24,7 @@ NAME                                DESIRED   CURRENT   READY   AGE
 replicaset.apps/whoami-7b6ff5b56d   1         1         1       19h
 ```
 
-Compared with the installation chart we see an additional pod and a replicaset. Those were created
+Compared with the installation chart we see an additional Pod and a Replicaset. Those were created
 by the Deployment. The replicaset watches the number of instances specified in the deployment
 and adjusts the number of pod instances to the specified `spec.replicas`. Now lets 
 increase this number and see what happens. Open **another terminal** session and watch 
@@ -144,5 +138,13 @@ User-Agent: curl/7.58.0
 Accept: */*
 ```
 
-This will work with an upfront Ingress as well as we can see when we open a browser to `https://whoami.homekube.org`
-and repeatedly refresh its content.
+## Public service
+For public exposure on 
+[![](images/ico/color/homekube_link_16.png) https://whoami.homekube.org](https://whoami.homekube.org).
+lets create an Ingress.
+
+```bash
+cd ~/homekube/src/whoami
+kubectl apply -f ingress-whoami.yaml
+```
+Now visting the webpage and repeatedly refresh its content we will see the responses of the varying pods.

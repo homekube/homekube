@@ -25,7 +25,7 @@ replicaset.apps/whoami-7b6ff5b56d   1         1         1       19h
 
 Compared with the installation chart we see an additional Pod and a Replicaset. Those were created
 by the Deployment. The replicaset watches the number of instances specified in the deployment
-and adjusts the number of pod instances to the specified `spec.replicas`. Now lets 
+and adjusts the number of pod instances to match the specified `spec.replicas`. Now lets 
 increase this number and see what happens. Open **another terminal** session and watch 
 the replicaset so we can see the changes happen:
 ```bash
@@ -38,7 +38,7 @@ and in our terminal we increase the number of replicas:
 kubectl scale --replicas=5 deployment.apps/whoami -n whoami
 ```
 
-While executing the `scale` command you see the changes watching console one by one:
+While executing the `kubectl scale` command you see the changes in the montoring terminal one by one:
 ```text
 NAME                DESIRED   CURRENT   READY   AGE
 whoami-7b6ff5b56d   1         1         1       20h
@@ -70,9 +70,9 @@ NAME                                DESIRED   CURRENT   READY   AGE
 replicaset.apps/whoami-7b6ff5b56d   5         5         5       20h
 ```
 
-Lets verify that all these pods are used to serve our queries. After changing
+Lets verify that all these pods are actually used to serve requests. After changing
 the service type to `NodePort` we will be able to query the service directly - 
-in contrast of querying single pods when using the `kubectl port-forward ...` command.
+in contrast of querying a single pod - thats what happens when using the `kubectl port-forward ...` command.
 
 ```bash
 kubectl patch svc whoami -p '{"spec": {"type": "NodePort"}}' -n whoami
@@ -87,10 +87,6 @@ We take the assigned NodePort `32175` from the response and execute in a termina
 ```bash
 while true; do curl -X GET '192.168.1.100:32175'; sleep 0.5; done
 ```
-Now we have the proof that the serving pod changes as indicated
-by the varying IP-addresses in the response. The service will
-forward incoming requests in a round-robin manner to its pods:
-
 ```text
 ...
 Hostname: whoami-7b6ff5b56d-vqznp
@@ -138,6 +134,9 @@ User-Agent: curl/7.58.0
 Accept: */*
 ...
 ```
+Now we have the proof that the serving pod changes as indicated
+by the varying IP-addresses in the response. The service will
+forward incoming requests in a round-robin manner to its pods.
 
 ## Public service
 For public exposure on 
@@ -149,3 +148,7 @@ cd ~/homekube/src/whoami
 kubectl apply -f ingress-whoami.yaml
 ```
 Now visting the webpage and repeatedly refreshing its contents we will see the responses of the varying pods.
+You will also be able to test it locally when using the Igress' LoadBalancers IP (should be 192.168.1.200) e.g.
+```
+curl -kX GET 'https://192.168.1.200' -H 'host: whoami.homekube.org'
+```

@@ -1,9 +1,8 @@
 # Simple echo service
 
 Following the instructions of [![](images/ico/color/homekube_16.png) Helm Basics](helm-basics.md) 
-we have created a simple 'Who-am-i' service. 
-
-From the verification steps we already know how to 
+we have already created a simple 'Who-am-i' service. 
+From the verification steps we know how to 
 [![](images/ico/color/homekube_16.png) preview a helm installation](helm-basics.md#verify).
 Now lets check whats actually created in our `whoami` namespace:
 
@@ -73,7 +72,7 @@ replicaset.apps/whoami-7b6ff5b56d   5         5         5       20h
 
 Lets verify that all these pods are used to serve our queries. After changing
 the service type to `NodePort` we will be able to query the service directly - 
-in contrast of querying single pods with the `kubectl port-forward ...` command.
+in contrast of querying single pods when using the `kubectl port-forward ...` command.
 
 ```bash
 kubectl patch svc whoami -p '{"spec": {"type": "NodePort"}}' -n whoami
@@ -88,11 +87,12 @@ We take the assigned NodePort `32175` from the response and execute in a termina
 ```bash
 while true; do curl -X GET '192.168.1.100:32175'; sleep 0.5; done
 ```
-We get the proof that the serving pod changes as indicated
+Now we have the proof that the serving pod changes as indicated
 by the varying IP-addresses in the response. The service will
-forward incoming requests in a round-robin manner to its pods.
+forward incoming requests in a round-robin manner to its pods:
 
 ```text
+...
 Hostname: whoami-7b6ff5b56d-vqznp
 IP: 127.0.0.1
 IP: ::1
@@ -136,15 +136,16 @@ GET / HTTP/1.1
 Host: 192.168.1.100:32175
 User-Agent: curl/7.58.0
 Accept: */*
+...
 ```
 
 ## Public service
 For public exposure on 
-[![](images/ico/color/homekube_link_16.png) https://whoami.homekube.org](https://whoami.homekube.org).
-lets create an Ingress.
+[![](images/ico/color/homekube_link_16.png) https://whoami.homekube.org](https://whoami.homekube.org)
+there is an Ingress created:
 
 ```bash
 cd ~/homekube/src/whoami
 kubectl apply -f ingress-whoami.yaml
 ```
-Now visting the webpage and repeatedly refresh its content we will see the responses of the varying pods.
+Now visting the webpage and repeatedly refreshing its contents we will see the responses of the varying pods.

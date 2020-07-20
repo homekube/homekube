@@ -18,10 +18,10 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 ## Preparation
 
 Prerequisites are: 
-- A domain you own, e.g. homekube.org, example.com, mywebshop.com
+- A domain you own, e.g. homekube.org, example.com, yourdomain.org, ...
 - [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
 
-Create a cert-manager working directory on your server and cd into that:
+Execute
 ```bash
 cd ~/homekube/src/cert-manager
 ```
@@ -179,7 +179,7 @@ If everything goes well we can obtain the 'real' certificate form LetsEncrypt pr
 [![](images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage
 of its production endpoint so you better double-check with the staging-endpoint.
 
-The production manifest are the same as staging except that:
+The production manifests are the same as staging except that:
 * the acme server endpoint `https://acme-staging-v02.api.letsencrypt.org/directory`   
 is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replace by ``prod``
@@ -205,9 +205,10 @@ kubectl edit deployment.apps/nginx-helm-ingress-nginx-controller -n ingress-ngin
 ```
 
 That command opens an editor with lots of deployment configuration and we scroll down and look for
-the fragment that supplies arguments to the controller:
+the commands that configure the arguments of the controller:
 
 ```text
+...
     spec:
       containers:
       - args:
@@ -220,13 +221,13 @@ the fragment that supplies arguments to the controller:
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
         - --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod
+...
 ```
 
-The last line is the important one that we need to add with correct indentation:  
-`- --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod`
+Leave all those lines as they are and add a single argument at the bottom of this code block with correct indentation:  
+`- --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod`.  
+The code snippet above already shows the final result.
 
 Now saving the editor will immediately activate the updated configuration.
 Open a browser on any of the supported subdomains, e.g. `https://dashboard.homekube.org`.
 There security warning has gone as we have provided a valid certificate ! 
-
-

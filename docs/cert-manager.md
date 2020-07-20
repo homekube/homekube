@@ -148,7 +148,7 @@ kubectl apply -f homekube-staging.yaml
 Lets verify our installation 
 
 ```bash
-kubectl describe secret homekube-tls-staging -n cert-manager-homekube
+kubectl describe secret homekube-tls-staging -n cert-manager-acme-secrets
 ```
 should evaluate to 
 ```
@@ -183,7 +183,7 @@ kubectl apply -f homekube-prod.json
 
 When the resulting secret 
 ```bash
-kubectl describe secret homekube-tls-prod -n cert-manager-homekube
+kubectl describe secret homekube-tls-prod -n cert-manager-acme-secrets
 ```
 contains a non-empty **tls.crt** and **tls.key** you are done
 

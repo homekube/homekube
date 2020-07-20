@@ -4,9 +4,6 @@ In this step we will install [![](images/ico/color/kubernetes_16.png) Cert Manag
 
 >**NOTE:** Before you proceed you need a domain that you own. In this tutorial we use 'homekube.org'
 
-We might skip this because it is not strictly required in the first place.
-The downside is that while browsing our application the browser will respond with warnings about 'Untrusted - your website is not secure'. 
-
 Benefits are: 
 
 * Obtaining LetsEncrypt certificates
@@ -19,6 +16,10 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 [![](images/ico/book_16.png) Read more about Letsencrypt challenges and the DNS01 challenge type](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge)
 
 ## Preparation
+
+Prerequisites are: 
+- A domain you own, e.g. homekube.org, example.com, mywebshop.com
+- [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
 
 Create a cert-manager working directory on your server and cd into that:
 ```bash
@@ -192,4 +193,39 @@ When the resulting secret
 kubectl describe secret homekube-tls-prod -n cert-manager-acme-secrets
 ```
 contains a non-empty **tls.crt** and **tls.key** you are done
+
+## Updating Ingress
+
+Finally we will update our Ingress configuration to take advantage of our certificates.
+The most simple solution is to update Ingress controllers deployment to use our 
+fresh certificate by default:
+
+```bash
+kubectl edit deployment.apps/nginx-helm-ingress-nginx-controller -n ingress-nginx
+```
+
+That command opens an editor with lots of deployment configuration and we scroll down and look for
+the fragment that supplies arguments to the controller:
+
+```text
+    spec:
+      containers:
+      - args:
+        - /nginx-ingress-controller
+        - --publish-service=ingress-nginx/nginx-helm-ingress-nginx-controller
+        - --election-id=ingress-controller-leader
+        - --ingress-class=nginx
+        - --configmap=ingress-nginx/nginx-helm-ingress-nginx-controller
+        - --validating-webhook=:8443
+        - --validating-webhook-certificate=/usr/local/certificates/cert
+        - --validating-webhook-key=/usr/local/certificates/key
+        - --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod
+```
+
+The last line is the important one that we need to add with correct indentation:  
+`- --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod`
+
+Now saving the editor will immediately activate the updated configuration.
+
+
 

@@ -149,8 +149,13 @@ kubectl apply -f ingress-whoami.yaml
 ```
 Now visting the webpage and repeatedly refreshing its contents we will see the responses of the varying pods.
 You will also be able to test it locally when using the Igress' LoadBalancers IP (should be 192.168.1.200) e.g.
-```
+```bash
 curl -kX GET 'https://192.168.1.200' -H 'host: whoami.homekube.org'
+```
+
+Once [![](images/ico/color/homekube_link_16.png) cert-manager](cert-manager.md) is installed and provides valid certificates we can just execute:
+```bash
+curl https://whoami.homekube.org
 ```
 
 ## Tutorials

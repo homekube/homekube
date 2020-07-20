@@ -197,7 +197,7 @@ contains a non-empty **tls.crt** and **tls.key** you are done
 ## Updating Ingress
 
 Finally we will update our Ingress configuration to take advantage of our certificates.
-The most simple solution is to update Ingress controllers deployment to use our 
+The simplest solution is to update Ingress controllers deployment to use our 
 fresh certificate by default:
 
 ```bash
@@ -226,6 +226,7 @@ The last line is the important one that we need to add with correct indentation:
 `- --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod`
 
 Now saving the editor will immediately activate the updated configuration.
-
+Open a browser on any of the supported subdomains, e.g. `https://dashboard.homekube.org`.
+There security warning has gone as we have provided a valid certificate ! 
 
 

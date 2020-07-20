@@ -163,12 +163,18 @@ tls.crt:  3562 bytes
 tls.key:  1679 bytes
 ```
 
-The important part here is that both **tls.crt** and **tls.key** must be present and not empty.
-In case of errors follow the [![](images/ico/color/kubernetes_16.png) troubleshooting section](https://cert-manager.io/docs/faq/acme/).
+The important part here is that both **tls.crt** and **tls.key** must be present and not empty.  
+**This may take a while until the tls.crt is present and its size is > 0 !**.  
+In case of errors check cert-manager logs to see the progress
+```bash
+export POD_NAME=$(kubectl get pods --namespace cert-manager -l "app=cert-manager,app.kubernetes.io/component=controller" -o jsonpath="{.items[0].metadata.name}")
+kubectl logs $POD_NAME -n cert-manager
+```
+and follow the  [![](images/ico/color/kubernetes_16.png) troubleshooting steps](https://cert-manager.io/docs/faq/acme/).
 Note that you need to append all commands with ` -n cert-manager-acme-secrets` as thats the namespace that we use
-for secrets, certificates, issuers, ... .
+for the Certificate. The same namespace will be used for all child resources as secrets, certificaterequests, orders, ... .
 
-If everything goes well we can obtain the 'real' certficate form LetsEncrypt production endpoint. LetsEncrypt has quite
+If everything goes well we can obtain the 'real' certificate form LetsEncrypt production endpoint. LetsEncrypt has quite
 [![](images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage
 of its production endpoint so you better double-check with the staging-endpoint.
 

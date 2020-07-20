@@ -152,3 +152,8 @@ You will also be able to test it locally when using the Igress' LoadBalancers IP
 ```
 curl -kX GET 'https://192.168.1.200' -H 'host: whoami.homekube.org'
 ```
+
+## Tutorials
+
+ - [![](images/ico/color/youtube_16.png) ![](images/ico/instructor_16.png) 14:36 Kubernetes YAML File Explained - Deployment and Service](https://www.youtube.com/watch?v=qmDzcu5uY1I) 
+ [[Techworld with Nana](https://www.youtube.com/channel/UCdngmbVKX1Tgre699-XLlUA)]   

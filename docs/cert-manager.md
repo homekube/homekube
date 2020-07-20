@@ -24,7 +24,6 @@ Create a cert-manager working directory on your server and cd into that:
 ```bash
 cd ~/homekube/src/cert-manager
 ```
-A ``pwd`` should now show something like ``/home/mykube/k8s/cert-manager``.
 
 ## Installation
 
@@ -38,7 +37,7 @@ Its recommended to [![](images/ico/color/kubernetes_16.png) verify the installat
 
 ## Configuration of Helpers
 
-While Cert-Manager cares about automation renewal and integration of the certificates on the kubernetes level 
+While Cert-Manager cares about automated renewal and integration of the certificates on the kubernetes level 
 its not able to communicate with LetsEncyrypt services directly. Instead it delegates this task to its 
 [![](images/ico/color/kubernetes_16.png) ACMEDNS adapter](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
 which in turn makes use of another helper service. [![](images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
@@ -113,7 +112,8 @@ _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
-and save the registration response into a .json file ``acme-dns-homekube.json`` on the server with the domain name as a key and the response as its value. 
+and save the registration response into a **.json** file **`acme-dns-homekube.json`** on the server in your current directory 
+with the **domain name as a key** and the **response as its value**.   
 Replace ``homekube.org`` with a domain name of your choice.
 **Example** looks like:
 
@@ -136,12 +136,13 @@ Now that we have the helpers in place we need a last step to complete the instal
 * Create a Certficate template that will be signed
 * by an Issuer to be defined
 
-Lets create our own namespace first to prevent cluttering the default namespace (as in the original tutuorial): 
-
+Lets create our own namespace first to prevent cluttering the default namespace and edit a local copy 
+of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences of `homekube.org` and `homekube`
+with the name of your top-level domain.
+ 
 ```bash
-kubectl create namespace cert-manager-homekube
-kubectl create secret generic acme-dns-homekube -n cert-manager-homekube --from-file acme-dns-homekube.json
-kubectl apply -f https://github.com/a-hahn/homekube/src/cert-manager/homekube-staging.json
+kubectl create secret generic acme-dns-homekube -n cert-manager --from-file acme-dns-homekube.json
+kubectl apply -f homekube-staging.yaml
 ```
 
 Lets verify our installation 
@@ -164,19 +165,18 @@ tls.key:  1679 bytes
 
 The important part here is that both **tls.crt** and **tls.key** must be present and not empty.
 In case of errors follow the [![](images/ico/color/kubernetes_16.png) troubleshooting section](https://cert-manager.io/docs/faq/acme/).
-Note that you need to append all commands with `` -n cert-manager-homekube`` as thats the namespace that we use.
 
 If everything goes well we can obtain the 'real' certficate form LetsEncrypt production endpoint. LetsEncrypt has quite
 [![](images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage
 of its production endpoint so you better double-check with the staging-endpoint.
 
 The production manifest are the same as staging except that:
-* the acme server endpoint ``https://acme-staging-v02.api.letsencrypt.org/directory``   
-is replaced by ``https://acme-v02.api.letsencrypt.org/directory``
+* the acme server endpoint `https://acme-staging-v02.api.letsencrypt.org/directory`   
+is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replace by ``prod``
 
 ```bash
-kubectl apply -f https://github.com/a-hahn/homekube/src/cert-manager/homekube-prod.json
+kubectl apply -f homekube-prod.json
 ```
 
 When the resulting secret 
@@ -185,7 +185,3 @@ kubectl describe secret homekube-tls-prod -n cert-manager-homekube
 ```
 contains a non-empty **tls.crt** and **tls.key** you are done
 
-## Next steps
-
-Now lets improve dashboards annoying login procedure with
-[![](images/ico/color/homekube_16.png) Single sign on](single-sign-on.md).

@@ -2,11 +2,18 @@
 # Replace all occurrences of 'homekube.org' with your domain.tld
 # Replace all occurrences of 'homekube' with your domain
 #
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager-acme-secrets
+
+---
+
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: homekube-certificate-staging
-  namespace: cert-manager-homekube
+  namespace: cert-manager-acme-secrets
 spec:
   dnsNames:
     - 'homekube.org'

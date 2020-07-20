@@ -165,6 +165,8 @@ tls.key:  1679 bytes
 
 The important part here is that both **tls.crt** and **tls.key** must be present and not empty.
 In case of errors follow the [![](images/ico/color/kubernetes_16.png) troubleshooting section](https://cert-manager.io/docs/faq/acme/).
+Note that you need to append all commands with ` -n cert-manager-acme-secrets` as thats the namespace that we use
+for secrets, certificates, issuers, ... .
 
 If everything goes well we can obtain the 'real' certficate form LetsEncrypt production endpoint. LetsEncrypt has quite
 [![](images/ico/book_16.png) restricitve rate-limits](https://letsencrypt.org/docs/rate-limits/) about the usage

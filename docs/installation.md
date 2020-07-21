@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Further its assumed that your server is a separate computer. It might be a VM as well but thats beyond the scope of these instructions.
+It is assumed that your server is a separate computer. It might be a VM as well but thats beyond the details of these instructions.
 For the purpose of this tutorial it is assumed that
 
 1) Your homenet is in the portrange `192.168.1.0 - 192.168.1.255` (A class C subnet 192.168.1.0/24) 

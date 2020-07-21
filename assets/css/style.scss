@@ -2,3 +2,17 @@
 ---
 
 @import "{{ site.theme }}";
+
+// Headers
+$header-heading-color: #444;
+$header-bg-color: #fff;
+$header-bg-color-secondary: #fff;
+
+@media screen and (min-width: 64em)
+.page-header {
+  /* padding: 5rem 6rem; */
+}
+
+.page-header {
+  text-align: center;
+}

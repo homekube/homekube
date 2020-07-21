@@ -1,5 +1,3 @@
-![Homekube](docs/images/homekube.png)
-
 # Kubernetes at home for fun and education
 
 Homekube aims to set up a full operational kubernetes environment on a baremetal Ubuntu server. 

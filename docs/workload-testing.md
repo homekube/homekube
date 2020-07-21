@@ -1,5 +1,7 @@
 # Workload testing
 
+Test your installations response times and payload stability
+  
 ## Preparation
 
 Prerequisites are: 

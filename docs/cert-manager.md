@@ -1,6 +1,8 @@
 # Cert Manager
 
-In this step we will install [![](images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/).   
+[![](images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/) is a native Kubernetes certificate management controller.
+It helps with issuing certificates from Let’s Encrypt and others. In this step we will install [![](images/ico/color/kubernetes_16.png) Cert Manager](https://cert-manager.io/docs/)
+and configure it for certificate acqusition and renewal with [![](images/ico/book_16.png) LetsEncrypt](https://letsencrypt.org).
 
 >**NOTE:** Before you proceed you need a domain that you own. In this tutorial we use 'homekube.org'
 

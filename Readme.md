@@ -8,112 +8,42 @@ along with the most useful and popular administration components on your local U
 
 | ![](docs/images/ico/color/homekube_link_16.png) Live demo| ![](docs/images/ico/color/homekube_16.png) Tutorial|
 |--------|--------|
-|[![](docs/images/ico/color/homekube_link_16.png) WhoamI application](https://whoami.homekube.org)| ![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md)|
+|[![](docs/images/ico/color/homekube_link_16.png) WhoamI Echo Service](https://whoami.homekube.org)| ![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md)|
 |[![](docs/images/ico/color/homekube_link_16.png) Kubernetes Dashboard](https://dashboard.homekube.org) login with **demo/demo**| ![](docs/images/ico/color/homekube_16.png)[  dashboard.md](docs/dashboard.md)|
 |[![](docs/images/ico/color/homekube_link_16.png) Grafana monitoring](https://grafana.homekube.org) login with **demo/demo** | ![](docs/images/ico/color/homekube_16.png)[  grafana.md](docs/grafana.md)|
 |[![](docs/images/ico/color/homekube_link_16.png) Prometheus metrics](https://prometheus.homekube.org)| ![](docs/images/ico/color/homekube_16.png)[  prometheus.md](docs/prometheus.md)|
 |[![](docs/images/ico/color/homekube_link_16.png) Testing workloads with Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | ![](docs/images/ico/color/homekube_16.png)[  workload-testing.md](docs/workload-testing.md)|
 
 
+## Project philosophy
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-Is this really for you ? If you are in doubt read the ![](docs/images/ico/color/homekube_16.png)[ considerations](docs/considerations.md) before you start.
+With just a few commands we will setup a Kubernetes single node locally. For all further installs we'll primarily use helm commands so we are very close to what you'd do in a cloud environment.
 
-
-The [![](docs/images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 
-we'll follow are pretty much straightforward for the first steps.
-However I think its fair to say that once you have installed the basics there is very little guidance on how to proceed
- to set up a complete working environment including dashboard, monitoring and a sample app.
-If you are already familiar with the concepts and terminology thats not a problem for you because you know how to go ahead.
-But hey - for the rest of us this means googling like hell and if you really were familiar with that stuff
-you won't be here - won't you ?
-Thats where this tutorial jumps in as a leaflet and reference with pointers to further in-depth documents, concepts and resources.
-
-## Basic installation
-
-#### Requirements
-
+## Requirements
 Server requirements are:
 
 * An Ubuntu 20.04 LTS (18.04 LTS or 16.04 LTS will do also [or alternatives linux distros supporting snapd](https://snapcraft.io/docs/installing-snapd))
 * At least 20G of disk space and 4G of memory are recommended
 * An internet connection
 
-#### Prerequisites
 
-Further its assumed that your server is a separate computer. It might be a VM as well but thats beyond the scope of these instructions.
-For the purpose of this tutorial it is assumed that
+#### Quick tour
 
-1) Your homenet is in the portrange `192.168.1.0 - 192.168.1.255` (A class C subnet 192.168.1.0/24) 
-2) Your servers ip is static `192.168.1.100` and the username is `mykube`
-3) You have a free range of unassigned ips that are excluded from your routers dhcp address range.
-We will use these addresses to substitute the functionality of a cloud providers LoadBalancer for all your incoming traffic.
-These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) 
-portrange is 
-`192.168.1.200-192.168.1.220`  
-You'll need a minimum of 5 IPs but its better to have some headroom for extensions and your own exercises. 
+![](docs/images/ico/color/homekube_16.png)[ Installation](docs/installation.md) ->
+![](docs/images/ico/color/homekube_16.png) [ Dashboard](docs/dashboard.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Helm I](docs/helm.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Helm / Echo Service](docs/helm-basics.md) ->
+![](docs/images/ico/color/homekube_16.png) [ Echo service II](docs/whoami.md) 
 
-Of course you can choose whatever is appropriate for your environment as long as you modify the commands accordingly.
-  
-Open a terminal on your computer and connect to your server 
-```bash
-ssh mykube@192.168.1.100
-```
+#### Advanced tour
+![](docs/images/ico/color/homekube_16.png)[ Quick tour](Readme.md#quick-tour) ->
+![](docs/images/ico/color/homekube_16.png)[ Ingress](docs/ingress.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Dashboard II](docs/dashboard-auth.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Nfs](docs/nfs.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Prometheus Metrics](docs/prometheus.md) ->
+![](docs/images/ico/color/homekube_16.png) [ Grafana](docs/grafana.md)
 
-Its recommended to fork the repo on github and clone your fork to your server.
-This way you might save all your local changes or additions to your own repo and if you notice errors
-or suggest improvements you might easily sumbit a PR to improve homekube. 
-
-```bash
-# Recommended
-git clone git@github.com:<your clone>/homekube.git
-
-# Alternative
-git clone git@github.com:a-hahn/homekube.git
-```
-
----
-Then follow the [![](docs/images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs).
-At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
-
-TL;DR:
-
-```bash
-sudo snap install microk8s --classic --channel=1.18/stable
-sudo usermod -a -G microk8s $USER
-sudo chown -f -R $USER ~/.kube
-su - $USER
-microk8s status --wait-ready
-```
-Add an alias for `kubectl` to reduce our typing by appending `~/.bash_aliases` with  
-`alias kubectl='microk8s kubectl'`  
-and activate it instantly `. ~/.bash_aliases`
-
----
-Finally in your terminal window execute
-
-```bash
-kubectl version --short
-```
-
-The response will be something like
-```
-Client Version: v1.18.2-41+b5cdb79a4060a3   
-Server Version: v1.18.2-41+b5cdb79a4060a3
-```
-Congrats ! You are done with the first part.
-
-## Enable Add-Ons
-
-Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](docs/images/ico/color/ubuntu_16.png) couple of add-ons](https://microk8s.io/docs/addons)
-but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
-
-```bash
-microk8s enable dns storage rbac helm3
-```
-More ![](docs/images/ico/color/homekube_16.png)[  about AddOns ...](docs/microk8s-addons.md) 
-
-## Next steps
-
-Lets proceed installing the ![](docs/images/ico/color/homekube_16.png)[  kubernetes dashboard](docs/dashboard.md)    
-  
-
+#### Pro tour
+![](docs/images/ico/color/homekube_16.png)[ Advanced tour](Readme.md#advanced-tour) ->
+![](docs/images/ico/color/homekube_16.png)[ Cert manager](docs/cert-manager.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Workload](docs/workload-testing.md)

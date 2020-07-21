@@ -3,9 +3,9 @@
 ## Preparation
 
 Prerequisites are: 
-- [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
-- [![](images/ico/color/homekube_16.png) Prometheus](prometheus.md)
-- [![](images/ico/color/homekube_16.png) Grafana](grafana.md)
+- ![](images/ico/color/homekube_16.png)[ Ingress](ingress.md)
+- ![](images/ico/color/homekube_16.png)[ Prometheus](prometheus.md)
+- ![](images/ico/color/homekube_16.png)[ Grafana](grafana.md)
 
 ```bash
 cd ~/homekube/src/test/workload 
@@ -65,7 +65,7 @@ different workloads on both addresses and watch the differences in Grafana. Its 
 that **Ingress**es **must** be configured in **the same namespace** hence the namespace `test-workload` must
 be defined in the definition file.  
 Now lets check if the ingress works. We need to direct our request now to the Ingress which is available
-through the public ip assigned to our MetalLb (see [![](images/ico/color/homekube_16.png) Ingress config](ingress.md)).
+through the public ip assigned to our MetalLb (see ![](images/ico/color/homekube_16.png)[ Ingress config](ingress.md)).
 
 From a local terminal
 ```bash
@@ -95,7 +95,7 @@ X-Scheme: http
 
 #### Check proper scraping
 Next lets make sure that prometheus is actually scraping all the required metrics.
-Open the [![](images/ico/color/homekube_16.png) Prometheus ui](prometheus.md#testing) 
+Open the ![](images/ico/color/homekube_16.png)[ Prometheus ui](prometheus.md#testing) 
 and when searching for nginx metrics it should look like this
 
 ![](images/prometheus-nginx.png)
@@ -104,14 +104,14 @@ There should be a long list metrics being exposed including some containing the 
 Unfortunately there are a couple of issues that might have been gone wrong:
 - If you don't see any nginx metrics at all then nginx controller is possibly not configured for scraping.
 We have done that already previously during
-[![](images/ico/color/homekube_16.png) Ingress config](ingress.md)
+![](images/ico/color/homekube_16.png)[ Ingress config](ingress.md)
 - If you only see some metrics e.g. no metrics containing `"bucket"` then Prometheus probably needs to be reinstalled.
 Prometheus configuration omits some important nginx metrics in case 
 it does not find any Ingress host configuration during installation. That may actually
 be the case when following all the installation steps in the recommended order because
 now for the first time we have configured an ingress host address (`who-am-i.org` and `who-am-i.info`).
 In this case just do a `helm uninstall ...` and `helm install ...` again following
-the [![](images/ico/color/homekube_16.png) Prometheus instructions](prometheus.md).
+the ![](images/ico/color/homekube_16.png)[ Prometheus instructions](prometheus.md).
 
 #### Providing testloads
 

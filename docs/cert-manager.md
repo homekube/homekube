@@ -19,7 +19,7 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 
 Prerequisites are: 
 - A domain you own, e.g. homekube.org, example.com, yourdomain.org, ...
-- [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
+- ![](images/ico/color/homekube_16.png) [Ingress](ingress.md)
 
 Execute
 ```bash
@@ -44,7 +44,7 @@ its not able to communicate with LetsEncyrypt services directly. Instead it dele
 which in turn makes use of another helper service. [![](images/ico/github_16.png) Acme-dns](https://github.com/joohoi/acme-dns#acme-dns)
 is a basic DNS server that acts on behalf of your providers DNS service for the sole purpose of renewing LetsEncrypt certificates.
 
-[![](images/ico/color/homekube_16.png) Learn more about the principles of operation](cert-manager-long.md) 
+![](images/ico/color/homekube_16.png)[ Learn more about the principles of operation](cert-manager-long.md) 
 
 ### ACME-DNS
 

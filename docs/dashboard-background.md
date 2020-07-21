@@ -53,8 +53,8 @@ It is possible to proceed anyway by just typing **thisisunsafe** or **badidea** 
 
 ### More options
 
-In the [![](images/ico/color/homekube_16.png) Ingress](ingress.md)
-and [![](images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md)
+In the ![](images/ico/color/homekube_16.png)[ Ingress](ingress.md)
+and ![](images/ico/color/homekube_16.png)[ Cert-Manager](cert-manager.md)
 parts of the tutorial better ways to deal with certificates and authorization are explained.
 
 For completeness there exist also other resources on this topic:

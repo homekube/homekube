@@ -47,7 +47,7 @@ Events:
   ----     ------            ----               ----               -------
   Warning  FailedScheduling  14s (x3 over 75s)  default-scheduler  running "VolumeBinding" filter plugin for pod "grafana-7bc8fcd968-8d87b": pod has unbound immediate PersistentVolumeClaims
 ```
-Double check storage class name and if the claimed storage is available. Test the [![](images/ico/color/homekube_16.png) nfs storage provider](nfs.md#testing) for availability.
+Double check storage class name and if the claimed storage is available. Test the ![](images/ico/color/homekube_16.png)[ nfs storage provider](nfs.md#testing) for availability.
 
 #### Pod keeps crash-looping
 Watching pod status `kubectl get po -n grafana --watch` keeps crash looping:
@@ -81,7 +81,7 @@ If Grafana is up and running but you don't see any metrics
 ![](images/grafana-gateway-error.png)
 
 In this case the data flow from prometheus to grafana is not properly configured or does not work. Possible reasons are
-- Prometheus is not installed. -> Check [![](images/ico/color/homekube_16.png) Prometheus](prometheus.md)
+- Prometheus is not installed. -> Check ![](images/ico/color/homekube_16.png)[ Prometheus](prometheus.md)
 - DNS not enabled. We enabled `microk8s enable dns ...` during the first installation steps.  
 Check its availability `microk8s status`.  
 If DNS is enabled follow the [![](images/ico/color/kubernetes_16.png) Debugging DNS resolution](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)  

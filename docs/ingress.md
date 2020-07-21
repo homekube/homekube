@@ -1,7 +1,7 @@
 # Ingress and MetalLb
 
 Ingress is a very useful component for having a common entrypoint for multiple services.
-We will use [![](images/ico/color/homekube_16.png) Ingress](microk8s-addons.md#ingress)
+We will use ![](images/ico/color/homekube_16.png)[ Ingress](microk8s-addons.md#ingress)
 together with [![](images/ico/book_16.png) MetalLb](https://metallb.universe.tf) 
 which serves as a replacement for cloud-based LoadBalancers. In a typical cloud environment all incoming
 traffic will flow into a kubernetes cluster from the LoadBalancer and MetalLb is a compatible 
@@ -20,7 +20,7 @@ Internet -> LoadBalancer ->  Ingress -> service
 cd ~/homekube/src/ingress
 ```
 A ``pwd`` should now show something like `/home/mykube/k8s/ingress`.  
-Make sure you have installed [![](images/ico/color/homekube_16.png) Helm](helm.md) before you proceed.
+Make sure you have installed ![](images/ico/color/homekube_16.png)[ Helm](helm.md) before you proceed.
 
 ## Installation
 
@@ -82,7 +82,7 @@ error it will now show a `Proceed to 192.168.1.200 (unsafe)` option.
 ## Next steps
 
 Lets improve the dashboard and remove the annoying
-[![](images/ico/color/homekube_16.png) token login](dashboard-auth.md). 
+![](images/ico/color/homekube_16.png)[ token login](dashboard-auth.md). 
 
 ## Tutorials
 

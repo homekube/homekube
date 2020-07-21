@@ -11,10 +11,10 @@ along with the most useful and popular administration components on your local U
 | ![](docs/images/ico/color/homekube_link_16.png) Live demo| ![](docs/images/ico/color/homekube_16.png) Tutorial|
 |--------|--------|
 |[![](docs/images/ico/color/homekube_link_16.png) WhoamI application](https://whoami.homekube.org)| ![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Kubernetes Dashboard](https://dashboard.homekube.org) login with **demo/demo**| [![](docs/images/ico/color/homekube_16.png) dashboard.md](docs/dashboard.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Grafana monitoring](https://grafana.homekube.org) login with **demo/demo** | [![](docs/images/ico/color/homekube_16.png) grafana.md](docs/grafana.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Prometheus metrics](https://prometheus.homekube.org)| [![](docs/images/ico/color/homekube_16.png) prometheus.md](docs/prometheus.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Testing workloads with Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | [![](docs/images/ico/color/homekube_16.png) workload-testing.md](docs/workload-testing.md)|
+|[![](docs/images/ico/color/homekube_link_16.png) Kubernetes Dashboard](https://dashboard.homekube.org) login with **demo/demo**| ![](docs/images/ico/color/homekube_16.png)[  dashboard.md](docs/dashboard.md)|
+|[![](docs/images/ico/color/homekube_link_16.png) Grafana monitoring](https://grafana.homekube.org) login with **demo/demo** | ![](docs/images/ico/color/homekube_16.png)[  grafana.md](docs/grafana.md)|
+|[![](docs/images/ico/color/homekube_link_16.png) Prometheus metrics](https://prometheus.homekube.org)| ![](docs/images/ico/color/homekube_16.png)[  prometheus.md](docs/prometheus.md)|
+|[![](docs/images/ico/color/homekube_link_16.png) Testing workloads with Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | ![](docs/images/ico/color/homekube_16.png)[  workload-testing.md](docs/workload-testing.md)|
 
 
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
@@ -112,10 +112,10 @@ but explanations are rather short and we will only install basic components so t
 ```bash
 microk8s enable dns storage rbac helm3
 ```
-More [![](docs/images/ico/color/homekube_16.png) about AddOns ...](docs/microk8s-addons.md) 
+More ![](docs/images/ico/color/homekube_16.png)[  about AddOns ...](docs/microk8s-addons.md) 
 
 ## Next steps
 
-Lets proceed installing the [![](docs/images/ico/color/homekube_16.png) kubernetes dashboard](docs/dashboard.md)    
+Lets proceed installing the ![](docs/images/ico/color/homekube_16.png)[  kubernetes dashboard](docs/dashboard.md)    
   
 

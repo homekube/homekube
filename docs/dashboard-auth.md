@@ -19,7 +19,7 @@ source secure-dashboard.sh
 ## Alternative: do it manually
 
 - Copy `homekube-dashboard-auth.yaml` to `temp.yaml`
-- Find the [![](images/ico/color/homekube_16.png) access token](dashboard.md)
+- Find the ![](images/ico/color/homekube_16.png)[ access token](dashboard.md)
   generated previously (for admin-user or simple-user) and copy it to the clipboard.
 - Replace the environment variable `${HOMEKUBE_DASHBOARD_TOKEN}` with the copied value.
 - Authentication is performed through an authentication mockup service 
@@ -65,4 +65,4 @@ using **demo/demo** credentials.
 ## Next steps
 
 Lets create our own automated LetsEncrypt certificates with
-[![](images/ico/color/homekube_16.png) Cert-Manager](cert-manager.md). 
+![](images/ico/color/homekube_16.png)[ Cert-Manager](cert-manager.md). 

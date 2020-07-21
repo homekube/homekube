@@ -84,7 +84,7 @@ helm search repo
 
 ## Next steps
 
-[![](images/ico/color/homekube_16.png) More about helm by example](helm-basics.md).
+![](images/ico/color/homekube_16.png)[ More about helm by example](helm-basics.md).
 
 ## Tutorials
 

@@ -11,10 +11,10 @@ They have an online demo to browse and play:
 ## Preparation
 
 Prerequisites are: 
-- [![](images/ico/color/homekube_16.png) Prometheus](prometheus.md) for data aquisition / scraping
-- [![](images/ico/color/homekube_16.png) Helm](helm.md) (already installed for Prometheus)
+- ![](images/ico/color/homekube_16.png)[ Prometheus](prometheus.md) for data aquisition / scraping
+- ![](images/ico/color/homekube_16.png)[ Helm](helm.md) (already installed for Prometheus)
 - A storage provisioner to fullfill storage claims (e.g. 
-[![](images/ico/color/homekube_16.png) NFS Storage](nfs.md)) (already installed for Prometheus)
+![](images/ico/color/homekube_16.png)[ NFS Storage](nfs.md)) (already installed for Prometheus)
 
 ## Installation
 
@@ -91,13 +91,13 @@ NAME                       READY   STATUS    RESTARTS   AGE
 grafana-6cb8cb8f8f-gtbl6   1/1     Running   0          22m
 ```
 If you see `STATUS CrashLoopBackoff` or another status for some time then consult the
-[![](images/ico/color/homekube_16.png) troubleshooting tips](grafana-notes.md#troubleshooting).
+![](images/ico/color/homekube_16.png)[ troubleshooting tips](grafana-notes.md#troubleshooting).
 
 Lets follow the installers instructions:
 1) Get your 'admin' user password ...  
 We **can ignore this** because the password was already supplied in the `kubectl create secret ...` instruction.  
 Unfortunately the message prompt 
-[![](images/ico/color/homekube_16.png) is not accurate](grafana-notes.md#installation-response-message).
+![](images/ico/color/homekube_16.png)[ is not accurate](grafana-notes.md#installation-response-message).
 2) Execute the instructions but note the appended **--address=0.0.0.0**   
 ```bash
 export POD_NAME=$(kubectl get pods --namespace grafana -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
@@ -136,7 +136,7 @@ helm list --all-namespaces
 ## Next steps
 
 Browse and check the options of your grafana dashboard. Then you might want to explore the 
-[![](images/ico/color/homekube_16.png) workload behaviour of your cluster](workload-testing.md).
+![](images/ico/color/homekube_16.png)[ workload behaviour of your cluster](workload-testing.md).
 
 ## Tutorials
 

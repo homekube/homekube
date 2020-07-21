@@ -15,9 +15,9 @@ data and preparing its visualisation (with Grafana).
 ## Preparation
 
 Prerequisites are: 
-- [![](images/ico/color/homekube_16.png) Helm](helm.md)
+- ![](images/ico/color/homekube_16.png)[ Helm](helm.md)
 - A storage provisioner to fullfill storage claims (e.g. 
-[![](images/ico/color/homekube_16.png) NFS Storage](nfs.md))
+![](images/ico/color/homekube_16.png)[ NFS Storage](nfs.md))
 
 
 ## Installation
@@ -108,7 +108,7 @@ helm list --all-namespaces
 ## Next steps
 
 Next install the 
-[![](images/ico/color/homekube_16.png) Grafana dashboard](grafana.md) 
+![](images/ico/color/homekube_16.png)[ Grafana dashboard](grafana.md) 
 to visualize all those metrics scraped by prometheus.
 
 ## Tutorials

@@ -3,7 +3,7 @@
 [![Dashboard](images/dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
 
 We do not use the MicroK8s dashboard installation manifests for a 
-[![](images/ico/color/homekube_16.png) couple of reasons](dashboard-background.md) .  
+![](images/ico/color/homekube_16.png)[ couple of reasons](dashboard-background.md) .  
 In case its already installed we will **disable** it first.
 
 ``
@@ -24,18 +24,18 @@ kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 10443:
 ``` 
 Port-forward is just a temporary solution for development. When the session is terminated the port is no longer accessible.
 Alternatively you might prefer a 
-[![](images/ico/color/homekube_16.png) permanent solution.](dashboard-background.md#exposing-dashboard) .
+![](images/ico/color/homekube_16.png)[ permanent solution.](dashboard-background.md#exposing-dashboard) .
 
 In your **local browser open `https://192.168.1.100:10443`**
 
 A warning about an untrusted certificate will show up and upon confirmation **in Firefox**
 you'd see the dashboards sign-in page. This may not work for you. 
-[![](images/ico/color/homekube_16.png) Read why and troubleshoot ...](dashboard-background.md#troubleshoot-certificates) 
+![](images/ico/color/homekube_16.png)[ Read why and troubleshoot ...](dashboard-background.md#troubleshoot-certificates) 
  
 ![](images/dashboard-signin.png)
 
-We will create appropriate [![](images/ico/color/homekube_16.png) certificates ](cert-manager.md)
-with LetsEncrypt later and install them in the [![](images/ico/color/homekube_16.png) Ingress](ingress.md) part of this tutorial.
+We will create appropriate ![](images/ico/color/homekube_16.png)[ certificates ](cert-manager.md)
+with LetsEncrypt later and install them in the ![](images/ico/color/homekube_16.png)[ Ingress](ingress.md) part of this tutorial.
 
 For login we create two users. One that has full admin rights and one with restricted rights.  
 The [![](images/ico/github_16.png) Create sample user docs](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
@@ -48,7 +48,7 @@ kubectl apply -f create-simple-user.yaml
 ```
 These manifests create the required 
 [![](images/ico/color/kubernetes_16.png) `clusterrolebindings` `serviceaccounts` and their `secrets`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/). Now we inspect the created secrets (account tokens) 
-[![](images/ico/color/homekube_16.png) manually](dashboard-background.md#get-token) or execute the script:
+![](images/ico/color/homekube_16.png)[ manually](dashboard-background.md#get-token) or execute the script:
 
 ```bash
 name=simple-user # or 'admin-user'
@@ -82,12 +82,12 @@ Now try the other token that we created for `simple-user` as well. The simple us
 he can't view any secrets.
 
 If you want to repeat the steps as an exercise
-[![](images/ico/color/homekube_16.png) cleanup first](dashboard-background.md#cleanup).
+![](images/ico/color/homekube_16.png)[ cleanup first](dashboard-background.md#cleanup).
 
 ## Next steps
 
 Lets improve the dashboard access via 
-[![](images/ico/color/homekube_16.png) Ingress](ingress.md).
+![](images/ico/color/homekube_16.png)[ Ingress](ingress.md).
 
 
 ## Tutorials

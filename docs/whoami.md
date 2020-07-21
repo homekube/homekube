@@ -1,9 +1,9 @@
 # Simple echo service
 
-Following the instructions of [![](images/ico/color/homekube_16.png) Helm Basics](helm-basics.md) 
+Following the instructions of ![](images/ico/color/homekube_16.png)[ Helm Basics](helm-basics.md) 
 we have already created a simple 'Who-am-i' service. 
 From the verification steps we know how to 
-[![](images/ico/color/homekube_16.png) preview a helm installation](helm-basics.md#verify).
+![](images/ico/color/homekube_16.png)[ preview a helm installation](helm-basics.md#verify).
 Now lets check whats actually created in our `whoami` namespace:
 
 ```bash
@@ -153,7 +153,7 @@ You will also be able to test it locally when using the Igress' LoadBalancers IP
 curl -kX GET 'https://192.168.1.200' -H 'host: whoami.homekube.org'
 ```
 
-Once [![](images/ico/color/homekube_16.png) cert-manager](cert-manager.md) is installed and provides valid certificates we can just execute:
+Once ![](images/ico/color/homekube_16.png)[ cert-manager](cert-manager.md) is installed and provides valid certificates we can just execute:
 ```bash
 curl https://whoami.homekube.org
 ```

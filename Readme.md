@@ -18,7 +18,7 @@ along with the most useful and popular administration components on your local U
 
 
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-Is this really for you ? If you are in doubt read the [![](docs/images/ico/color/homekube_16.png)considerations](docs/considerations.md) before you start.
+Is this really for you ? If you are in doubt read the ![](docs/images/ico/color/homekube_16.png)[ considerations](docs/considerations.md) before you start.
 
 
 The [![](docs/images/ico/color/ubuntu_16.png) MicroK8s docs](https://microk8s.io/docs) 

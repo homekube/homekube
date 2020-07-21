@@ -70,12 +70,12 @@ Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](imag
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
-microk8s enable dns storage rbac helm3
+microk8s enable dns rbac helm3
 ```
-More ![](images/ico/color/homekube_16.png)[  about AddOns ...](docs/microk8s-addons.md) 
+More ![](images/ico/color/homekube_16.png)[  about AddOns ...](microk8s-addons.md) 
 
 ## Next steps
 
-Lets proceed installing the ![](images/ico/color/homekube_16.png)[  kubernetes dashboard](docs/dashboard.md)    
+Lets proceed installing the ![](images/ico/color/homekube_16.png)[  kubernetes dashboard](dashboard.md)    
   
 

@@ -46,4 +46,4 @@ Server requirements are:
 #### Pro tour
 ![](docs/images/ico/color/homekube_16.png)[ Advanced tour](Readme.md#advanced-tour) ->
 ![](docs/images/ico/color/homekube_16.png)[ Cert manager](docs/cert-manager.md) ->
-![](docs/images/ico/color/homekube_16.png)[ Workload](docs/workload-testing.md)
+![](docs/images/ico/color/homekube_16.png)[ Testing response times and payloads](docs/workload-testing.md)

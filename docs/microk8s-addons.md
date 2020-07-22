@@ -63,8 +63,3 @@ Internet --> LoadBalancer  -> service1
 As a side note there are other Ingress replacements available which serve the same purpose but all have their own pros and cons
 and do not share a common configuration (Envoy, Gloo, Heptio Contour, Istio, Ambassador, ...)
 
-### Dashboard
-
-The dashboard is the default kubernetes community maintained ui.
-
-![](images/dashboard.png)

@@ -93,7 +93,7 @@ kubectl apply -f ~/homekube/src/prometheus/ingress-prometheus.yaml
 ```
 
 Now access 
-[![](images/ico/color/homekube_link_16.png) https://prometheus.homekube.org](https://prometheus.homekube.org)
+[![](images/ico/color/homekube_link_16.png) https://prometheus.homekube.org](https://prometheus.homekube.org "Prometheus dashboard ui")
 
 ## Cleanup
 

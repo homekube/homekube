@@ -26,3 +26,18 @@
   background-color: #155799;
   background-image: none;
 }
+
+.btn-github {
+  padding: 1em;
+}
+
+/*
+   Drop shadow only for boxes with non-empty alt attribute
+ */
+img[alt] {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+img[alt=""] {
+  box-shadow: inherit;
+}

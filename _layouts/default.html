@@ -25,15 +25,15 @@
     <div class="header-outer">
         <a href="https://homekube.org">
             <div class="header-outer">
-                <img id="homekube-img" src="../docs/images/homekube.png" alt="Homekube" />
+                <img id="homekube-img" src="../docs/images/homekube.png" />
                 <div class="header-inner">
                     <h1 class="project-name">Homekube</h1>
                     <h2 class="project-tagline">Kubernetes at home for fun and education</h2>
                 </div>
             </div>
         </a>
-        <div>
-            {% if site.github.is_project_page %}
+        <div class="btn-github">
+            {% if site.github.is_project_page%}
             <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
             {% endif %}
         </div>

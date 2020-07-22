@@ -1,6 +1,6 @@
 # Dashboard
 
-[![Dashboard](images/dashboard.png)](https://dashboard.homekube.org/#/login "Thats the live dashboard you'lll install on your own server")
+[![Dashboard](images/dashboard.png)](https://dashboard.homekube.org/#/overview?namespace=_all "Thats the live dashboard you'lll install on your own server")
 
 We do not use the MicroK8s dashboard installation manifests for a 
 ![](images/ico/color/homekube_16.png)[ couple of reasons](dashboard-background.md) .  

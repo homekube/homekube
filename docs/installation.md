@@ -30,7 +30,7 @@ or suggest improvements you might easily sumbit a PR to improve homekube.
 git clone git@github.com:<your clone>/homekube.git
 
 # Alternative
-git clone git@github.com:a-hahn/homekube.git
+git clone git@github.com:homekube/homekube.git
 ```
 
 ---

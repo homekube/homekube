@@ -1,8 +1,28 @@
 ---
 ---
 
+@import 'jekyll-theme-cayman';
+
+/*
 @import "{{ site.theme }}";
+ */
 
 #homekube-img {
   height: 8em;
+}
+
+/*
+  Formatting see https://www.w3.org/Style/Examples/007/center.en.html
+ */
+
+.header-outer {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+.page-header {
+  padding: 2rem 6rem 1rem;
+  background-color: #155799;
+  background-image: none;
 }

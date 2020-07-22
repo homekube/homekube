@@ -108,7 +108,7 @@ Next open a browser on **http://192.168.1.100:3000** login and explore the grafa
 In the topmost bar click on `Home` and from the selection pick  
 **1 Node Exporter for Prometheus Dashboard English Version**
 
-![](images/grafana-node-exporter.png "1 Node Exporter for Prometheus Dashboard English Version")
+!["1 Node Exporter for Prometheus Dashboard English Version"](images/grafana-node-exporter.png)
 
 ## Public Exposure
 

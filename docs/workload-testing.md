@@ -100,7 +100,7 @@ Next lets make sure that prometheus is actually scraping all the required metric
 Open the ![](images/ico/color/homekube_16.png)[ Prometheus ui](prometheus.md#testing) 
 and when searching for nginx metrics it should look like this
 
-![](images/prometheus-nginx.png "Prometheus dashboard with full ingress scarping enabled")
+![Prometheus dashboard with full ingress scarping enabled](images/prometheus-nginx.png)
 
 There should be a long list metrics being exposed including some containing the words `"bucket"`.
 Unfortunately there are a couple of issues that might have been gone wrong:
@@ -139,7 +139,7 @@ page. You see the different workloads for both Ingress. In the lower dashboard s
 The `P50 Latency` e.g. shows the latency for 50% of the requests. In the `Ingress Request Volume` we see the
 different `Request per second` **reqps** rates.
 
-![](images/grafana-nginx.png "Grafana NGINX controller dashboard")
+![Grafana NGINX controller dashboard](images/grafana-nginx.png)
 
 The next screenshot shows `Request Handling performance` dashboard with `whoami-info-ingress` service selected.
 This dashboard is defined by the `request-handling-performance.json` on the
@@ -147,18 +147,18 @@ This dashboard is defined by the `request-handling-performance.json` on the
 page  with some minor modifications. We replaced the time-period occurrences `[1m]` with a longer period `[2m]` because 
 the original settings did not provision the view reliably and instead showed the `no data` markers.
 
-![](images/grafana-performance-1.png "Grafana NGINX Request handling performance dashboard")
+![Grafana NGINX Request handling performance dashboard](images/grafana-performance-1.png)
 
 This screenshot shows the same dashboard again but with `whoami-org-ingress` service selected. Note the different volume and
 time period scales as expected from the different workloads.
 
-![](images/grafana-performance-2.png "Grafana NGINX Request handling performance dashboard")
+![Grafana NGINX Request handling performance dashboard](images/grafana-performance-2.png)
 
 Now lets change the workload to ~100kb and see if our dashboards will reflect the changes
 ```bash
 while true; do curl -X GET 192.168.1.200/data?size=100000 -H 'host: who-am-i.org'; done
 ```
 
-![](images/grafana-performance-3.png "Grafana NGINX Request handling performance dashboard with payload")
+![Grafana NGINX Request handling performance dashboard with payload](images/grafana-performance-3.png)
 
 The screenshot shows that the `Average response size by path` rose to ~100kb - thats exactly the expected amount. 

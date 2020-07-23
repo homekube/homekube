@@ -1,0 +1,17 @@
+#
+# This is to provide a redirect from
+# https://www.homekube.org -> https://homekube.org which is hosted by Github Pages
+# Of course we need to to have cert-manager taking care of the proper default ssl termination
+# see https://github.com/homekube/homekube/blob/master/docs/cert-manager.md#updating-ingress
+#
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/permanent-redirect: https://homekube.org
+  name: ingress-wwww
+  namespace: ingress-nginx
+spec:
+  rules:
+    - host: www.homekube.org

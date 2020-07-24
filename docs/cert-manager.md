@@ -34,8 +34,15 @@ Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation
 
 ```bash
 kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.1/cert-manager.yaml
+kubectl get pod -n cert-manager --watch
 ```
-
+The containers are getting up and running:
+```text
+NAME                                      READY   STATUS    RESTARTS   AGE
+cert-manager-7747db9d88-cd7xz             1/1     Running   0          3m57s
+cert-manager-cainjector-87c85c6ff-s8m9g   1/1     Running   0          3m57s
+cert-manager-webhook-64dc9fff44-bl64h     1/1     Running   0          3m56s
+```
 Its recommended to [![](images/ico/color/kubernetes_16.png) verify the installation](https://cert-manager.io/docs/installation/kubernetes/#verifying-the-installation) .
 
 ## Configuration of Helpers
@@ -94,8 +101,8 @@ _acme-challenge.homekube.org   IN CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.aut
 > NOTE: As a CNAME value you have to copy the "fulldomain" property value **terminated by a dot .** !
 
 Usually you have to use your dns providers console or webinterface for that. 
-Homekube's DNS host is [Artfiles.de](https://artfiles.de) and a 
-[screenshot of the dns webinterface modifications](images/artfiles_dns_webui.png) is provided as a reference. 
+Homekube's DNS host is [Artfiles.de](https://artfiles.de) and screenshots of the dns webinterface modifications
+[#1](images/artfiles_dns_webui.png) [#2 (with Github pages and pi subdomain)](images/artfiles_dns_with_github_and_pi.png) is provided as a reference. 
 
 > Note again the **trailing dot .**  ! 
 
@@ -118,7 +125,7 @@ Next we follow the
 and save the registration response into a **.json** file **`acme-dns-homekube.json`** on the server in your current directory 
 with the **domain name as a key** and the **response as its value**.   
 Replace ``homekube.org`` with a domain name of your choice.
-**Example** looks like:
+**Example** **`acme-dns-homekube.json`** looks like:
 
 ```json
 { "homekube.org": 
@@ -171,7 +178,7 @@ The important part here is that both **tls.crt** and **tls.key** must be present
 In case of errors check cert-manager logs to see the progress
 ```bash
 export POD_NAME=$(kubectl get pods --namespace cert-manager -l "app=cert-manager,app.kubernetes.io/component=controller" -o jsonpath="{.items[0].metadata.name}")
-kubectl logs $POD_NAME -n cert-manager
+kubectl logs $POD_NAME -f -n cert-manager
 ```
 and follow the  [![](images/ico/color/kubernetes_16.png) troubleshooting steps](https://cert-manager.io/docs/faq/acme/).
 Note that you need to append all commands with ` -n cert-manager-acme-secrets` as thats the namespace that we use
@@ -187,7 +194,7 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replace by ``prod``
 
 ```bash
-kubectl apply -f homekube-prod.json
+kubectl apply -f homekube-prod.yaml
 ```
 
 When the resulting secret 

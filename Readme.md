@@ -6,13 +6,13 @@ The focus is getting something done first and improve your kubernetes skills ste
 Following this tutorial you should have Kubernetes and a sample application installed 
 along with the most useful and popular administration components on your local Ubuntu server:
 
-| ![](docs/images/ico/color/homekube_link_16.png) Live demo| ![](docs/images/ico/color/homekube_16.png) Tutorial|
-|--------|--------|
-|[![](docs/images/ico/color/homekube_link_16.png) WhoamI Echo Service](https://whoami.homekube.org)| ![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Kubernetes Dashboard](https://dashboard.homekube.org) login with **demo/demo**| ![](docs/images/ico/color/homekube_16.png)[  dashboard.md](docs/dashboard.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Grafana monitoring](https://grafana.homekube.org) login with **demo/demo** | ![](docs/images/ico/color/homekube_16.png)[  grafana.md](docs/grafana.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Prometheus metrics](https://prometheus.homekube.org)| ![](docs/images/ico/color/homekube_16.png)[  prometheus.md](docs/prometheus.md)|
-|[![](docs/images/ico/color/homekube_link_16.png) Testing workloads with Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | ![](docs/images/ico/color/homekube_16.png)[  workload-testing.md](docs/workload-testing.md)|
+| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Live amd64| ![](docs/images/ico/color/homekube_link_16.png) Live arm64 |
+|--------|--------|--------|---------|
+| 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) |[![](docs/images/ico/color/homekube_link_16.png) ](https://whoami.homekube.org)| [![](docs/images/ico/color/raspi_16.png) ](https://whoami.pi.homekube.org)|
+| Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://dashboard.homekube.org) login **demo/demo**| [![](docs/images/ico/color/raspi_16.png) ](https://dashboard.pi.homekube.org) login **demo/demo**| 
+| Grafana monitoring |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://grafana.homekube.org) login **demo/demo** | [![](docs/images/ico/color/raspi_16.png) ](https://grafana.pi.homekube.org) login **demo/demo**| 
+| Prometheus metrics |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://prometheus.homekube.org)|[![](docs/images/ico/color/raspi_16.png) ](https://prometheus.pi.homekube.org)| 
+| Testing payloads and response times |![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md)|[![](docs/images/ico/color/homekube_link_16.png) Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | 
 
 
 ## Project philosophy
@@ -22,6 +22,7 @@ With just a few commands we will setup a Kubernetes single node locally. For all
 ## Requirements
 Server requirements are:
 
+* A 64bit PC or arm64 (e.g. Raspberry 4) or a Virtual Machine on any supporting OS
 * An Ubuntu 20.04 LTS (18.04 LTS or 16.04 LTS will do also [or alternatives linux distros supporting snapd](https://snapcraft.io/docs/installing-snapd))
 * At least 20G of disk space and 4G of memory are recommended
 * An internet connection

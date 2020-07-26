@@ -30,7 +30,7 @@ the pushgateway and the alertmanager. The important setting is
 - server.persistentVolume.storageClass=**managed-nfs-storage**  
 StorageClass name must match existing storage provisioner settings
 
-See also [![](images/ico/color/homekube_16.png) required modifications for ![](images/ico/color/raspi_16.png) arm64 ](architecture-arm.md#prometheus)
+See also [![](images/ico/color/homekube_16.png) required modifications for ![](images/ico/color/raspi_20.png) arm64 ](architecture-arm.md#prometheus)
 
 ```bash
 kubectl create namespace prometheus

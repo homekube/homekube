@@ -1,6 +1,6 @@
 # Installation on arm64
 
-On arm64 hardware (e.g. [![](images/ico/color/raspi_16.png) Raspberry4](https://www.raspberrypi.org/)) containers need to be built for this architecture. 
+On arm64 hardware (e.g. [![](images/ico/color/raspi_20.png) Raspberry4](https://www.raspberrypi.org/)) containers need to be built for this architecture. 
 This is the case for all official images on dockerhub which are multi-platform by default meaning they
 run on 
 [![](images/ico/book_16.png) ![](images/ico/color/docker_16.png) any architecture supported by Docker](https://www.docker.com/blog/docker-official-images-now-multi-platform/).  

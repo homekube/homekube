@@ -6,12 +6,12 @@ The focus is getting something done first and improve your kubernetes skills ste
 Following this tutorial you should have Kubernetes and a sample application installed 
 along with the most useful and popular administration components on your local Ubuntu server:
 
-| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Live amd64| ![](docs/images/ico/color/homekube_link_16.png) Live arm64 |
+| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Service| ![](docs/images/ico/color/raspi_20.png) Raspberry |
 |--------|--------|--------|---------|
-| 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) |[![](docs/images/ico/color/homekube_link_16.png) ](https://whoami.homekube.org)| [![](docs/images/ico/color/raspi_16.png) ](https://whoami.pi.homekube.org)|
-| Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://dashboard.homekube.org) login **demo/demo**| [![](docs/images/ico/color/raspi_16.png) ](https://dashboard.pi.homekube.org) login **demo/demo**| 
-| Grafana monitoring |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://grafana.homekube.org) login **demo/demo** | [![](docs/images/ico/color/raspi_16.png) ](https://grafana.pi.homekube.org) login **demo/demo**| 
-| Prometheus metrics |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)|[![](docs/images/ico/color/homekube_link_16.png) ](https://prometheus.homekube.org)|[![](docs/images/ico/color/raspi_16.png) ](https://prometheus.pi.homekube.org)| 
+| 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) |[![](docs/images/ico/color/homekube_link_16.png) live](https://whoami.homekube.org)| [![](docs/images/ico/color/raspi_20.png) live](https://whoami.pi.homekube.org)|
+| Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)|[![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://dashboard.homekube.org) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://dashboard.pi.homekube.org) | 
+| Grafana monitoring |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)|[![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://grafana.homekube.org) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://grafana.pi.homekube.org) | 
+| Prometheus metrics |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)|[![](docs/images/ico/color/homekube_link_16.png) live](https://prometheus.homekube.org)|[![](docs/images/ico/color/raspi_20.png) live](https://prometheus.pi.homekube.org)| 
 | Testing payloads and response times |![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md)|[![](docs/images/ico/color/homekube_link_16.png) Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | 
 
 

@@ -191,7 +191,7 @@ of its production endpoint so you better double-check with the staging-endpoint.
 The production manifests are the same as staging except that:
 * the acme server endpoint `https://acme-staging-v02.api.letsencrypt.org/directory`   
 is replaced by `https://acme-v02.api.letsencrypt.org/directory`
-* all other occurrences of ``staging`` are replace by ``prod``
+* all other occurrences of ``staging`` are replaced by ``prod``
 
 ```bash
 kubectl apply -f homekube-prod.yaml

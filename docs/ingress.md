@@ -60,7 +60,7 @@ There is a long list of
 Reference of
 [![](images/ico/book_16.png) embedded variables](http://nginx.org/en/docs/http/ngx_http_core_module.html#variables)
 
-We accept https incoming traffic unwrap it and wrap it again in https to forward it to the kubernetes dashboard.
+We accept https incoming traffic, then unwrap it and wrap it again in https to forward it to the kubernetes dashboard.
 It is an important detail that the  **Ingress manifest must be defined in the same namespace as the service it references** 
 e.g.  `namespace: kubernetes-dashboard` .
 

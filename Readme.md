@@ -37,7 +37,7 @@ Server requirements are:
 ![](docs/images/ico/color/homekube_16.png) [ Echo service II](docs/whoami.md) 
 
 #### Advanced tour
-![](docs/images/ico/color/homekube_16.png)[ Quick tour](Readme.md#quick-tour) ->
+**Quick tour** ->
 ![](docs/images/ico/color/homekube_16.png)[ Ingress](docs/ingress.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Dashboard II](docs/dashboard-auth.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Nfs](docs/nfs.md) ->
@@ -45,6 +45,6 @@ Server requirements are:
 ![](docs/images/ico/color/homekube_16.png) [ Grafana](docs/grafana.md)
 
 #### Pro tour
-![](docs/images/ico/color/homekube_16.png)[ Advanced tour](Readme.md#advanced-tour) ->
+**Advanced tour** ->
 ![](docs/images/ico/color/homekube_16.png)[ Cert manager](docs/cert-manager.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Testing response times and payloads](docs/workload-testing.md)

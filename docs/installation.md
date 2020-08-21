@@ -5,8 +5,8 @@
 It is assumed that your server is a separate computer. It might be a VM as well but thats beyond the details of these instructions.
 For the purpose of this tutorial it is assumed that
 
-1) Your homenet is in the portrange `192.168.1.0 - 192.168.1.255` (A class C subnet 192.168.1.0/24) 
-2) Your servers ip is static `192.168.1.100` and the username is `mykube`
+1) Your homenet is in the portrange `192.168.1.0 - 192.168.1.255` (A class C subnet 192.168.1.0/24)  
+2) Your servers ip is static `192.168.1.100` and the username is `mykube`  
 3) You have a free range of unassigned ips that are excluded from your routers dhcp address range.
 We will use these addresses to substitute the functionality of a cloud providers LoadBalancer for all your incoming traffic.
 These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) 

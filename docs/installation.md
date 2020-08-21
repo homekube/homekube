@@ -34,10 +34,10 @@ git clone git@github.com:homekube/homekube.git
 ```
 
 ---
-Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs).
-At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.
 
 ## Installation
+
+Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs):  
 
 ```bash
 sudo snap install microk8s --classic --channel=1.18/stable
@@ -46,11 +46,13 @@ sudo chown -f -R $USER ~/.kube
 su - $USER
 microk8s status --wait-ready
 ```
-Add an alias for `kubectl` to reduce our typing by appending `~/.bash_aliases` with  
+
+At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.  
+
+Add an alias for `kubectl` to reduce our typing: Edit `~/.bash_aliases` and append a line  
 `alias kubectl='microk8s kubectl'`  
 and activate it instantly `. ~/.bash_aliases`
 
----
 Finally in your terminal window execute
 
 ```bash

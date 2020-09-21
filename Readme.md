@@ -1,6 +1,6 @@
 # Kubernetes at home for fun and education
 
-Homekube aims to set up a full operational kubernetes environment on a baremetal Ubuntu server. 
+[Homekube.org](https://homekube.org) aims to set up a full operational kubernetes environment on a baremetal Ubuntu server. 
 The focus is getting something done first and improve your kubernetes skills step by step along a happy path.  
 
 Following this tutorial you should have Kubernetes and a sample application installed 

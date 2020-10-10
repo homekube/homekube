@@ -30,7 +30,7 @@ or suggest improvements you might easily sumbit a PR to improve homekube.
 git clone git@github.com:<your clone>/homekube.git
 
 # Alternative
-git clone git@github.com:homekube/homekube.git
+git clone https://github.com/homekube/homekube.git
 ```
 
 ---
@@ -40,7 +40,7 @@ git clone git@github.com:homekube/homekube.git
 Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs):  
 
 ```bash
-sudo snap install microk8s --classic --channel=1.18/stable
+sudo snap install microk8s --classic --channel=1.19
 sudo usermod -a -G microk8s $USER
 sudo chown -f -R $USER ~/.kube
 su - $USER
@@ -61,8 +61,8 @@ kubectl version --short
 
 The response will be something like
 ```
-Client Version: v1.18.2-41+b5cdb79a4060a3   
-Server Version: v1.18.2-41+b5cdb79a4060a3
+Client Version: v1.19.2-34+1b3fa60b402c1c
+Server Version: v1.19.2-34+1b3fa60b402c1c
 ```
 Congrats ! You are done with the first part.
 

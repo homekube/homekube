@@ -3,31 +3,43 @@
 LXC containers have been around for years and while they don't provide the same level of isolation and security
 as virtual machines they are a very resource efficient way to host a lot of containers on a small budget hardware.
 
-Its allows to test variants of the configuration and
+It allows to test variants of the configuration and
 it is also a preparation step to enhance the installation into a clustered multi-node and multi-host environment.
 
 If you are new to lxc containers see the [![](images/ico/color/youtube_16.png) video tutorial section](#Tutorials) below first !
 
-## Install a bridge on the host
+## Chosing the right network configuration
 
-This is a recommendation to save some trouble in the future.  
 By default LXC containers install their own isolated bridge and cannot be reached from your local net.
 Thats not very useful for most situations as it usually requires more individual configuration efforts later.
 
-The other options are to use the host network interface. This option configures a macvlan interface for the container 
-so containers can be reached from the local net **but not from the host**. This is an important restriction as there can be
-surprising situations when moving containers around hosts.
+This table shows the configuration options for the different dataflows: 
 
-The easiest solution for full network access into the containers 
-from the outside is to provide a bridge on the host. Then define a profile that makes use of this bridge by defining 
-it as the parent interface. 
+| Source | Destination | Default | Macvlan | Host bridge | 
+|------|----|---|----|----|
+|Host| Any container| no| no | yes|
+|Local network| Any container| no| yes | yes|
+|Local network| Any container| no| yes | yes|
+|Any container| Host| no| yes| yes|
+|Any container| local network| no| yes| yes|
+|Any container| Any container| yes| yes| yes|
+
+> **IMPORTANT !!**
+> There are certain restictions if your host is connected to a wireless network (e.g. notebook) or a virtual machine
+> (VirtualBox or VmWare) This blogpost explains
+[**reasons and options** and ![](images/ico/instructor_16.png) setup of a macvlan interface](https://blog.simos.info/how-to-make-your-lxd-container-get-ip-addresses-from-your-lan/)
+
+For the sake of flexiblity the following instructions focus on network setup of a host bridge for unlimited
+network access of all dataflows.
+
+## Install a bridge on the host
 
 The following commands are valid on Ubuntu **versions 18.04 and 20.04** which use
 [![](images/ico/color/ubuntu_16.png) **netplan**](https://netplan.io) for defining its network. 
 Lets create a bridge first.
 
-**Caution !!** Reconfiguring the network is potentially dangerous as you might lose your connection to the host.
-Make sure that you have **direct terminal access to the host** just in case !!
+> **Caution !!** Reconfiguring the network is potentially dangerous as you might lose your connection to the host.
+> Make sure that you have **direct terminal access to the host** just in case !!
 
 Check the network interfaces e.g. `ip a s` or `ls /sys/class/net -l` 
 ```text
@@ -36,7 +48,7 @@ lrwxrwxrwx 1 root root 0 Oct 12 12:57 lo -> ../../devices/virtual/net/lo
 ```
 In this example **enp0s10** is our primary interface (as its the only pci interface in the list).
 Create a new network definition containing the bridge **br0** and replace **enp0s10** with the name of your
-priary network interface.
+primary network interface.
 
 ```bash
 # Enter sudo mode
@@ -44,7 +56,7 @@ sudo -i
 ``` 
 
 ```bash
-cat > /etc/netplan/10-bridge-config-for-lxd-homekube.yaml << EOF
+cat > /etc/netplan/60-bridge-config-for-lxd-homekube.yaml << EOF
 # This config will override the default to provide a host bridge
 network:
     version: 2

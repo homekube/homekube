@@ -36,6 +36,8 @@ apt update && apt install -y kubeadm=1.19.2-00 kubelet=1.19.2-00 kubectl=1.19.2-
 # Hack required to provision K8s v1.15+ in LXC containers
 # Still needed ? /dev/kmsg exists nowadays (Ubuntu 20.04) in containers.
 # Perhaps checking existance first ?
+# Anyway - will only work if the containers (profile) security policy is set to priviledged
+# security.privileged: "true"
 mknod /dev/kmsg c 1 11
 echo '#!/bin/sh -e' >> /etc/rc.local
 echo 'mknod /dev/kmsg c 1 11' >> /etc/rc.local

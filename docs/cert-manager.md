@@ -240,3 +240,27 @@ The code snippet above already shows the final result.
 Now saving the editor will immediately activate the updated configuration.
 Open a browser on any of the supported subdomains, e.g. `https://dashboard.homekube.org`.
 There security warning has gone as we have provided a valid certificate ! 
+
+## Troubleshoot failed renewals
+
+Once in a while cert-manager fails to update. Excerpt from the logs:
+```text
+I0209 06:06:15.819563       1 controller.go:141] cert-manager/controller/certificaterequests-issuer-acme "msg"="syncing item" "key"="cert-manager-acme-secrets/homekube-certificate-prod-2758539001" 
+E0209 06:06:15.820924       1 sync.go:136] cert-manager/controller/certificaterequests-issuer-acme "msg"="error issuing certificate request" "error"="found Order resource not owned by this CertificateRequest, retrying" "related_resource_kind"="ClusterIssuer" "related_resource_name"="letsencrypt-prod" "related_resource_namespace"="" "resource_kind"="CertificateRequest" "resource_name"="homekube-certificate-prod-2758539001" "resource_namespace"="cert-manager-acme-secrets" 
+E0209 06:06:15.821051       1 controller.go:143] cert-manager/controller/certificaterequests-issuer-acme "msg"="re-queuing item  due to error processing" "error"="found Order resource not owned by this CertificateRequest, retrying" "key"="cert-manager-acme-secrets/homekube-certificate-prod-2758539001" 
+```
+
+It seems that auto cleanup of failed requests does not work properly in all cases.
+This issue comment [![](images/ico/github_16.png) helped to solve the problem](https://github.com/jetstack/cert-manager/issues/2683#issuecomment-597300829)
+
+```bash
+# List all custom resource definition
+kubctl get crd
+# We are interested in orders and certificaterequests
+kubectl get orders -A
+kubectl get certificaterequests -A
+
+# Delete suspicious entries e.g.
+kubectl delete certificaterequest homekube-certificate-prod-xxxx -n cert-manager-acme-secret
+kubectl delete order homekube-certificate-prod-xxxxxx-yyyyyyy -n cert-manager-acme-secrets
+```

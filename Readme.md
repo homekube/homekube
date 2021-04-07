@@ -3,8 +3,10 @@
 [Homekube.org](https://homekube.org) aims to set up a full operational kubernetes environment on a baremetal Ubuntu server. 
 The focus is getting something done first and improve your kubernetes skills step by step along a happy path.  
 
+![](docs/images/Rasberry-Pi4-Stack.jpg)
+
 Following this tutorial you should have Kubernetes and a sample application installed 
-along with the most useful and popular administration components on your local Ubuntu server:
+along with the most useful and popular administration components on your local Ubuntu server(s):
 
 | App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Service| ![](docs/images/ico/color/raspi_20.png) Raspberry |
 |--------|--------|--------|---------|

@@ -1,0 +1,9 @@
+config: {}
+description: ""
+devices:
+  eth0:
+    nictype: macvlan
+    parent: eth0
+    type: nic
+name: net-macvlan
+used_by: []

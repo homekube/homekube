@@ -24,8 +24,8 @@ kubectl apply -f /tmp/kube-proxy.yaml
 rm /tmp/kube-proxy.yaml
 
 echo "[TASK 5] Deploy network"
-#kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+#kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 
 echo "[TASK 6] Generate and save cluster join command to /root/joincluster.sh"
 joinCommand=$(kubeadm token create --print-join-command 2>/dev/null)

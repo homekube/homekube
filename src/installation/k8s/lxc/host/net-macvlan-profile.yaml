@@ -1,3 +1,4 @@
+# see https://blog.simos.info/how-to-make-your-lxd-container-get-ip-addresses-from-your-lan/
 config: {}
 description: ""
 devices:

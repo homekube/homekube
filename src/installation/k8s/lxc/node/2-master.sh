@@ -11,6 +11,7 @@ echo "[TASK 1] Pull required containers"
 kubeadm config images pull
 
 echo "[TASK 2] Initialize Kubernetes Cluster"
+# EDIT pod-network-cidr if there is more than one cluster ! e.g. 10.245.0.0/16 or 10.246.0.0/16 ...
 kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all
 
 echo "[TASK 3] Copy kube admin config to root user .kube directory"

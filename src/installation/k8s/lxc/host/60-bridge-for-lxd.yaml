@@ -1,0 +1,17 @@
+# This config will override the default to provide a host bridge
+# see also https://www.techrepublic.com/article/how-to-set-up-a-bridge-for-lxd-containers/
+# and https://www.techrepublic.com/article/how-to-create-a-bridge-network-on-linux-with-netplan/
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: no
+  bridges:
+    br0:
+      dhcp4: yes
+      macaddress: 00:00:00:00:00:01
+      interfaces: [eth0]
+      parameters:
+        stp: true
+        forward-delay: 4

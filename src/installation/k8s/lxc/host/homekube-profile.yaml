@@ -6,7 +6,7 @@ config: {}
 description: "LXD Profile for Mapping Homekube's folders into containers"
 devices:
   install:
-    path: /root/install
+    path: /root/installation
     source: /home/ubuntu/homekube/src/installation/k8s/lxc/node
     type: disk
   homekube:

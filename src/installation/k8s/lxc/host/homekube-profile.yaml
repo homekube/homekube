@@ -1,0 +1,19 @@
+# Mapping hosts path with homekube.org sources into containers
+# This is roughly equivalent to
+# lxc config device add <CONTAINER-NAME> install disk path=/root/install source=~/homekube/src/installation/k8s/lxc/node
+# lxc config device add <CONTAINER-NAME> homekube disk path=/root/homekube source=~/homekube/src/
+config: {}
+description: "LXD Profile for Mapping Homekube's folders into containers"
+devices:
+  install:
+    path: /root/install
+    source: ~/homekube/src/installation/k8s/lxc/node
+    pool: default
+    type: disk
+  homekube:
+    path: /root/homekube
+    source: ~/homekube/src
+    pool: default
+    type: disk
+name: homekube
+used_by: []

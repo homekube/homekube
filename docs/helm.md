@@ -45,7 +45,7 @@ We can then browse these catalogs and directly install helm charts from the comm
 
 ```bash
 # 1) This is the most popular 'stable' helm catalog 
-helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo add stable https://charts.helm.sh/stable
 
 # 2) Bitnami offers 'curated' and well maintained helm charts for many apps - see below
 helm repo add bitnami https://charts.bitnami.com/bitnami

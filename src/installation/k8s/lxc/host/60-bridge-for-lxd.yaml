@@ -1,4 +1,5 @@
-# This config will override the default to provide a host bridge
+# This config is for installation in /etc/netplan and will override the default to provide a host bridge
+# Just copy it to /etc/netplan and restart networking
 # see also https://www.techrepublic.com/article/how-to-set-up-a-bridge-for-lxd-containers/
 # and https://www.techrepublic.com/article/how-to-create-a-bridge-network-on-linux-with-netplan/
 network:

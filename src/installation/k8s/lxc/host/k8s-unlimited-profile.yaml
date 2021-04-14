@@ -1,7 +1,4 @@
 config:
-  limits.cpu: "2"
-  limits.memory: 2GB
-  limits.memory.swap: "false"
   linux.kernel_modules: ip_tables,ip6_tables,nf_nat,overlay,br_netfilter
   raw.lxc: |
     lxc.apparmor.profile=unconfined

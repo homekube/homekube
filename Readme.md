@@ -8,7 +8,7 @@ The focus is getting something done first and improve your kubernetes skills ste
 Following this tutorial you should have Kubernetes and a sample application installed 
 along with the most useful and popular administration components on your local Ubuntu server(s):
 
-| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Service| ![](docs/images/ico/color/raspi_20.png) Raspberry |
+| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Service (AMD64)| ![](docs/images/ico/color/raspi_20.png) Service (ARM64 /Raspberry) |
 |--------|--------|--------|---------|
 | 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) |[![](docs/images/ico/color/homekube_link_16.png) live](https://whoami.homekube.org)| [![](docs/images/ico/color/raspi_20.png) live](https://whoami.pi.homekube.org)|
 | Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)|[![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://dashboard.homekube.org) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://dashboard.pi.homekube.org) | 
@@ -20,6 +20,7 @@ along with the most useful and popular administration components on your local U
 ## Project philosophy
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
 With just a few commands we will setup a Kubernetes single node locally. For all further installs we'll primarily use helm commands so we are very close to what you'd do in a cloud environment.
+For more complex setups including **Multi-Host Multi-Cluster** on a pile of Raspberrys see also the ![](docs/images/ico/color/homekube_16.png) [installation variants](docs/installation-variants.md).
 
 ## Requirements
 Server requirements are:

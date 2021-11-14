@@ -34,11 +34,11 @@ See also [![](images/ico/color/homekube_16.png) required modifications for ![](i
 
 ```bash
 kubectl create namespace prometheus
-helm install prometheus -n prometheus --version=11.6.1 \
+helm install prometheus -n prometheus --version=14.11.1 \
 --set alertmanager.enabled=false \
 --set pushgateway.enabled=false \
 --set server.persistentVolume.storageClass=managed-nfs-storage \
-stable/prometheus
+prometheus-community/prometheus
 ```
 Output:
 ```text

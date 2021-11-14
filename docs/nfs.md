@@ -81,16 +81,19 @@ Ip of any nfs-server in the network (or server on local node).
 See also [![](images/ico/color/homekube_16.png) required modifications for ![](images/ico/color/raspi_20.png) arm64 ](architecture-arm.md#nfs-client)
 
 ```bash
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 kubectl create namespace nfs-storage
-helm install nfs-client --version=1.2.8 \
---set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
---set nfs.server=192.168.1.100 --set nfs.path=/srv/nfs/kubedata \
---namespace nfs-storage \
-stable/nfs-client-provisioner
+
+helm install nfs-client --version=4.0.14 \
+    --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
+    --set nfs.server=192.168.1.100 \
+    --set nfs.path=/srv/nfs/kubedata \
+    --namespace nfs-storage \ 
+    nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 ```
 ```bash
 NAME: nfs-client
-LAST DEPLOYED: Tue Jul  7 17:31:53 2020
+LAST DEPLOYED: Sun Nov 14 14:40:14 2021
 NAMESPACE: nfs-storage
 STATUS: deployed
 REVISION: 1

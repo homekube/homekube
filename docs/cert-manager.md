@@ -74,10 +74,10 @@ First we will register at the service manually and its response data is then use
 
 Next we will register at the service manually:
 ```bash
-curl -s -X POST https://auth.acme-dns.io/register | python -m json.tool
+curl -s -X POST https://auth.acme-dns.io/register | python3 -m json.tool
 
-# if you get an error message: Command 'python' not found
-# you can install it with 'sudo apt install python-minimal'
+# if you get an error message: Command 'python3' not found
+# you can install it with 'sudo apt install python3-minimal'
 ```
 
 A random response will be generated. Example:

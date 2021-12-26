@@ -197,7 +197,7 @@ config:
     lxc.cap.drop=
   security.nesting: "true"
   security.privileged: "true"
-description: "Official Ubuntu Microk8s LXC profile from their repo"
+description: "Official Ubuntu Microk8s LXC profile from their repo (2021-12-25)"
 devices:
   aadisable:
     path: /sys/module/nf_conntrack/parameters/hashsize
@@ -211,7 +211,15 @@ devices:
     path: /dev/kmsg
     source: /dev/kmsg
     type: disk
-```
+  aadisable3:
+    path: /sys/fs/bpf
+    source: /sys/fs/bpf
+    type: disk
+  aadisable4:
+    path: /proc/sys/net/netfilter/nf_conntrack_max
+    source: /proc/sys/net/netfilter/nf_conntrack_max
+    type: disk
+  ```
 
 Check the profile
 
@@ -281,7 +289,7 @@ lxc exec microk8s -- bash
 ```
 
 ```bash
-sudo snap install microk8s --classic --channel=1.19
+sudo snap install microk8s --classic --channel=1.22
 ```
 
 ```bash
@@ -300,8 +308,8 @@ kubectl version --short
 ```
 
 ```text
-Client Version: v1.19.2-34+1b3fa60b402c1c
-Server Version: v1.19.2-34+1b3fa60b402c1c
+Client Version: v1.22.3-3+9ec7c40ec93c73
+Server Version: v1.22.3-3+9ec7c40ec93c73
 ```
 
 Now We are done with installation in a Microk8s container

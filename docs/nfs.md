@@ -67,6 +67,9 @@ un  nfs-kernel-server           <none>             <none>             (no descri
 
 ## Installing the manifest
 
+**NOTE** maintenance of kubernetes nfs support has moved to [![](images/ico/color/kubernetes_16.png) Kubernets-Sigs](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) 
+Instructions were updated below.
+
 Next we install the kubernetes part of the storage provider. Parameters are
 - storageClass.name=**managed-nfs-storage**  
 This parameter needs to match all correspondings pvc storage class references

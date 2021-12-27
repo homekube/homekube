@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,7 +12,10 @@ spec:
   rules:
     - http:
         paths:
-          - backend:
-              serviceName: kubernetes-dashboard
-              servicePort: 443
-            path: /
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: kubernetes-dashboard
+              port: 
+                number: 443

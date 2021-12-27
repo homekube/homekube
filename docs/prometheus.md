@@ -23,7 +23,7 @@ Prerequisites are:
 ## Installation
 
 For installation we will use the
-[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) stable/prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) prometheus community](https://github.com/prometheus-community/helm-charts)
 chart. It offers lots of options but for now we focus on the server component and disable
 the pushgateway and the alertmanager. The important setting is
 
@@ -34,11 +34,13 @@ See also [![](images/ico/color/homekube_16.png) required modifications for ![](i
 
 ```bash
 kubectl create namespace prometheus
-helm install prometheus -n prometheus --version=11.6.1 \
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm install prometheus -n prometheus --version=14.11.1 \
 --set alertmanager.enabled=false \
 --set pushgateway.enabled=false \
 --set server.persistentVolume.storageClass=managed-nfs-storage \
-stable/prometheus
+prometheus-community/prometheus
 ```
 Output:
 ```text

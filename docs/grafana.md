@@ -30,7 +30,7 @@ through the Grafana ui. There are so many options from very easy to very complex
 
 These installation steps try to keep the manual effort as low as possible and 
 will install some dashboards known to work in the context of this tutorial. We will use the
-[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) stable/grafana](https://github.com/helm/charts/tree/master/stable/grafana)
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) grafana/grafana](https://github.com/helm/charts/tree/master/stable/grafana)
 chart.
 
 ```bash
@@ -38,17 +38,19 @@ cd ~/homekube/src/grafana
 
 kubectl create namespace grafana
 
+helm repo add grafana https://grafana.github.io/helm-charts
+
 # provide default admin credentials e.g. admin/admin1234
 kubectl create secret generic grafana-creds -n grafana \
   --from-literal=admin-user=admin \
   --from-literal=admin-password=admin1234
 
-helm install grafana -n grafana --version=5.3.3 \
+helm install grafana -n grafana --version=6.17.5 \
 -f datasource-dashboards.yaml \
 --set persistence.enabled=true \
 --set persistence.storageClassName=managed-nfs-storage \
 --set admin.existingSecret=grafana-creds \
-stable/grafana
+grafana/grafana
 ```
 
 Actually a lot of configuration details are "hidden" in the `datasource-dashboards.yaml`. See the comments there.
@@ -58,7 +60,7 @@ Installer response:
 
 ```text
 NAME: grafana
-LAST DEPLOYED: Thu Jul 16 09:09:40 2020
+LAST DEPLOYED: Sun Nov 14 15:02:10 2021
 NAMESPACE: grafana
 STATUS: deployed
 REVISION: 1

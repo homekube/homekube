@@ -33,7 +33,7 @@ cd ~/homekube/src/cert-manager
 Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.1/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml
 kubectl get pod -n cert-manager --watch
 ```
 The containers are getting up and running:
@@ -74,10 +74,10 @@ First we will register at the service manually and its response data is then use
 
 Next we will register at the service manually:
 ```bash
-curl -s -X POST https://auth.acme-dns.io/register | python -m json.tool
+curl -s -X POST https://auth.acme-dns.io/register | python3 -m json.tool
 
-# if you get an error message: Command 'python' not found
-# you can install it with 'sudo apt install python-minimal'
+# if you get an error message: Command 'python3' not found
+# you can install it with 'sudo apt install python3-minimal'
 ```
 
 A random response will be generated. Example:

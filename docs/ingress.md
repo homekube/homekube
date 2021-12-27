@@ -43,9 +43,10 @@ That wasn't easy to extend when using microk8s version.
   
 ```bash
 kubectl create namespace ingress-nginx
-helm install nginx-helm -n ingress-nginx --version=2.9.1 \
--f ingress-helm-values.yaml \
-ingress-nginx/ingress-nginx
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install nginx-helm -n ingress-nginx --version=4.0.6 \
+  -f ingress-helm-values.yaml \
+  ingress-nginx/ingress-nginx
 ```
 
 ## Configuration

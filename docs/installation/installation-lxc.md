@@ -197,7 +197,7 @@ config:
     lxc.cap.drop=
   security.nesting: "true"
   security.privileged: "true"
-description: "Official Ubuntu Microk8s LXC profile from their repo"
+description: "Official Ubuntu Microk8s LXC profile from their repo (2021-12-25)"
 devices:
   aadisable:
     path: /sys/module/nf_conntrack/parameters/hashsize
@@ -211,7 +211,15 @@ devices:
     path: /dev/kmsg
     source: /dev/kmsg
     type: disk
-```
+  aadisable3:
+    path: /sys/fs/bpf
+    source: /sys/fs/bpf
+    type: disk
+  aadisable4:
+    path: /proc/sys/net/netfilter/nf_conntrack_max
+    source: /proc/sys/net/netfilter/nf_conntrack_max
+    type: disk
+  ```
 
 Check the profile
 
@@ -281,15 +289,35 @@ lxc exec microk8s -- bash
 ```
 
 ```bash
-sudo snap install microk8s --classic --channel=1.19
+snap install microk8s --classic --channel=1.23/stable
+```
+Apply the follwing changes once in the container:
+
+Add aliases for ``kubectl`` and ``helm``
+```bash
+cat >> .bash_aliases << EOF
+alias kubectl='microk8s kubectl'
+alias helm='microk8s helm3'
+EOF
 ```
 
+When the LXD container boots it needs to load the AppArmor profiles required by MicroK8s or else you may get the error:
+
+``cannot change profile for the next exec call: No such file or directory``
+
+
 ```bash
-cat >> .bashrc << EOF
-#
-# Add alias for kubectl
-alias kubectl='microk8s kubectl'
+cat > /etc/rc.local <<EOF
+#!/bin/bash
+
+apparmor_parser --replace /var/lib/snapd/apparmor/profiles/snap.microk8s.*
+exit 0
 EOF
+```
+
+Make the rc.local executable:
+```
+chmod +x /etc/rc.local
 ```
 
 `exit` the container and restart `lxc microk8s restart` it to activate the changes.  
@@ -300,8 +328,8 @@ kubectl version --short
 ```
 
 ```text
-Client Version: v1.19.2-34+1b3fa60b402c1c
-Server Version: v1.19.2-34+1b3fa60b402c1c
+Client Version: v1.23.3-3+9ec7c40ec93c73
+Server Version: v1.23.3-3+9ec7c40ec93c73
 ```
 
 Now We are done with installation in a Microk8s container

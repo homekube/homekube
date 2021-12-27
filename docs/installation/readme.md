@@ -34,6 +34,6 @@ on a single host. However they require a more sophisticated setup.
 
 | | Homekube docs | Canonical docs (Microk8s) |
 |---|-------------|-----------|
-| | [![](../images/ico/color/homekube_16.png) LXC installation](installation-lxc.md) | [![](../images/ico/color/ubuntu_16.png) LXC Installation](https://microk8s.io/docs/lxd)|
-| | [![](../images/ico/color/homekube_16.png) LXC installation notes](installation-lxd-notes.md) | [![](../images/ico/color/ubuntu_16.png) LXC Installation Upgrade](https://microk8s.io/docs/upgrade-cluster)|
+| | [![](../images/ico/color/homekube_16.png) LXC installation](./installation-lxc.md) | [![](../images/ico/color/ubuntu_16.png) LXC Installation](https://microk8s.io/docs/lxd)|
+| | [![](../images/ico/color/homekube_16.png) LXC installation notes](./installation-lxd-notes.md) | [![](../images/ico/color/ubuntu_16.png) LXC Installation Upgrade](https://microk8s.io/docs/upgrade-cluster)|
 

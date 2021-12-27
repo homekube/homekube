@@ -14,7 +14,7 @@ Instead we simply install the upstream
 [![](images/ico/github_16.png) community version](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
 ```
 
 Lets quickly check the installation. `192.168.1.100` is our server ip when following the prerequisites.

@@ -289,11 +289,11 @@ lxc exec microk8s -- bash
 ```
 
 ```bash
-sudo snap install microk8s --classic --channel=1.22
+snap install microk8s --classic --channel=1.23/stable
 ```
 
 ```bash
-cat >> .bashrc << EOF
+cat >> .bash_aliases << EOF
 #
 # Add alias for kubectl
 alias kubectl='microk8s kubectl'
@@ -308,8 +308,8 @@ kubectl version --short
 ```
 
 ```text
-Client Version: v1.22.3-3+9ec7c40ec93c73
-Server Version: v1.22.3-3+9ec7c40ec93c73
+Client Version: v1.23.3-3+9ec7c40ec93c73
+Server Version: v1.23.3-3+9ec7c40ec93c73
 ```
 
 Now We are done with installation in a Microk8s container

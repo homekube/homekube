@@ -47,6 +47,15 @@ su - $USER
 microk8s status --wait-ready
 ```
 
+You might also want to have a look at the available versions in case these instructions are outdated
+(see [![](images/ico/color/ubuntu_16.png) release-notes](https://microk8s.io/docs/release-notes) )
+
+```bash
+snap info microk8s
+```
+
+
+
 At this point you are done with a base installation and this tutorial will lead you through the next steps of installing the other apps.  
 
 Add an alias for `kubectl` to reduce our typing: Edit `~/.bash_aliases` and append a line  
@@ -61,8 +70,8 @@ kubectl version --short
 
 The response will be something like
 ```
-Client Version: v1.19.2-34+1b3fa60b402c1c
-Server Version: v1.19.2-34+1b3fa60b402c1c
+Client Version: v1.23.2-34+1b3fa60b402c1c
+Server Version: v1.23.2-34+1b3fa60b402c1c
 ```
 Congrats ! You are done with the first part.
 

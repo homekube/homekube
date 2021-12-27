@@ -291,13 +291,33 @@ lxc exec microk8s -- bash
 ```bash
 snap install microk8s --classic --channel=1.23/stable
 ```
+Apply the follwing changes once in the container:
 
+Add aliases for ``kubectl`` and ``helm``
 ```bash
 cat >> .bash_aliases << EOF
-#
-# Add alias for kubectl
 alias kubectl='microk8s kubectl'
+alias helm='microk8s helm3'
 EOF
+```
+
+When the LXD container boots it needs to load the AppArmor profiles required by MicroK8s or else you may get the error:
+
+``cannot change profile for the next exec call: No such file or directory``
+
+
+```bash
+cat > /etc/rc.local <<EOF
+#!/bin/bash
+
+apparmor_parser --replace /var/lib/snapd/apparmor/profiles/snap.microk8s.*
+exit 0
+EOF
+```
+
+Make the rc.local executable:
+```
+chmod +x /etc/rc.local
 ```
 
 `exit` the container and restart `lxc microk8s restart` it to activate the changes.  

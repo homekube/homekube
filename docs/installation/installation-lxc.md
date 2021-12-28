@@ -109,7 +109,7 @@ In Ubuntu **18.04** and up lxc/lxd are already installed. Verify with `whereis l
 Add your username (mykube) to the lxd group so we don't need to run all the commands as 'sudo'.
 
 ```bash
-sudo gpasswd -a mykube lxd
+sudo gpasswd -a $USER lxd
 ```
 
 Activate this change by logging out and in again.
@@ -176,7 +176,7 @@ name: default
 LXC containers can't load kernel modules and we need to know in advance which kernel modules are required for successful execution
 of a lxc container. This is quite a restriction as it can be sort of trial and error to find out proper settings.
 For MicroK8s there is already a published 
-[![](images/ico/color/ubuntu_16.png) ![](images/ico/github_16.png) MircoK8s profile](https://github.com/ubuntu/microk8s/blob/master/tests/lxc/microk8s.profile)
+[![](../images/ico/color/ubuntu_16.png) ![](../images/ico/github_16.png) MircoK8s profile](https://github.com/ubuntu/microk8s/blob/master/tests/lxc/microk8s.profile)
 to use. Besides defining kernel modules it lowers security restrictions and defines apparmor settings
 
 ```

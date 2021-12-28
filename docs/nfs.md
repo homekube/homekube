@@ -81,8 +81,6 @@ Ip of any nfs-server in the network (or server on local node).
 **NOTE** that `localhost` or `127.0.0.1` will not work !
 - nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.
 
-See also [![](images/ico/color/homekube_16.png) required modifications for ![](images/ico/color/raspi_20.png) arm64 ](architecture-arm.md#nfs-client)
-
 ```bash
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 kubectl create namespace nfs-storage

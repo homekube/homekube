@@ -13,7 +13,7 @@ config:
     lxc.cap.drop=
   security.nesting: "true"
   security.privileged: "true"
-description: ""
+description: "Microk8s profile from https://github.com/ubuntu/microk8s/blob/master/tests/lxc/microk8s.profile"
 devices:
   aadisable:
     path: /sys/module/nf_conntrack/parameters/hashsize

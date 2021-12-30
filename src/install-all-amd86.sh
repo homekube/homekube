@@ -60,8 +60,8 @@ kubectl create namespace nfs-storage
 
 helm install nfs-client --version=4.0.14 \
   --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
-  --set nfs.server=192.168.1.90 \
-  --set nfs.path=/srv/nfs/kubedata \
+  --set nfs.server=192.168.1.250 \
+  --set nfs.path=/Public/nfs/kubedata \
   --namespace nfs-storage \
   nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 echo "Installation done nfs client"

@@ -131,7 +131,7 @@ a persistent volume claim is deleted we need to change the reclaim policy with a
 
 `--set storageClass.reclaimPolicy=Retain`  
 
-[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) More options ...](https://github.com/helm/charts/tree/master/stable/nfs-client-provisioner#configuration) 
+[![](images/ico/color/helm_16.png) ![](images/ico/github_16.png) More options ...](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/tree/master/charts/nfs-subdir-external-provisioner) 
 
 ### Cleanup
 In case we want to get rid of the nfs-storage

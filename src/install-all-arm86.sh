@@ -118,8 +118,8 @@ kubectl create namespace nfs-storage
 
 helm install nfs-client --version=4.0.14 \
   --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
-  --set nfs.server=192.168.1.90 \
-  --set nfs.path=/srv/nfs/pidata \
+  --set nfs.server=192.168.1.250 \
+  --set nfs.path=/Public/nfs/pidata \
   --namespace nfs-storage \
   nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 echo "Installation done nfs client"
@@ -134,6 +134,7 @@ helm install prometheus -n prometheus --version=14.11.1 \
   --set pushgateway.enabled=false \
   --set server.persistentVolume.storageClass=managed-nfs-storage \
   prometheus-community/prometheus
+echo "Installation done prometheus"
 
 #kubectl apply -f ~/homekube/src/prometheus/ingress-prometheus.yaml
 cat <<EOF | kubectl apply -f -

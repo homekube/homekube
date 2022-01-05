@@ -13,8 +13,4 @@ then
   exit 1
 fi
 HOMEKUBE_DASHBOARD_TOKEN=$(microk8s.kubectl -n ${HOMEKUBE_NAMESPACE} get secret $token -o jsonpath='{.data.token}' | base64 -d)
-cp ingress-dashboard-auth.yaml temp.yaml
-# replace the token with the env var
-sed -i 's|${HOMEKUBE_DASHBOARD_TOKEN}|'${HOMEKUBE_DASHBOARD_TOKEN}'|' temp.yaml
-kubectl apply -f temp.yaml
-rm temp.yaml
+envsubst < ingress-dashboard-auth.yaml | kubectl apply -f -

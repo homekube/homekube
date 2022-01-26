@@ -1,8 +1,8 @@
 ﻿# What is Portainer
 
-[Portainer](https://portainer.io) is an [open source](https://github.com/portainer/portainer) tool that lets users set-up, configure, and govern a container management portal that helps them get more value from Kubernetes sooner, with the skills the team already has. It also does the continuous deployment and delivery into Kubernetes and unorchestrated Docker, using the GitOps approach.
+[Portainer](https://portainer.io) is an [open source](https://github.com/portainer/portainer) tool that lets users set-up, configure, and govern a Kubernetes environment that helps them get more value from Kubernetes sooner. It supports the continuous deployment and delivery into Kubernetes and unorchestrated Docker, using the GitOps approach. 
 
-Manage any orchestrator, in the cloud, on prem, or at the edge, in a single interface.
+It is GUI-based, and super easy to use which means you can focus on your application, rather than on Kubernetes internals.
 
 ## Install Portainer
 

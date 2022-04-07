@@ -173,4 +173,4 @@ Read more [![](images/ico/book_16.png) about bridge configuration here](https://
 
 ## Provisioning Microk8s
 
-As the next step we need to [![](images/ico/color/homekube_16.png) provision the container with Microk8s](inst_provision-microk8s-lxc.md)
+As the next step we need to ![](images/ico/color/homekube_16.png)[ provision the container with Microk8s](inst_provision-microk8s-lxc.md)

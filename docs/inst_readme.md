@@ -6,23 +6,23 @@ from simple to sophisticated
 
 | | Single node | Containerized |
 |---|-------------|-----------|
-| | ![](../images/scans/1-Single-Host-unclustered.jpg)| ![](../images/scans/2-Single-Host-Multi-Cluster.jpg)|
+| | ![](images/1-Single-Host-unclustered.png)| ![](images/2-Single-Host-Multi-Cluster.png)|
 | + | Simple installation | 2 or more independent nodes possible |
 | - | Limited options (only one node) | Requires containers / VMs |
-| | [![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) 25:24 Basic single node installation of kubernetes on Raspberry Pi](https://www.youtube.com/watch?v=Gir3XTeIzFk) | [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 42:21 Installing a kubernetes cluster on Raspberry Pi](https://www.youtube.com/watch?v=G91wlOAsW00)  |
+| | [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 25:24 Basic single node installation of kubernetes on Raspberry Pi](https://www.youtube.com/watch?v=Gir3XTeIzFk) | [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 42:21 Installing a kubernetes cluster on Raspberry Pi](https://www.youtube.com/watch?v=G91wlOAsW00)  |
 
 
-[![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) 23:07 Verify your installation using the dashboard and a simple helm chart](https://www.youtube.com/watch?v=1I97auLOarg)
+[![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 23:07 Verify your installation using the dashboard and a simple helm chart](https://www.youtube.com/watch?v=1I97auLOarg)
 
 ## Multiple hosts
 
 | | Single Cluster | Containerized Multi Clustered |
 |---|-------------|-----------|
-| | ![](../images/scans/3-Multi-Host-Single-Cluster.jpg)| ![](../images/scans/4-Multi-Host-Multi-Cluster.jpg)|
+| | ![](images/3-Multi-Host-Single-Cluster.png)| ![](images/4-Multi-Host-Multi-Cluster.png)|
 | + | <ul><li>Medium complex installation</li><li>Requires setup of bridges but its similar to single host</li></ul>  | Most efficient use of hardware  |
 | + |  | Allows high availability deployments independent of hw failures  |
 | - | Not the most efficient use of hardware |  |
-|  |  Just repeat the installation steps for a single host | [![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) 27:45 More Raspberries - more challenges. Install a multi host - multi cluster Raspberry Pi 'farm'](https://www.youtube.com/watch?v=VI9YGBLEEew)  |
+|  |  Just repeat the installation steps for a single host | [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 27:45 More Raspberries - more challenges. Install a multi host - multi cluster Raspberry Pi 'farm'](https://www.youtube.com/watch?v=VI9YGBLEEew)  |
 
 # Chosing a variant
 
@@ -44,7 +44,7 @@ containers are not allowed to load kernel modules on demand so it is necessary t
 already on startup. Another challenge is container security. In Linux environments usually AppArmor cares
 about isolation. This setup needs to be configured properly or you might run into all cases of weird application
 glitches difficult to trace. Luckily there is a good (but short) 
-[![](../images/ico/color/ubuntu_16.png) documentation by Canonical](https://microk8s.io/docs/lxd) and some more
+[![](images/ico/color/ubuntu_16.png) documentation by Canonical](https://microk8s.io/docs/lxd) and some more
 background information follows here.
 
 ## Chosing a networking strategy
@@ -75,4 +75,4 @@ basically all the necessary features for accessibility in a local network.
 
 ## Install MicroK8s in LXC using Macvlan
 
-Now lets proceed with [Homekubes default installation](./installation-microk8s-lxc-macvlan.html)
+Now lets proceed with [Homekubes default installation](inst_microk8s-lxc-macvlan.md)

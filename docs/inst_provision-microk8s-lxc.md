@@ -67,7 +67,7 @@ Now We are done with installation in a Microk8s container
 
 ## Further reading
 
-[![](../images/ico/book_16.png) ![](../images/ico/color/ubuntu_16.png) Recommendations about using lxd](https://ubuntu.com/blog/lxd-5-easy-pieces)
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Recommendations about using lxd](https://ubuntu.com/blog/lxd-5-easy-pieces)
 
 ## Troubleshooting
 
@@ -75,8 +75,8 @@ Error: [cannot change profile for the next exec call: No such file or directory]
 
 ## Tutorials
 
-- [![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) 48:03 Getting started with LXC containers](https://www.youtube.com/watch?v=CWmkSj_B-wo)  
+- [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 48:03 Getting started with LXC containers](https://www.youtube.com/watch?v=CWmkSj_B-wo)  
   [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 
-- [![](../images/ico/color/youtube_16.png) ![](../images/ico/terminal_16.png) 28:51 [ Kube 30 ] Deploying Kubernetes Cluster using LXC Containers](https://www.youtube.com/watch?v=XQvQUE7tAsk)  
+- [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 28:51 [ Kube 30 ] Deploying Kubernetes Cluster using LXC Containers](https://www.youtube.com/watch?v=XQvQUE7tAsk)  
   [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 
 

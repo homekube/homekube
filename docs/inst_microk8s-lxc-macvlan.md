@@ -4,7 +4,7 @@
 ## Preparation host
 Ubuntu default installations enable disk swapping.  
 The kubernetes docs state explicitly that its an absolute requirement to
-[![](../images/ico/color/kubernetes_16.png) disable swapping](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin)
+[![](images/ico/color/kubernetes_16.png) disable swapping](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin)
 > You **MUST** disable swap in order for the kubelet to work properly
 
 Thats easy to do
@@ -62,7 +62,7 @@ A default profile is created upon ``lxd init`` which defines path mappings and b
 ### Microk8s profile
 Next we will create a Mikrok8s profile that contains all the required configuration.
 A template is prepared in our local source. You might want to check the 
-[![](../images/ico/color/ubuntu_16.png) ![](../images/ico/github_16.png) original source](https://github.com/ubuntu/microk8s/blob/master/tests/lxc/microk8s.profile)
+[![](images/ico/color/ubuntu_16.png) ![](images/ico/github_16.png) original source](https://github.com/ubuntu/microk8s/blob/master/tests/lxc/microk8s.profile)
 in case it was updated.
 
 ```
@@ -111,7 +111,7 @@ used_by: []
 
 As a last step in profile creation we will create a suitable network profile using Macvlan.
 This configuration is simple. It will acquire ips from your local network and allow access to your containers from the network.
-You can read [![](../images/ico/book_16.png) background information here](https://blog.simos.info/how-to-make-your-lxd-container-get-ip-addresses-from-your-lan/)
+You can read [![](images/ico/book_16.png) background information here](https://blog.simos.info/how-to-make-your-lxd-container-get-ip-addresses-from-your-lan/)
 
 First we need to find out our hosts primary network interface name: ``ip a s``. Result looks like:
 ```
@@ -169,8 +169,8 @@ Lets check if we were successful ``lxc list`` results in something like
 Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
 But always keep in mind that this container will not be reachable from the host.
 Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
-Read more [![](../images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
+Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
 
 ## Provisioning Microk8s
 
-As the next step we need to [![](../images/ico/color/homekube_16.png) provision the container with Microk8s](./provision-microk8s-lxc.html)
+As the next step we need to [![](images/ico/color/homekube_16.png) provision the container with Microk8s](inst_provision-microk8s-lxc.md)

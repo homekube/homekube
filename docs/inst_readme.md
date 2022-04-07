@@ -75,4 +75,4 @@ basically all the necessary features for accessibility in a local network.
 
 ## Install MicroK8s in LXC using Macvlan
 
-Now lets proceed with [Homekubes default installation](inst_microk8s-lxc-macvlan.md)
+Now lets proceed with ![](images/ico/color/homekube_16.png)[Homekubes default installation](inst_microk8s-lxc-macvlan.md)

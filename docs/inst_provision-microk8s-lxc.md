@@ -3,7 +3,7 @@
 ## Installation
 
 The final step is the installation of MicroK8s.
-Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md#installation).  
+Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md).  
 Step inside the container:
 
 ```

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# change the settings to match your domain and environment
 HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200
 HOMEKUBE_HOME=homekube.org
 HOMEKUBE_NFS_SERVER_URL=192.168.1.250
@@ -106,11 +107,10 @@ metadata:
       proxy_set_header "Authorization" "Bearer ${HOMEKUBE_DASHBOARD_TOKEN}" ;
   name: ingress-dashboard-service
   namespace: kubernetes-dashboard
-# when deployed on homekube.org
-#   - host: dashboard.homekube.org
 spec:
   rules:
-    - http:
+    - host: dashboard.${HOMEKUBE_HOME}
+      http:
         paths:
         - path: /
           pathType: Prefix

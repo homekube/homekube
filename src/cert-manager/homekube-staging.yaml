@@ -16,8 +16,7 @@ metadata:
   namespace: cert-manager-acme-secrets
 spec:
   dnsNames:
-    - 'homekube.org'
-    - '*.homekube.org'
+    - '*.${HOMEKUBE_HOME}'
   secretName: homekube-tls-staging
   issuerRef:
     name: letsencrypt-staging
@@ -45,7 +44,7 @@ spec:
             host: https://auth.acme-dns.io
             accountSecretRef:
               name: acme-dns-homekube
-              key: acme-dns-homekube.json
+              key: acme-dns.json
         selector:
           dnsZones:
-            - 'homekube.org'
+            - '${HOMEKUBE_HOME}'

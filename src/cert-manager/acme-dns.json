@@ -1,0 +1,10 @@
+{ "homekube.org" :
+  {
+    "username": "username_generated_by_registration",
+    "password": "password_generated_by_registration",
+    "fulldomain": "subdomain_generated_by_registration.auth.acme-dns.io",
+    "subdomain": "subdomain_generated_by_registration",
+    "allowfrom": []
+  }
+}
+

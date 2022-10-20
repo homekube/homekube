@@ -85,13 +85,12 @@ subjects:
   namespace: kubernetes-dashboard
 EOF
 
-token=$(kubectl -n kubernetes-dashboard get secret | grep simple-user-token | cut -d " " -f1)
-if [ -z "$token" ]
+HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user)
+if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
   exit 1
 fi
-HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard get secret $token -o jsonpath='{.data.token}' | base64 -d)
 
 cat << EOF | envsubst | kubectl apply -f -
 apiVersion: networking.k8s.io/v1

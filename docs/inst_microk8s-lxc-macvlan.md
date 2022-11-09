@@ -173,4 +173,8 @@ Read more [![](images/ico/book_16.png) about bridge configuration here](https://
 
 ## Provisioning Microk8s
 
-As the next step we need to ![](images/ico/color/homekube_16.png)[ provision the container with Microk8s](inst_provision-microk8s-lxc.md)
+```bash
+lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
+lxc exec homekube -- microk8s status --wait-ready
+lxc exec homekube -- microk8s enable dns rbac helm3
+```

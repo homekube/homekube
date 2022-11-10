@@ -178,3 +178,10 @@ lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
 lxc exec homekube -- microk8s status --wait-ready
 lxc exec homekube -- microk8s enable dns rbac helm3
 ```
+
+Install homekube
+```bash
+lxc exec homekube bash
+cd /root/homekube
+bash -i install-all.sh
+```

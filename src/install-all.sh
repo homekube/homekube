@@ -85,7 +85,7 @@ subjects:
   namespace: kubernetes-dashboard
 EOF
 
-HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user)
+HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user --duration 525600m)   # 10 years duration
 if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"

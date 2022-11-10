@@ -26,14 +26,25 @@ For more complex setups including **Multi-Host Multi-Cluster** on a pile of Rasp
 Server requirements are:
 
 * A 64bit PC or arm64 (e.g. Raspberry 4) or a Virtual Machine on any supporting OS
-* An Ubuntu 20.04 LTS (18.04 LTS or 16.04 LTS will do also [or alternatives linux distros supporting snapd](https://snapcraft.io/docs/installing-snapd))
+* An Ubuntu 22.04 LTS (20.04 LTS or 18.04 LTS will do also [or alternatives linux distros supporting snapd](https://snapcraft.io/docs/installing-snapd))
 * At least 20G of disk space and 4G of memory are recommended
 * An internet connection
 
+## Base Installation
+
+| Host                                                                                   | Container                                                                                                      |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ![](docs/images/ico/color/homekube_16.png)[-> Host installation](docs/installation.md) | ![](docs/images/ico/color/homekube_16.png)[ -> 1) Setup environment](docs/inst_microk8s-lxc-macvlan.md)        |
+|                                                                                        | ![](docs/images/ico/color/homekube_16.png)[ -> 2) Provision container(s)](docs/inst_provision-microk8s-lxc.md) |
+|                                                                                        | [![](docs/images/ico/color/ubuntu_16.png) Read more about **Linux containers**](https://linuxcontainers.org)   |
+| Very easy                                                                              | A few simple steps required                                                                                    |
+| Single host / Single node                                                              | Single host / multiple clusters                                                                                |
+| Not extendible                                                                         | Extendible see ![](docs/images/ico/color/homekube_16.png) [ installation variants](docs/inst_readme.md)        |
+
+## Service installation
 
 #### Quick tour
 
-![](docs/images/ico/color/homekube_16.png)[ Installation](docs/installation.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Dashboard](docs/dashboard.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm I](docs/helm.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm / Echo Service](docs/helm-basics.md) ->

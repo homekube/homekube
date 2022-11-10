@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# change the settings to match your domain and environment
 HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200
 HOMEKUBE_HOME=homekube.org
 HOMEKUBE_NFS_SERVER_URL=192.168.1.250
@@ -84,13 +85,12 @@ subjects:
   namespace: kubernetes-dashboard
 EOF
 
-token=$(kubectl -n kubernetes-dashboard get secret | grep simple-user-token | cut -d " " -f1)
-if [ -z "$token" ]
+HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user)
+if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
   exit 1
 fi
-HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard get secret $token -o jsonpath='{.data.token}' | base64 -d)
 
 cat << EOF | envsubst | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
@@ -106,11 +106,10 @@ metadata:
       proxy_set_header "Authorization" "Bearer ${HOMEKUBE_DASHBOARD_TOKEN}" ;
   name: ingress-dashboard-service
   namespace: kubernetes-dashboard
-# when deployed on homekube.org
-#   - host: dashboard.homekube.org
 spec:
   rules:
-    - http:
+    - host: dashboard.${HOMEKUBE_HOME}
+      http:
         paths:
         - path: /
           pathType: Prefix
@@ -185,7 +184,7 @@ kubectl create secret generic grafana-creds -n grafana \
   --from-literal=admin-user=admin \
   --from-literal=admin-password=admin1234
 
-helm install grafana -n grafana --version=6.17.5 \
+helm install grafana -n grafana --version=6.42.2 \
   --set persistence.enabled=true \
   --set persistence.storageClassName=managed-nfs-storage \
   --set admin.existingSecret=grafana-creds \

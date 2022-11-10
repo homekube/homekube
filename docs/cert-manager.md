@@ -33,7 +33,7 @@ cd ~/homekube/src/cert-manager
 Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.10.0/cert-manager.yaml
 kubectl get pod -n cert-manager --watch
 ```
 The containers are getting up and running:
@@ -74,10 +74,10 @@ First we will register at the service manually and its response data is then use
 
 Next we will register at the service manually:
 ```bash
-curl -s -X POST https://auth.acme-dns.io/register | python3 -m json.tool
+# jq . is just for readability and can be omitted
+curl -s -X POST https://auth.acme-dns.io/register | jq .
 
-# if you get an error message: Command 'python3' not found
-# you can install it with 'sudo apt install python3-minimal'
+# if jq is not installed you might install it with suddo apt install jq
 ```
 
 A random response will be generated. Example:
@@ -122,10 +122,10 @@ _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
-and save the registration response into a **.json** file **`acme-dns-homekube.json`** on the server in your current directory 
+and save the registration response into a **.json** file **`acme-dns.json`** on the server in your current directory 
 with the **domain name as a key** and the **response as its value**.   
 Replace ``homekube.org`` with a domain name of your choice.
-**Example** **`acme-dns-homekube.json`** looks like:
+**Example** **`acme-dns.json`** looks like:
 
 ```json
 { "homekube.org": 
@@ -151,8 +151,8 @@ of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences o
 with the name of your top-level domain.
  
 ```bash
-kubectl create secret generic acme-dns-homekube -n cert-manager --from-file acme-dns-homekube.json
-kubectl apply -f homekube-staging.yaml
+kubectl create secret generic acme-dns-homekube -n cert-manager --from-file acme-dns.json
+HOMEKUBE_HOME=homekube.org envsubst < homekube-staging.yaml | kubectl apply -f -
 ```
 
 Lets verify our installation 
@@ -194,7 +194,7 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replaced by ``prod``
 
 ```bash
-kubectl apply -f homekube-prod.yaml
+HOMEKUBE_HOME=homekube.org envsubst < homekube-prod.yaml | kubectl apply -f -
 ```
 
 When the resulting secret 

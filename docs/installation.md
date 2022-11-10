@@ -40,7 +40,7 @@ git clone https://github.com/homekube/homekube.git
 Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs):  
 
 ```bash
-sudo snap install microk8s --classic --channel=1.23/stable
+sudo snap install microk8s --classic --channel=1.25/stable
 sudo usermod -a -G microk8s $USER
 sudo chown -f -R $USER ~/.kube
 su - $USER

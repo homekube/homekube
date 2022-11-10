@@ -3,7 +3,9 @@
 ## Installation
 
 The final step is the installation of MicroK8s.
-Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md#installation).  
+Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md#installation).
+See also [![](images/ico/color/ubuntu_16.png)Canonicals offical docs](https://microk8s.io/docs/lxd).
+
 Step inside the container:
 
 ```
@@ -11,7 +13,7 @@ lxc shell microk8s
 ```
 
 ```bash
-snap install microk8s --classic --channel=1.23/stable
+snap install microk8s --classic --channel=1.25/stable
 ```
 
 ## Fix AppArmor settings

@@ -15,7 +15,8 @@ metadata:
 #   - host: dashboard.homekube.org
 spec:
   rules:
-    - http:
+    - host: dashboard.homekube.org
+      http:
         paths:
         - path: /
           pathType: Prefix

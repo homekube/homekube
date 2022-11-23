@@ -182,6 +182,7 @@ lxc exec homekube -- microk8s enable dns rbac helm3
 Install homekube
 ```bash
 lxc exec homekube bash
-cd /root/homekube
+cd /root/homekube/src
+# edit env variables in install-all.sh to match your installation
 bash -i install-all.sh
 ```

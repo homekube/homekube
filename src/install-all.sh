@@ -27,7 +27,7 @@ microk8s enable dns rbac helm3 metallb:${HOMEKUBE_PUBLIC_IPS}
 ############################## install whoami #################################
 ###############################################################################
 kubectl get ns whoami
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of demo whoami app because the namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns whoami' and run this script again"
 else
@@ -66,7 +66,7 @@ fi # end if installation of whoami
 ############################## install ingress ################################
 ###############################################################################
 kubectl get ns ingress-nginx
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of nginx webserver because the namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns ingress-nginx' and run this script again"
 else
@@ -91,7 +91,7 @@ fi # end of installation of nginx webservice
 ############################## install dashboard ##############################
 ###############################################################################
 kubectl get ns kubernetes-dashboard
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of dashboard because namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns kubernetes-dashboard'"
 else
@@ -161,7 +161,7 @@ fi # end of installation of kubernetes dashboard
 ############################## install nfs client #############################
 ###############################################################################
 kubectl get ns nfs-storage
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of nfs storage because namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns nfs-storage'"
 else
@@ -185,7 +185,7 @@ fi # end of installation of nfs storage
 ############################## install prometheus #############################
 ###############################################################################
 kubectl get ns prometheus
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of prometheus because namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns prometheus'"
 else
@@ -229,7 +229,7 @@ fi # end of installation of prometheus
 ############################## install grafana ################################
 ###############################################################################
 kubectl get ns grafana
-if [[ $? -ne 0]]; then
+if [[ $? -ne 0 ]]; then
   echo "Skipping installation of grafana because namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns grafana'"
 else

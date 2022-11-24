@@ -9,7 +9,7 @@ See also [![](images/ico/color/ubuntu_16.png)Canonicals offical docs](https://mi
 Step inside the container:
 
 ```
-lxc shell microk8s
+lxc exec microk8s -- bash
 ```
 
 ```bash
@@ -61,8 +61,9 @@ kubectl version --short
 ```
 
 ```text
-Client Version: v1.23.3-3+9ec7c40ec93c73
-Server Version: v1.23.3-3+9ec7c40ec93c73
+Client Version: v1.25.4
+Kustomize Version: v4.5.7
+Server Version: v1.25.4
 ```
 
 Now We are done with installation in a Microk8s container

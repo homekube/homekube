@@ -149,12 +149,12 @@ used_by: []
 
 ### Install an empty Ubuntu container
 
-This command installs and launches an empty OS Ubuntu 20.04 inside a container named ``homekube``
+This command installs and launches an empty OS Ubuntu 22.04 inside a container named ``homekube``
 and applies 3 profiles in the order of specification. Later profile specs override earlier specs
 so we can be sure that our macvlan network settings are honored:
 
 ```
-lxc launch -p default -p microk8s -p macvlan ubuntu:20.04 homekube
+lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
 ```
 
 Lets check if we were successful ``lxc list`` results in something like
@@ -162,7 +162,7 @@ Lets check if we were successful ``lxc list`` results in something like
 +----------+---------+----------------------+------+-----------+-----------+
 |   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.105 (eth0) |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.101 (eth0) |      | CONTAINER | 0         |
 +----------+---------+----------------------+------+-----------+-----------+
 ```
 
@@ -173,16 +173,30 @@ Read more [![](images/ico/book_16.png) about bridge configuration here](https://
 
 ## Provisioning Microk8s
 
+In this step we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
+
 ```bash
+cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
+lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
 lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
 lxc exec homekube -- microk8s status --wait-ready
 lxc exec homekube -- microk8s enable dns rbac helm3
 ```
 
-Install homekube
+Execute ``lxc list`` again and you should see something like
 ```bash
-lxc exec homekube bash
-cd /root/homekube/src
++----------+---------+----------------------------+------+-----------+-----------+
+|   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
+|          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
++----------+---------+----------------------------+------+-----------+-----------+
+```
+
+Now lets install homekube
+```bash
+lxc exec homekube -- bash
+cd ~/homekube/src
 # edit env variables in install-all.sh to match your installation
 bash -i install-all.sh
 ```

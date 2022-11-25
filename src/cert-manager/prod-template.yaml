@@ -1,0 +1,59 @@
+#
+# Creates Namespace + Certificate + Issuer for each domain
+# A secret named acme-dns-${HOMEKUBE_DOMAIN//./-} must exist with a key acme-dns-secret
+#
+# Variables:
+# HOMEKUBE_DOMAIN # homekube.org
+# HOMEKUBE_CERT_URL # default: https://auth.acme-dns.io
+#
+# Secret must be created with
+# kubectl create ns cert-manager-${HOMEKUBE_DOMAIN//./-}
+# kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN//./-} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN//./-}.json
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager-${HOMEKUBE_DOMAIN//./-}
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homekube-certificate-prod
+  namespace: cert-manager-${HOMEKUBE_DOMAIN//./-}
+spec:
+  dnsNames:
+    - '*.${HOMEKUBE_DOMAIN}'
+  secretName: tls-prod
+  issuerRef:
+    name: letsencrypt-prod
+    kind: Issuer
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-prod
+  namespace: cert-manager-${HOMEKUBE_DOMAIN//./-}
+spec:
+  acme:
+    email: admin@homekube.org
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Store LetsEncrypt private identification keys here. Read more ...
+      # https://github.com/openshift/release/pull/9372
+      name: cert-issuer-account-key
+    solvers:
+      - dns01:
+          # this is important for the verification self-check
+          cnameStrategy: Follow
+          acmeDNS:
+            # use https://auth.acme-dns.io as a default
+            host: ${HOMEKUBE_CERT_URL:-https://auth.acme-dns.io}
+            accountSecretRef:
+              name: acme-dns-secret
+              key: acme-dns-secret-key
+        selector:
+          dnsZones:
+            - '${HOMEKUBE_DOMAIN}'

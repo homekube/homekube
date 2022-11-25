@@ -151,18 +151,19 @@ of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences o
 with the name of your top-level domain.
  
 ```bash
-kubectl create secret generic acme-dns-homekube -n cert-manager --from-file acme-dns.json
-HOMEKUBE_HOME=homekube.org envsubst < homekube-staging.yaml | kubectl apply -f -
+if [[ -z $HOMEKUBE_DOMAIN ]]; then HOMEKUBE_DOMAIN=homekube.org fi 
+kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN//./-} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN//./-}.json
+envsubst < homekube-staging.yaml | kubectl apply -f -
 ```
 
 Lets verify our installation 
 
 ```bash
-kubectl describe secret homekube-tls-staging -n cert-manager-acme-secrets
+kubectl describe secret tls-staging -n cert-manager-homekube-org
 ```
 should evaluate to 
 ```
-Name:         homekube-tls-staging
+Name:         tls-staging
 ...
 Type:  kubernetes.io/tls
 
@@ -194,7 +195,7 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replaced by ``prod``
 
 ```bash
-HOMEKUBE_HOME=homekube.org envsubst < homekube-prod.yaml | kubectl apply -f -
+HOMEKUBE_DOMAIN=homekube.org envsubst < homekube-prod.yaml | kubectl apply -f -
 ```
 
 When the resulting secret 

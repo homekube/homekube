@@ -16,7 +16,7 @@ metadata:
   namespace: cert-manager-acme-secrets
 spec:
   dnsNames:
-    - '*.${HOMEKUBE_HOME}'
+    - '*.${HOMEKUBE_DOMAIN}'
   secretName: homekube-tls-prod
   issuerRef:
     name: letsencrypt-prod
@@ -47,4 +47,4 @@ spec:
               key: acme-dns.json
         selector:
           dnsZones:
-            - '${HOMEKUBE_HOME}'
+            - '${HOMEKUBE_DOMAIN}'

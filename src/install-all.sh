@@ -5,8 +5,8 @@ if [[ -z $HOMEKUBE_PUBLIC_IPS ]]; then
   export HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200   # 192.168.1.48-192.168.1.49
 fi
 # the public domain of this site
-if [[ -z $HOMEKUBE_HOME ]]; then
-  export HOMEKUBE_HOME=homekube.org  # pi.homekube.org
+if [[ -z $HOMEKUBE_DOMAIN ]]; then
+  export HOMEKUBE_DOMAIN=homekube.org  # pi.homekube.org
 fi
 # The url of the nfs server
 if [[ -z $HOMEKUBE_NFS_SERVER_URL ]]; then
@@ -48,7 +48,7 @@ metadata:
   namespace: whoami
 spec:
   rules:
-    - host: whoami.${HOMEKUBE_HOME}
+    - host: whoami.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - backend:
@@ -143,7 +143,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   rules:
-    - host: dashboard.${HOMEKUBE_HOME}
+    - host: dashboard.${HOMEKUBE_DOMAIN}
       http:
         paths:
         - path: /
@@ -211,7 +211,7 @@ metadata:
   namespace: prometheus
 spec:
   rules:
-    - host: prometheus.${HOMEKUBE_HOME}
+    - host: prometheus.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - path: /
@@ -320,7 +320,7 @@ metadata:
   namespace: grafana
 spec:
   rules:
-    - host: grafana.${HOMEKUBE_HOME}
+    - host: grafana.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - path: /

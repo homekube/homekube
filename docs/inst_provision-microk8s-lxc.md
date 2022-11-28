@@ -53,6 +53,12 @@ When the LXD container boots it needs to load the AppArmor profiles required by 
 
 ``cannot change profile for the next exec call: No such file or directory``
 
+**Now step into the fresh container**
+
+```bash
+lxc exec homekube -- bash
+```
+and execute the next commands from inside the container
 
 ```bash
 cat > /etc/rc.local <<EOF

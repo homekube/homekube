@@ -148,11 +148,14 @@ Now that we have the helpers in place we need a last step to complete the instal
 
 Lets create our own namespace first to prevent cluttering the default namespace and edit a local copy 
 of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences of `homekube.org` and `homekube`
-with the name of your top-level domain.
- 
+with the name of your top-level domain.  
+
 ```bash
-if [[ -z $HOMEKUBE_DOMAIN ]]; then HOMEKUBE_DOMAIN=homekube.org fi 
-HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
+export HOMEKUBE_DOMAIN=homekube.org 
+export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
+export HOMEKUBE_CERT_URL=https://auth.acme-dns.io # https://acmedns.a-hahn.org
+
+kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json
 envsubst < staging-template.yaml | kubectl apply -f -
 ```
@@ -196,7 +199,7 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replaced by ``prod``
 
 ```bash
-HOMEKUBE_DOMAIN=homekube.org envsubst < homekube-prod.yaml | kubectl apply -f -
+envsubst < prod-template.yaml | kubectl apply -f -
 ```
 
 When the resulting secret 

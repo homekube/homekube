@@ -1,8 +1,32 @@
 # MicroK8s Installation
 
+These steps need to be repeated for each container on the host
+
 ## Installation
 
-In this step we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
+This command installs and launches an empty OS Ubuntu 22.04 inside a container named ``homekube``
+and applies 3 profiles in the order of specification. Later profile specs override earlier specs
+so we can be sure that our macvlan network settings are honored:
+
+```
+lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
+```
+
+Lets check if we were successful ``lxc list`` results in something like
+```
++----------+---------+----------------------+------+-----------+-----------+
+|   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.101 (eth0) |      | CONTAINER | 0         |
++----------+---------+----------------------+------+-----------+-----------+
+```
+
+Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
+But always keep in mind that this container will not be reachable from the host.
+Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
+Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
+
+Now we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
 
 ```bash
 cd ~/homekube   # your fork of https://github.com/homekube/homekube.git

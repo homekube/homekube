@@ -1,26 +1,27 @@
 #
 # Creates Namespace + Certificate + Issuer for each domain
-# A secret named acme-dns-${HOMEKUBE_DOMAIN//./-} must exist with a key acme-dns-secret
+# A secret named acme-dns-${HOMEKUBE_DOMAIN_DASHED} must exist with a key acme-dns-secret
 #
 # Variables:
-# HOMEKUBE_DOMAIN # homekube.org
+# HOMEKUBE_DOMAIN # e.g. homekube.org
+# HOMEKUBE_DOMAIN_DASHED # e.g. homekube-org
 # HOMEKUBE_CERT_URL # default: https://auth.acme-dns.io
 #
 # Secret must be created with
-# kubectl create ns cert-manager-${HOMEKUBE_DOMAIN//./-}
-# kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN//./-} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN//./-}.json
+# kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
+# kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json
 #
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cert-manager-${HOMEKUBE_DOMAIN//./-}
+  name: cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 ---
 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: homekube-certificate-prod
-  namespace: cert-manager-${HOMEKUBE_DOMAIN//./-}
+  namespace: cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 spec:
   dnsNames:
     - '*.${HOMEKUBE_DOMAIN}'
@@ -35,7 +36,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: letsencrypt-prod
-  namespace: cert-manager-${HOMEKUBE_DOMAIN//./-}
+  namespace: cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 spec:
   acme:
     email: admin@homekube.org

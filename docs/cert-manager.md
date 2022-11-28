@@ -152,8 +152,9 @@ with the name of your top-level domain.
  
 ```bash
 if [[ -z $HOMEKUBE_DOMAIN ]]; then HOMEKUBE_DOMAIN=homekube.org fi 
-kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN//./-} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN//./-}.json
-envsubst < homekube-staging.yaml | kubectl apply -f -
+HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
+kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json
+envsubst < staging-template.yaml | kubectl apply -f -
 ```
 
 Lets verify our installation 

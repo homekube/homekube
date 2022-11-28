@@ -171,32 +171,4 @@ But always keep in mind that this container will not be reachable from the host.
 Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
 Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
 
-## Provisioning Microk8s
-
-In this step we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
-
-```bash
-cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
-lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
-lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
-lxc exec homekube -- microk8s status --wait-ready
-lxc exec homekube -- microk8s enable dns rbac helm3
-```
-
-Execute ``lxc list`` again and you should see something like
-```bash
-+----------+---------+----------------------------+------+-----------+-----------+
-|   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
-+----------+---------+----------------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
-|          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
-+----------+---------+----------------------------+------+-----------+-----------+
-```
-
-Now lets install homekube
-```bash
-lxc exec homekube -- bash
-cd ~/homekube/src
-# edit env variables in install-all.sh to match your installation
-bash -i install-all.sh
-```
+Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ installation of microk8s inside the container ](inst_provision-microk8s-lxc.md)

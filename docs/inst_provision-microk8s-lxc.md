@@ -2,18 +2,24 @@
 
 ## Installation
 
-The final step is the installation of MicroK8s.
-Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md#installation).
-See also [![](images/ico/color/ubuntu_16.png)Canonicals offical docs](https://microk8s.io/docs/lxd).
-
-Step inside the container:
-
-```
-lxc exec microk8s -- bash
-```
+In this step we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
 
 ```bash
-snap install microk8s --classic --channel=1.25/stable
+cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
+lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
+lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
+lxc exec homekube -- microk8s status --wait-ready
+lxc exec homekube -- microk8s enable dns rbac helm3
+```
+
+Execute ``lxc list`` again and you should see something like
+```bash
++----------+---------+----------------------------+------+-----------+-----------+
+|   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
+|          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
++----------+---------+----------------------------+------+-----------+-----------+
 ```
 
 ## Fix AppArmor settings
@@ -67,6 +73,22 @@ Server Version: v1.25.4
 ```
 
 Now We are done with installation in a Microk8s container
+
+## Install Homekube appliances
+
+### TLDR; Install all Homekube appliances in one go
+
+```bash
+lxc exec homekube -- bash
+cd ~/homekube/src
+# NOTE! edit env variables in install-all.sh to match your installation
+bash -i install-all.sh
+```
+
+### Learn the individual steps and take the quick tour
+
+Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ individual steps by taking the Quick tour](../Readme.md)
+
 
 ## Further reading
 

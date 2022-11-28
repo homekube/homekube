@@ -83,8 +83,8 @@ EOF
 
 ## Reboot and enjoy
 
-`exit` the container and restart `lxc microk8s restart` it to activate the changes.  
-Reenter the container `lxc exec microk8s -- bash` and verify the installation:
+`exit` the container and restart `lxc restart homekube` it to activate the changes.  
+Reenter the container `lxc exec homekube -- bash` and verify the installation:
 
 ```bash
 kubectl version --short

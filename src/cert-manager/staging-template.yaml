@@ -51,7 +51,7 @@ spec:
           cnameStrategy: Follow
           acmeDNS:
             # use https://auth.acme-dns.io as a default
-            host: ${HOMEKUBE_CERT_URL:-https://auth.acme-dns.io}
+            host: ${HOMEKUBE_CERT_URL}
             accountSecretRef:
               name: acme-dns-secret
               key: acme-dns-secret-key

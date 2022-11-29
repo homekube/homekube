@@ -202,11 +202,22 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 envsubst < prod-template.yaml | kubectl apply -f -
 ```
 
-When the resulting secret 
+**Be patient** It may take a couple of minutes until the ``tls-prod`` secret becomes available in the namespace.
+The option ``--watch`` monitors the namespace.
 ```bash
-kubectl describe secret homekube-tls-prod -n cert-manager-acme-secrets
+root@cert-manager:~/homekube/src/cert-manager# kubectl get secrets -n cert-manager-homekube-org --watch
+NAME                      TYPE                DATA   AGE
+acme-dns-secret           Opaque              1      3m40s
+cert-issuer-account-key   Opaque              1      3m39s
+tls-staging               kubernetes.io/tls   2      2m33s
+tls-prod                  kubernetes.io/tls   2      9s
 ```
-contains a non-empty **tls.crt** and **tls.key** you are done
+
+Check the resulting secret 
+```bash
+kubectl describe secret tls-prod -n cert-manager-homekube-org
+```
+contains non-empty **tls.crt** and **tls.key** you are done
 
 ## Updating Ingress
 
@@ -234,7 +245,7 @@ the commands that configure the arguments of the controller:
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod
+        - --default-ssl-certificate=cert-manager-homekube-org/tls-prod
 ...
 ```
 

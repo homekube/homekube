@@ -122,10 +122,10 @@ _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
-and save the registration response into a **.json** file **`acme-dns.json`** on the server in your current directory 
+and save the registration response into a **.json** file **`acme-dns-homekube-org.json`** on the server in your current directory 
 with the **domain name as a key** and the **response as its value**.   
 Replace ``homekube.org`` with a domain name of your choice.
-**Example** **`acme-dns.json`** looks like:
+**Example** **`acme-dns-homekube-org.json`** looks like:
 
 ```json
 { "homekube.org": 
@@ -148,8 +148,8 @@ Now that we have the helpers in place we need a last step to complete the instal
 
 Lets create our own namespace first to prevent cluttering the default namespace and edit a local copy 
 of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences of `homekube.org` and `homekube`
-with the name of your top-level domain.  
-
+with the name of your top-level domain.
+ 
 ```bash
 export HOMEKUBE_DOMAIN=homekube.org 
 export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements

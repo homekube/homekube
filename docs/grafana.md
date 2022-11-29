@@ -45,7 +45,7 @@ kubectl create secret generic grafana-creds -n grafana \
   --from-literal=admin-user=admin \
   --from-literal=admin-password=admin1234
 
-helm install grafana -n grafana --version=6.17.5 \
+helm install grafana -n grafana --version=6.42.2 \
 -f datasource-dashboards.yaml \
 --set persistence.enabled=true \
 --set persistence.storageClassName=managed-nfs-storage \

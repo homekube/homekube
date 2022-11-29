@@ -1,17 +1,36 @@
 #!/bin/bash
 
-# change the settings to match your domain and environment
-HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200
-HOMEKUBE_HOME=homekube.org
-HOMEKUBE_NFS_SERVER_URL=192.168.1.250
-HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/testdata
+# these are the external ips of the load balancer, e.g. the public entry points
+if [[ -z $HOMEKUBE_PUBLIC_IPS ]]; then
+  export HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200   # 192.168.1.48-192.168.1.49
+fi
+# the public domain of this site
+if [[ -z $HOMEKUBE_DOMAIN ]]; then
+  export HOMEKUBE_DOMAIN=homekube.org  # pi.homekube.org
+fi
+# The url of the nfs server
+if [[ -z $HOMEKUBE_NFS_SERVER_URL ]]; then
+  export HOMEKUBE_NFS_SERVER_URL=192.168.1.250   # 192.168.1.249
+fi
+# The path to your data on the nfs server
+if [[ -z $HOMEKUBE_NFS_SERVER_PATH ]]; then
+  export HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/kubedata # /Public/nfs/pidata
+fi
 
+apt update
 echo "Waiting for Microk8s ready state"
 microk8s status --wait-ready
 microk8s kubectl version --short
 microk8s enable dns rbac helm3 metallb:${HOMEKUBE_PUBLIC_IPS}
 
-# install whoami
+###############################################################################
+############################## install whoami #################################
+###############################################################################
+kubectl get ns whoami
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of demo whoami app because the namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns whoami' and run this script again"
+else
 echo "Install who-am-i demo application"
 helm repo add halkeye https://halkeye.github.io/helm-charts/
 kubectl create namespace whoami
@@ -29,7 +48,7 @@ metadata:
   namespace: whoami
 spec:
   rules:
-    - host: whoami.${HOMEKUBE_HOME}
+    - host: whoami.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - backend:
@@ -41,8 +60,16 @@ spec:
             pathType: Prefix
 EOF
 echo "Installation done who-am-i demo application"
+fi # end if installation of whoami
 
-# install ingress
+###############################################################################
+############################## install ingress ################################
+###############################################################################
+kubectl get ns ingress-nginx
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of nginx webserver because the namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns ingress-nginx' and run this script again"
+else
 echo "Install ingress web server"
 kubectl create namespace ingress-nginx
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
@@ -58,8 +85,16 @@ controller:
       }
 EOF
 echo "Installation done ingress"
+fi # end of installation of nginx webservice
 
-# install dashboard
+###############################################################################
+############################## install dashboard ##############################
+###############################################################################
+kubectl get ns kubernetes-dashboard
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of dashboard because namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns kubernetes-dashboard'"
+else
 echo "Install kubernetes dashboard"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
 cat << EOF | kubectl apply -f -
@@ -85,7 +120,7 @@ subjects:
   namespace: kubernetes-dashboard
 EOF
 
-HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user)
+HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-user --duration 525600m)   # 10 years duration
 if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
@@ -108,7 +143,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   rules:
-    - host: dashboard.${HOMEKUBE_HOME}
+    - host: dashboard.${HOMEKUBE_DOMAIN}
       http:
         paths:
         - path: /
@@ -120,23 +155,40 @@ spec:
                 number: 443
 EOF
 echo "Installation done dashboard"
+fi # end of installation of kubernetes dashboard
 
-# install nfs client
+###############################################################################
+############################## install nfs client #############################
+###############################################################################
+kubectl get ns nfs-storage
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of nfs storage because namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns nfs-storage'"
+else
 echo "Install nfs service (client needs existing server)"
 sudo apt install nfs-common -y
 
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 kubectl create namespace nfs-storage
 
-helm install nfs-client --version=4.0.14 \
+helm install nfs-client --version=4.0.17 \
   --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
   --set nfs.server=${HOMEKUBE_NFS_SERVER_URL} \
   --set nfs.path=${HOMEKUBE_NFS_SERVER_PATH} \
+  --set nfs.mountOptions={nfsvers=3} \
   --namespace nfs-storage \
   nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 echo "Installation done nfs client"
+fi # end of installation of nfs storage
 
-# install prometheus
+###############################################################################
+############################## install prometheus #############################
+###############################################################################
+kubectl get ns prometheus
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of prometheus because namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns prometheus'"
+else
 echo "Install prometheus"
 kubectl create namespace prometheus
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -159,7 +211,7 @@ metadata:
   namespace: prometheus
 spec:
   rules:
-    - host: prometheus.${HOMEKUBE_HOME}
+    - host: prometheus.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - path: /
@@ -171,8 +223,16 @@ spec:
                   number: 80
 EOF
 echo "Installation done prometheus"
+fi # end of installation of prometheus
 
-# install grafana
+###############################################################################
+############################## install grafana ################################
+###############################################################################
+kubectl get ns grafana
+if [[ $?  -eq 0 ]]; then
+  echo "Skipping installation of grafana because namespace already exists"
+  echo "If you want to reinstall execute 'kubectl delete ns grafana'"
+else
 echo "Install grafana"
 
 kubectl create namespace grafana
@@ -260,7 +320,7 @@ metadata:
   namespace: grafana
 spec:
   rules:
-    - host: grafana.${HOMEKUBE_HOME}
+    - host: grafana.${HOMEKUBE_DOMAIN}
       http:
         paths:
           - path: /
@@ -272,7 +332,11 @@ spec:
                   number: 80
 EOF
 echo "Installation done grafana"
+fi # end of installation of grafana
 
+###############################################################################
+############################## finsished ######################################
+###############################################################################
 echo "Next steps: Installation of cert-manager"
 echo "Cert manager automates creation and renewal of LetsEncrypt certificates"
 echo "Follow docs/cert-manager.md"

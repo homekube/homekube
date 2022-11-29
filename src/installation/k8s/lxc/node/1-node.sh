@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script has been tested on Ubuntu 20.04
+# This script has been tested on Ubuntu 22.04
+# This script has been tested on Ubuntu 22.04
 # Based on https://github.com/justmeandopensource/kubernetes/blob/master/lxd-provisioning/bootstrap-kube.sh
 # The author Venkat does really GREAT !! tutorials
 # Join his channel on youtube: https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg

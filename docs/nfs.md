@@ -79,16 +79,19 @@ All pvc that do not specify a storageClass ref will use this default. Can be omm
 - nfs.server=**192.168.1.100**  
 Ip of any nfs-server in the network (or server on local node).  
 **NOTE** that `localhost` or `127.0.0.1` will not work !
-- nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.
+- nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.  
+- nfs.mountOptions={nfsvers=3} is important if your server only supports versions up to vers=3.  
+This is true for many Nas systems including QNAP
 
 ```bash
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 kubectl create namespace nfs-storage
 
-helm install nfs-client --version=4.0.14 \
+helm install nfs-client --version=4.0.17 \
     --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
     --set nfs.server=192.168.1.100 \
     --set nfs.path=/srv/nfs/kubedata \
+    --set nfs.mountOptions={nfsvers=3} \
     --namespace nfs-storage \ 
     nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 ```

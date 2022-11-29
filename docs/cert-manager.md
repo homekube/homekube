@@ -33,7 +33,7 @@ cd ~/homekube/src/cert-manager
 Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.10.0/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.10.1/cert-manager.yaml
 kubectl get pod -n cert-manager --watch
 ```
 The containers are getting up and running:
@@ -122,10 +122,10 @@ _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
-and save the registration response into a **.json** file **`acme-dns.json`** on the server in your current directory 
+and save the registration response into a **.json** file **`acme-dns-homekube-org.json`** on the server in your current directory 
 with the **domain name as a key** and the **response as its value**.   
 Replace ``homekube.org`` with a domain name of your choice.
-**Example** **`acme-dns.json`** looks like:
+**Example** **`acme-dns-homekube-org.json`** looks like:
 
 ```json
 { "homekube.org": 
@@ -151,18 +151,23 @@ of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences o
 with the name of your top-level domain.
  
 ```bash
-kubectl create secret generic acme-dns-homekube -n cert-manager --from-file acme-dns.json
-HOMEKUBE_HOME=homekube.org envsubst < homekube-staging.yaml | kubectl apply -f -
+export HOMEKUBE_DOMAIN=homekube.org 
+export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
+export HOMEKUBE_CERT_URL=https://auth.acme-dns.io # https://acmedns.a-hahn.org
+
+kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
+kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json
+envsubst < staging-template.yaml | kubectl apply -f -
 ```
 
 Lets verify our installation 
 
 ```bash
-kubectl describe secret homekube-tls-staging -n cert-manager-acme-secrets
+kubectl describe secret tls-staging -n cert-manager-homekube-org
 ```
 should evaluate to 
 ```
-Name:         homekube-tls-staging
+Name:         tls-staging
 ...
 Type:  kubernetes.io/tls
 
@@ -194,14 +199,25 @@ is replaced by `https://acme-v02.api.letsencrypt.org/directory`
 * all other occurrences of ``staging`` are replaced by ``prod``
 
 ```bash
-HOMEKUBE_HOME=homekube.org envsubst < homekube-prod.yaml | kubectl apply -f -
+envsubst < prod-template.yaml | kubectl apply -f -
 ```
 
-When the resulting secret 
+**Be patient** It may take a couple of minutes until the ``tls-prod`` secret becomes available in the namespace.
+The option ``--watch`` monitors the namespace.
 ```bash
-kubectl describe secret homekube-tls-prod -n cert-manager-acme-secrets
+root@cert-manager:~/homekube/src/cert-manager# kubectl get secrets -n cert-manager-homekube-org --watch
+NAME                      TYPE                DATA   AGE
+acme-dns-secret           Opaque              1      3m40s
+cert-issuer-account-key   Opaque              1      3m39s
+tls-staging               kubernetes.io/tls   2      2m33s
+tls-prod                  kubernetes.io/tls   2      9s
 ```
-contains a non-empty **tls.crt** and **tls.key** you are done
+
+Check the resulting secret 
+```bash
+kubectl describe secret tls-prod -n cert-manager-homekube-org
+```
+contains non-empty **tls.crt** and **tls.key** you are done
 
 ## Updating Ingress
 
@@ -229,7 +245,7 @@ the commands that configure the arguments of the controller:
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod
+        - --default-ssl-certificate=cert-manager-homekube-org/tls-prod
 ...
 ```
 

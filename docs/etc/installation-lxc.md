@@ -34,7 +34,7 @@ network access of all dataflows.
 
 ## Install a bridge on the host
 
-The following commands are valid on Ubuntu **versions 18.04 and 20.04** which use
+The following commands are valid on Ubuntu **versions 20.04 and 22.04** which use
 [![](images/ico/color/ubuntu_16.png) **netplan**](https://netplan.io) for defining its network. 
 Lets create a bridge first.
 
@@ -249,7 +249,7 @@ The next step is launching the container based on the predefined settings.
 Note that we need to specify both profiles for the settings of MicroK8s and our network configuration.
 
 ```bash
-lxc launch ubuntu:20.04 microk8s -p microk8s -p default
+lxc launch ubuntu:22.04 microk8s -p microk8s -p default
 ```
 
 ```text
@@ -268,7 +268,7 @@ lxc list
 | microk8s | RUNNING | 192.168.1.120 (eth0)       |      | CONTAINER | 0         |
 +----------+---------+----------------------------+------+-----------+-----------+
 ```
-Now we have created an empty Ubuntu 20.04 container named **microk8s** .
+Now we have created an empty Ubuntu 22.04 container named **microk8s** .
 This container has been assigned the ip **192.168.1.120** from our networks dhcp service.
 Now confirm with **ping 192.168.1.120** from other hosts in the network **and from your host**
 that your container is fully accessible on the network.  
@@ -328,8 +328,9 @@ kubectl version --short
 ```
 
 ```text
-Client Version: v1.23.3-3+9ec7c40ec93c73
-Server Version: v1.23.3-3+9ec7c40ec93c73
+Client Version: v1.25.4
+Kustomize Version: v4.5.7
+Server Version: v1.25.4
 ```
 
 Now We are done with installation in a Microk8s container

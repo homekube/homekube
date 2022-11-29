@@ -1,19 +1,49 @@
 # MicroK8s Installation
 
+These steps need to be repeated for each container on the host
+
 ## Installation
 
-The final step is the installation of MicroK8s.
-Its almost the same as we ![](images/ico/color/homekube_16.png)[ would do on the host](installation.md#installation).
-See also [![](images/ico/color/ubuntu_16.png)Canonicals offical docs](https://microk8s.io/docs/lxd).
-
-Step inside the container:
+This command installs and launches an empty OS Ubuntu 22.04 inside a container named ``homekube``
+and applies 3 profiles in the order of specification. Later profile specs override earlier specs
+so we can be sure that our macvlan network settings are honored:
 
 ```
-lxc shell microk8s
+lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
 ```
+
+Lets check if we were successful ``lxc list`` results in something like
+```
++----------+---------+----------------------+------+-----------+-----------+
+|   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.101 (eth0) |      | CONTAINER | 0         |
++----------+---------+----------------------+------+-----------+-----------+
+```
+
+Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
+But always keep in mind that this container will not be reachable from the host.
+Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
+Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
+
+Now we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
 
 ```bash
-snap install microk8s --classic --channel=1.25/stable
+cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
+lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
+lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
+lxc exec homekube -- microk8s status --wait-ready
+lxc exec homekube -- microk8s enable dns rbac helm3
+```
+
+Execute ``lxc list`` again and you should see something like
+```bash
++----------+---------+----------------------------+------+-----------+-----------+
+|   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
+|          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
++----------+---------+----------------------------+------+-----------+-----------+
 ```
 
 ## Fix AppArmor settings
@@ -23,6 +53,12 @@ When the LXD container boots it needs to load the AppArmor profiles required by 
 
 ``cannot change profile for the next exec call: No such file or directory``
 
+**Now step into the fresh container**
+
+```bash
+lxc exec homekube -- bash
+```
+and execute the next commands from inside the container
 
 ```bash
 cat > /etc/rc.local <<EOF
@@ -53,19 +89,36 @@ EOF
 
 ## Reboot and enjoy
 
-`exit` the container and restart `lxc microk8s restart` it to activate the changes.  
-Reenter the container `lxc exec microk8s -- bash` and verify the installation:
+`exit` the container and restart `lxc restart homekube` it to activate the changes.  
+Reenter the container `lxc exec homekube -- bash` and verify the installation:
 
 ```bash
 kubectl version --short
 ```
 
 ```text
-Client Version: v1.23.3-3+9ec7c40ec93c73
-Server Version: v1.23.3-3+9ec7c40ec93c73
+Client Version: v1.25.4
+Kustomize Version: v4.5.7
+Server Version: v1.25.4
 ```
 
 Now We are done with installation in a Microk8s container
+
+## Install Homekube appliances
+
+### TLDR; Install all Homekube appliances in one go
+
+```bash
+lxc exec homekube -- bash
+cd ~/homekube/src
+# NOTE! edit env variables in install-all.sh to match your installation
+bash -i install-all.sh
+```
+
+### Learn the individual steps and take the quick tour
+
+Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ individual steps by taking the Quick tour](../Readme.md)
+
 
 ## Further reading
 

@@ -31,9 +31,12 @@ Now we install ``microk8s`` inside a container named ``homekube`` and give it ac
 ```bash
 cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
 lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
-lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
-lxc exec homekube -- microk8s status --wait-ready
-lxc exec homekube -- microk8s enable dns rbac helm3
+lxc exec homekube -- bash
+# Execute within container NOTE: If executed from host the self signed certificates will be based
+# on the hosts ips and it will not be possible to step into pods
+snap install microk8s --classic --channel=1.28/stable
+microk8s status --wait-ready
+microk8s enable rbac
 ```
 
 Execute ``lxc list`` again and you should see something like
@@ -93,7 +96,7 @@ EOF
 Reenter the container `lxc exec homekube -- bash` and verify the installation:
 
 ```bash
-kubectl version --short
+kubectl version
 ```
 
 ```text

@@ -10,7 +10,7 @@ if [[ -z $HOMEKUBE_DOMAIN ]]; then
 fi
 # The url of the nfs server
 if [[ -z $HOMEKUBE_NFS_SERVER_URL ]]; then
-  export HOMEKUBE_NFS_SERVER_URL=192.168.1.250   # 192.168.1.249
+  export HOMEKUBE_NFS_SERVER_URL=192.168.1.250
 fi
 # The path to your data on the nfs server
 if [[ -z $HOMEKUBE_NFS_SERVER_PATH ]]; then
@@ -20,8 +20,9 @@ fi
 apt update
 echo "Waiting for Microk8s ready state"
 microk8s status --wait-ready
-microk8s kubectl version --short
-microk8s enable dns rbac helm3 metallb:${HOMEKUBE_PUBLIC_IPS}
+microk8s kubectl version
+microk8s enable rbac
+microk8s enable metallb:${HOMEKUBE_PUBLIC_IPS}
 
 ###############################################################################
 ############################## install whoami #################################
@@ -96,7 +97,7 @@ if [[ $?  -eq 0 ]]; then
   echo "If you want to reinstall execute 'kubectl delete ns kubernetes-dashboard'"
 else
 echo "Install kubernetes dashboard"
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: ServiceAccount

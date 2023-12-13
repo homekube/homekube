@@ -40,7 +40,7 @@ git clone https://github.com/homekube/homekube.git
 Then follow the [![](images/ico/color/ubuntu_16.png) **steps 1-3** in the Microk8s tutorial](https://microk8s.io/docs):  
 
 ```bash
-sudo snap install microk8s --classic --channel=1.25/stable
+sudo snap install microk8s --classic --channel=1.28/stable
 sudo usermod -a -G microk8s $USER
 sudo chown -f -R $USER ~/.kube
 su - $USER
@@ -65,7 +65,7 @@ and activate it instantly `. ~/.bash_aliases`
 Finally in your terminal window execute
 
 ```bash
-kubectl version --short
+kubectl version
 ```
 
 The response will be something like
@@ -81,7 +81,7 @@ Next we will enable a couple of add-ons. The MicroK8s tutorial lists a [![](imag
 but explanations are rather short and we will only install basic components so that the setup comes close to a base cloud setup.
 
 ```bash
-microk8s enable dns rbac helm3
+microk8s enable rbac
 ```
 More ![](images/ico/color/homekube_16.png)[  about AddOns ...](microk8s-addons.md) 
 

@@ -74,6 +74,8 @@ cat ~/homekube/src/installation/k8s/lxc/host/microk8s-profile.yaml | lxc profile
 
 Check the result ``lxc profile show microk8s``. It looks like
 ```
+name: microk8s
+config:
   boot.autostart: "true"
   linux.kernel_modules: ip_vs,ip_vs_rr,ip_vs_wrr,ip_vs_sh,ip_tables,ip6_tables,netlink_diag,nf_nat,overlay,br_netfilter
   raw.lxc: |
@@ -89,14 +91,10 @@ devices:
     path: /sys/module/nf_conntrack/parameters/hashsize
     source: /sys/module/nf_conntrack/parameters/hashsize
     type: disk
-  aadisable1:
-    path: /sys/module/apparmor/parameters/enabled
-    source: /dev/null
-    type: disk
   aadisable2:
     path: /dev/kmsg
     source: /dev/kmsg
-    type: disk
+    type: unix-char
   aadisable3:
     path: /sys/fs/bpf
     source: /sys/fs/bpf
@@ -105,8 +103,6 @@ devices:
     path: /proc/sys/net/netfilter/nf_conntrack_max
     source: /proc/sys/net/netfilter/nf_conntrack_max
     type: disk
-name: microk8s
-used_by: []
 ```
 
 ### Network profile

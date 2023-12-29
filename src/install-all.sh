@@ -176,7 +176,7 @@ helm install nfs-client --version=4.0.17 \
   --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
   --set nfs.server=${HOMEKUBE_NFS_SERVER_URL} \
   --set nfs.path=${HOMEKUBE_NFS_SERVER_PATH} \
-  --set nfs.mountOptions={nfsvers=3} \
+  --set nfs.mountOptions={nfsvers=4} \
   --namespace nfs-storage \
   nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 echo "Installation done nfs client"

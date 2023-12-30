@@ -43,7 +43,9 @@ microk8s status --wait-ready
 microk8s enable rbac
 ```
 
-Execute ``lxc list`` again and you should see something like
+**On the host** execute ``lxc list`` again and you should see something like.
+Sidenote: You can step out of containers with the same command when leaving a shell: ``exit``
+
 ```bash
 +----------+---------+----------------------------+------+-----------+-----------+
 |   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
@@ -60,7 +62,7 @@ When the LXD container boots it needs to load the AppArmor profiles required by 
 
 ``cannot change profile for the next exec call: No such file or directory``
 
-**Now step into the fresh container**
+**Now step again into the container**
 
 ```bash
 lxc exec homekube -- bash

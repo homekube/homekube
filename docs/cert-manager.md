@@ -33,7 +33,7 @@ cd ~/homekube/src/cert-manager
 Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.13.2/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.13.3/cert-manager.yaml
 kubectl get pod -n cert-manager --watch
 ```
 The containers are getting up and running:

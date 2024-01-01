@@ -21,7 +21,10 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 
 Prerequisites are: 
 - A domain you own, e.g. homekube.org, example.com, yourdomain.org, ...
-- ![](images/ico/color/homekube_16.png) [Ingress](ingress.md)
+
+**NOTE** that we don't need **ingress** being configured as long as we only care about **ACME/DNS01** configurations
+explained here. We need access to our DNS service provider to perform the acme challenge handshake to prove the domains
+ownership. (See below).
 
 Execute
 ```bash

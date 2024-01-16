@@ -1,21 +1,13 @@
 #!/bin/bash
 
 # these are the external ips of the load balancer, e.g. the public entry points
-if [[ -z $HOMEKUBE_PUBLIC_IPS ]]; then
-  export HOMEKUBE_PUBLIC_IPS=192.168.1.200-192.168.1.200   # 192.168.1.48-192.168.1.49
-fi
+export ${HOMEKUBE_PUBLIC_IPS:=192.168.1.200-192.168.1.200}   # 192.168.1.48-192.168.1.49
 # the public domain of this site
-if [[ -z $HOMEKUBE_DOMAIN ]]; then
-  export HOMEKUBE_DOMAIN=homekube.org  # pi.homekube.org
-fi
+export ${HOMEKUBE_DOMAIN:=homekube.org}  # pi.homekube.org
 # The url of the nfs server
-if [[ -z $HOMEKUBE_NFS_SERVER_URL ]]; then
-  export HOMEKUBE_NFS_SERVER_URL=192.168.1.250
-fi
+export ${HOMEKUBE_NFS_SERVER_URL:=192.168.1.250}
 # The path to your data on the nfs server
-if [[ -z $HOMEKUBE_NFS_SERVER_PATH ]]; then
-  export HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/kubedata # /Public/nfs/pidata
-fi
+export ${HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/kubedata} # /Public/nfs/pidata
 
 apt update
 echo "Waiting for Microk8s ready state"
@@ -269,7 +261,7 @@ datasources:
 ## Configure grafana dashboard providers
 ## ref: https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards
 ##
-## `path` must be /var/lib/grafana/dashboards/<provider_name>
+## path must be /var/lib/grafana/dashboards/<provider_name>
 ##
 dashboardProviders:
   dashboardproviders.yaml:

@@ -156,7 +156,8 @@ with the name of your top-level domain.
 ```bash
 export HOMEKUBE_DOMAIN=homekube.org 
 export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
-export HOMEKUBE_CERT_URL=https://auth.acme-dns.io # https://acmedns.a-hahn.org
+#export HOMEKUBE_CERT_URL=https://acmedns.a-hahn.org
+export HOMEKUBE_CERT_URL=https://auth.acme-dns.io
 
 kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json

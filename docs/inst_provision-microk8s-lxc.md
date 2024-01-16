@@ -40,7 +40,6 @@ lxc exec homekube -- bash
 #
 snap install microk8s --classic --channel=1.25/stable
 microk8s status --wait-ready
-microk8s enable rbac
 ```
 
 **On the host** execute ``lxc list`` again and you should see something like.
@@ -106,9 +105,9 @@ kubectl version
 ```
 
 ```text
-Client Version: v1.28.3
+Client Version: v1.25.16
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.28.3
+Server Version: v1.25.16
 ```
 
 Now We are done with installation in a Microk8s container

@@ -12,6 +12,7 @@ along with the most useful and popular administration components on your local U
 |--------|--------|--------|---------|
 | 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) |[![](docs/images/ico/color/homekube_link_16.png) live](https://whoami.homekube.org)| [![](docs/images/ico/color/raspi_20.png) live](https://whoami.pi.homekube.org)|
 | Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)|[![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://dashboard.homekube.org) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://dashboard.pi.homekube.org) | 
+| Portainer Kubernetes deployments |![](docs/images/ico/color/homekube_16.png) [portainer-deployments.md](docs/portainer-deployments.md) |
 | Grafana monitoring |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)|[![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://grafana.homekube.org) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://grafana.pi.homekube.org) | 
 | Prometheus metrics |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)|[![](docs/images/ico/color/homekube_link_16.png) live](https://prometheus.homekube.org)|[![](docs/images/ico/color/raspi_20.png) live](https://prometheus.pi.homekube.org)| 
 | Testing payloads and response times |![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md)|[![](docs/images/ico/color/homekube_link_16.png) Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | 
@@ -46,6 +47,7 @@ Server requirements are:
 #### Quick tour
 
 ![](docs/images/ico/color/homekube_16.png) [ Dashboard](docs/dashboard.md) ->
+![](docs/images/ico/color/homekube_16.png) [ Portainer](docs/portainer-deployments.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm I](docs/helm.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm / Echo Service](docs/helm-basics.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Echo service II](docs/whoami.md) 

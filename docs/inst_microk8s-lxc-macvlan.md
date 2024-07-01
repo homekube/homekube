@@ -149,4 +149,41 @@ name: macvlan
 used_by: []
 ```
 
-Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ installation of microk8s](inst_provision-microk8s-lxc.md)
+### Install an empty Ubuntu container
+
+This command installs and launches an empty OS Ubuntu 20.04 inside a container named ``homekube``
+and applies 3 profiles in the order of specification. Later profile specs override earlier specs
+so we can be sure that our macvlan network settings are honored:
+
+```
+lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
+```
+
+Lets check if we were successful ``lxc list`` results in something like
+```
++----------+---------+----------------------+------+-----------+-----------+
+|   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.105 (eth0) |      | CONTAINER | 0         |
++----------+---------+----------------------+------+-----------+-----------+
+```
+
+Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
+But always keep in mind that this container will not be reachable from the host.
+Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
+Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
+
+## Provisioning Microk8s
+
+```bash
+lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
+lxc exec homekube -- microk8s status --wait-ready
+lxc exec homekube -- microk8s enable dns rbac helm3
+```
+
+Install homekube
+```bash
+lxc exec homekube bash
+cd /root/homekube
+bash -i install-all.sh
+```

@@ -40,14 +40,16 @@ Use **dir** because most likely you have an ext4
 file system as thats installed by default on Ubuntu.
 
 ```
-Would you like to use LXD clustering? (yes/no) [default=no]:
-Do you want to configure a new storage pool? (yes/no) [default=yes]: n
-Would you like to connect to a MAAS server? (yes/no) [default=no]:
+Would you like to use LXD clustering? (yes/no) [default=no]: 
+Do you want to configure a new storage pool? (yes/no) [default=yes]: y
+Name of the new storage pool [default=default]: 
+Name of the storage backend to use (dir, lvm, powerflex, zfs, btrfs, ceph) [default=zfs]: dir
+Would you like to connect to a MAAS server? (yes/no) [default=no]: 
 Would you like to create a new local network bridge? (yes/no) [default=yes]: n
-Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [default=no]:
-Would you like the LXD server to be available over the network? (yes/no) [default=no]:
-Would you like stale cached images to be updated automatically? (yes/no) [default=yes] n
-Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]:
+Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [default=no]: 
+Would you like the LXD server to be available over the network? (yes/no) [default=no]: 
+Would you like stale cached images to be updated automatically? (yes/no) [default=yes]: n
+Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]: 
 ```
 
 ## Prepare lxc container profiles
@@ -104,6 +106,9 @@ devices:
     source: /proc/sys/net/netfilter/nf_conntrack_max
     type: disk
 ```
+
+This is needed because all necessary linux kernel modules must be loaded beforehand.
+The `devices:` section contains path mappings between host and container.
 
 ### Network profile
 
@@ -172,14 +177,14 @@ Read more [![](images/ico/book_16.png) about bridge configuration here](https://
 ## Provisioning Microk8s
 
 ```bash
-lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
+lxc exec homekube -- snap install microk8s --classic --channel=1.30/stable
 lxc exec homekube -- microk8s status --wait-ready
 lxc exec homekube -- microk8s enable dns rbac helm3
 ```
 
 Install homekube
 ```bash
-lxc exec homekube bash
-cd /root/homekube
+lxc exec homekube -- bash
+cd /root/homekube/src
 bash -i install-all.sh
 ```

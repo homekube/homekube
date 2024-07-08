@@ -9,7 +9,7 @@ and applies 3 profiles in the order of specification. Later profile specs overri
 so we can be sure that our macvlan network settings are honored:
 
 ```
-lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
+lxc launch -p default -p microk8s -p macvlan ubuntu:24.04 homekube
 ```
 
 Lets check if we were successful ``lxc list`` results in something like
@@ -38,7 +38,7 @@ lxc exec homekube -- bash
 # NOTE !!! --channel=1.28/stable does NOT work on amd arch due to certificate failures when
 # debugging containers (kubectl exec or kubectl logs) !!!
 #
-snap install microk8s --classic --channel=1.25/stable
+snap install microk8s --classic --channel=1.30/stable
 microk8s status --wait-ready
 ```
 
@@ -119,7 +119,7 @@ Now We are done with installation in a Microk8s container
 ```bash
 lxc exec homekube -- bash
 cd ~/homekube/src
-# NOTE! edit env variables in install-all.sh to match your installation
+# NOTE! edit env variables in homekube.env.sh to match your installation
 bash -i install-all.sh
 ```
 

@@ -14,7 +14,10 @@ Instead we simply install the upstream
 [![](images/ico/github_16.png) community version](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+# Add kubernetes-dashboard repository
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
 ```
 
 Lets quickly check the installation. `192.168.1.100` is our server ip when following the prerequisites.

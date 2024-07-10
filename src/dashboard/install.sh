@@ -6,7 +6,11 @@ if [[ $?  -eq 0 ]]; then
   echo "If you want to reinstall execute 'kubectl delete ns kubernetes-dashboard'"
 else
 echo "Install kubernetes dashboard"
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+# Add kubernetes-dashboard repository
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
+
 cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: ServiceAccount
@@ -60,7 +64,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: kubernetes-dashboard
+              name: kubernetes-dashboard-kong-proxy
               port:
                 number: 443
 EOF

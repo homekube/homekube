@@ -8,7 +8,7 @@ else
 echo "Install ingress web server"
 kubectl create namespace ingress-nginx
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm install nginx-helm -n ingress-nginx --version=4.0.6 \
+helm install nginx-helm -n ingress-nginx --version=4.10.1 \
     -f - ingress-nginx/ingress-nginx << EOF
 controller:
   metrics:

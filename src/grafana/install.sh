@@ -83,6 +83,8 @@ dashboards:
 ## Configure oauth2 authentication
 assertNoLeakedSecrets: false
 grafana.ini:
+  server:
+    root_url: https://grafana.auth.homekube.org
   auth.generic_oauth:
     enabled: true
     name: Keycloak-OAuth

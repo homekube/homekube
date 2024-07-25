@@ -85,22 +85,23 @@ assertNoLeakedSecrets: false
 grafana.ini:
   server:
     root_url: https://grafana.auth.homekube.org
-  auth
+  auth:
     disable_login_form: true
-    generic_oauth:
-      enabled: true
-      name: Keycloak-OAuth
-      allow_sign_up: true
-      client_id: homekube-dashboard
-      client_secret: Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
-      scopes: openid email profile offline_access roles
-      email_attribute_path: email
-      login_attribute_path: email
-      name_attribute_path: email
-      auth_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/auth
-      token_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/token
-      api_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/userinfo
-      role_attribute_path: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+  auth.generic_oauth:
+    enabled: true
+    name: Keycloak-OAuth
+    allow_sign_up: true
+    client_id: homekube-dashboard
+    client_secret: Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
+    scopes: openid email profile offline_access roles
+    email_attribute_path: email
+    login_attribute_path: email
+    name_attribute_path: email
+    auth_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/auth
+    token_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/token
+    api_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/userinfo
+    role_attribute_path: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+
 EOF
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml

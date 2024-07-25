@@ -83,19 +83,19 @@ dashboards:
 ## Configure oauth2 authentication
 grafana.ini:
   auth.generic_oauth:
-    enabled : true
-    name : Keycloak-OAuth
-    allow_sign_up : true
-    client_id : homekube-dashboard
-    client_secret : Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
-    scopes : openid email profile offline_access roles
-    email_attribute_path : email
-    login_attribute_path : email
-    name_attribute_path : email
-    auth_url : https://auth.oops.de/realms/homekube/protocol/openid-connect/auth
-    token_url : https://auth.oops.de/realms/homekube/protocol/openid-connect/token
-    api_url : https://auth.oops.de/realms/homekube/protocol/openid-connect/userinfo
-    role_attribute_path = contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+    enabled: true
+    name: Keycloak-OAuth
+    allow_sign_up: true
+    client_id: homekube-dashboard
+    client_secret: Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
+    scopes: openid email profile offline_access roles
+    email_attribute_path: email
+    login_attribute_path: email
+    name_attribute_path: email
+    auth_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/auth
+    token_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/token
+    api_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/userinfo
+    role_attribute_path: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
 EOF
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
@@ -103,11 +103,10 @@ cat << EOF | envsubst | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
   name: ingress-grafana
   namespace: grafana
 spec:
+  ingressClassName: nginx
   rules:
     - host: grafana.${HOMEKUBE_DOMAIN}
       http:

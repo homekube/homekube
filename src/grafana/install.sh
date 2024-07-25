@@ -81,6 +81,7 @@ dashboards:
       datasource: Prometheus
 
 ## Configure oauth2 authentication
+assertNoLeakedSecrets: false
 grafana.ini:
   auth.generic_oauth:
     enabled: true

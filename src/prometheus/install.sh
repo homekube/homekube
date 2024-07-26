@@ -9,7 +9,7 @@ echo "Install prometheus"
 kubectl create namespace prometheus
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 
-helm install prometheus -n prometheus --version=14.11.1 \
+helm install prometheus -n prometheus --version=25.22.1 \
   --set alertmanager.enabled=false \
   --set pushgateway.enabled=false \
   --set server.persistentVolume.storageClass=managed-nfs-storage \

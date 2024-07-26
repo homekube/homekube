@@ -21,8 +21,15 @@ helm install grafana -n grafana --version=8.3.2 \
   --set persistence.storageClassName=managed-nfs-storage \
   --set admin.existingSecret=grafana-creds \
   -f datasource-dashboards.yaml \
-  -f config-oauth.yaml \
   grafana/grafana
+
+helm update grafana -n grafana \
+  -f config-oauth.yaml \
+  -f - grafana/grafana << EOF
+grafana.ini:
+  server:
+    root_url: https://grafana.${HOMEKUBE_DOMAIN}
+EOF
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
 cat << EOF | envsubst | kubectl apply -f -

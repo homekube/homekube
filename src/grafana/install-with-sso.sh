@@ -11,17 +11,17 @@ kubectl create namespace grafana
 
 helm repo add grafana https://grafana.github.io/helm-charts
 
-# provide default admin credentials e.g. admin/admin1234
-kubectl create secret generic grafana-creds -n grafana \
-  --from-literal=admin-user=admin \
-  --from-literal=admin-password=admin1234
-
 helm install grafana -n grafana --version=8.3.2 \
   --set persistence.enabled=true \
   --set persistence.storageClassName=managed-nfs-storage \
-  --set admin.existingSecret=grafana-creds \
   -f datasource-dashboards.yaml \
-  grafana/grafana
+  -f config-oauth.yaml \
+  -f - grafana/grafana << EOF
+# This should be part of config-oauth.yaml but unfortunately we can't replace envvars in imported yamls.
+grafana.ini:
+  server:
+    root_url: https://grafana.${HOMEKUBE_DOMAIN}
+EOF
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
 cat << EOF | envsubst | kubectl apply -f -

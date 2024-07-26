@@ -21,9 +21,6 @@ helm install grafana -n grafana --version=8.3.2 \
   --set persistence.storageClassName=managed-nfs-storage \
   --set admin.existingSecret=grafana-creds \
   -f datasource-dashboards.yaml \
-  grafana/grafana
-
-helm update grafana -n grafana \
   -f config-oauth.yaml \
   -f - grafana/grafana << EOF
 grafana.ini:

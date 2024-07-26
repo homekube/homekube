@@ -16,4 +16,4 @@ grafana.ini:
     auth_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/auth
     token_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/token
     api_url: https://auth.oops.de/realms/homekube/protocol/openid-connect/userinfo
-    role_attribute_path: contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+    role_attribute_path: contains(groups[*], '/admins') && 'Admin' || 'Viewer'

@@ -11,26 +11,8 @@ kubectl create namespace whoami
 helm install whoami halkeye/whoami -n whoami --version 1.0.1
 kubectl scale --replicas=5 deployment.apps/whoami -n whoami
 
-#kubectl apply -f ~/homekube/src/whoami/ingress-whoami.yaml
-cat <<EOF | envsubst | kubectl apply -f -
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-whoami
-  namespace: whoami
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: whoami.${HOMEKUBE_DOMAIN}
-      http:
-        paths:
-          - backend:
-              service:
-                name: whoami
-                port:
-                  number: 80
-            path: /
-            pathType: Prefix
-EOF
+envsubst < ~/homekube/src/whoami/oauth2/oauth2.yaml | kubectl apply -f -
+envsubst < ~/homekube/src/whoami/oauth2/ingress-sso.yaml | kubectl apply -f -
+
 echo "Installation done who-am-i demo application"
 fi # end if installation of whoami

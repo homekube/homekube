@@ -21,11 +21,10 @@ cat << EOF | envsubst | kubectl apply -f -
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
   name: ingress-prometheus
   namespace: prometheus
 spec:
+  ingressClassName: nginx
   rules:
     - host: prometheus.${HOMEKUBE_DOMAIN}
       http:

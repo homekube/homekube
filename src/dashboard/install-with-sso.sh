@@ -15,6 +15,5 @@ envsubst < oauth2/create-group-bindings.yaml | kubectl apply -f -
 envsubst < oauth2/ingress-sso.yaml | kubectl apply -f -
 envsubst < oauth2/oauth2.yaml | kubectl apply -f -
 
-EOF
 echo "Installation done dashboard"
 fi # end of installation of kubernetes dashboard

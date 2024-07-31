@@ -32,7 +32,6 @@ spec:
         app: keycloak
     spec:
       containers:
-      containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:25.0.2
           args: ["start-dev"]

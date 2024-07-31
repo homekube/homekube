@@ -19,6 +19,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: keycloak
+  namespace: keycloak
   labels:
     app: keycloak
 spec:

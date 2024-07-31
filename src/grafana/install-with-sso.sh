@@ -7,6 +7,8 @@ if [[ $?  -eq 0 ]]; then
 else
 echo "Install grafana"
 
+envsubst < config-oauth-env.yaml > config-oauth.yaml
+
 kubectl create namespace grafana
 
 helm repo add grafana https://grafana.github.io/helm-charts

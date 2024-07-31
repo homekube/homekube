@@ -1,0 +1,19 @@
+# kubectl apply -f ~/homekube/src/keycloak/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-keycloak
+  namespace: keycloak
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: keycloak.${HOMEKUBE_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: keycloak
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix

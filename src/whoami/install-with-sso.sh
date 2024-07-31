@@ -11,8 +11,8 @@ kubectl create namespace whoami
 helm install whoami halkeye/whoami -n whoami --version 1.0.1
 kubectl scale --replicas=5 deployment.apps/whoami -n whoami
 
-envsubst < ~/homekube/src/whoami/oauth2/oauth2.yaml | kubectl apply -f -
-envsubst < ~/homekube/src/whoami/oauth2/ingress-sso.yaml | kubectl apply -f -
+envsubst < oauth2/oauth2.yaml | kubectl apply -f -
+envsubst < oauth2/ingress-sso.yaml | kubectl apply -f -
 
 echo "Installation done who-am-i demo application"
 fi # end if installation of whoami

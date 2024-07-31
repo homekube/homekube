@@ -8,6 +8,8 @@ else
 echo "Install keycloak oauth service"
 
 kubectl create ns keycloak
-
 envsubst < ingress.yaml | kubectl apply -f -
 envsubst < keycloak.yaml | kubectl apply -f -
+
+echo "Installation done keycloak app"
+fi # end if installation of whoami

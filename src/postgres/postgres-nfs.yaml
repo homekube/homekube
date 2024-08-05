@@ -28,7 +28,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: ${HOMEKUBE_NFS_SERVER_URL}
-    path: "${HOMEKUBE_NFS_SERVER_PATH}/postgres/data"
+    path: "${HOMEKUBE_NFS_SERVER_PATH}"
   storageClassName: managed-nfs-storage
 
 ---
@@ -72,13 +72,6 @@ spec:
         app: psql
         ver: homekube-01
     spec:
-      initContainers:
-        - name: create-subdir
-          image: busybox
-          command: ["sh", "-c", "mkdir -p /var/lib/postgresql/data/postgres/data"]
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: pgdatavol
       containers:
         - name: postgres
           image: postgres:16

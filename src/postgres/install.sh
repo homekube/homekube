@@ -8,7 +8,6 @@ else
 echo "Install postgres"
 
 kubectl create namespace postgres
-
-
+envsubst < postgres-nfs.yaml | kubectl apply -f -
 
 fi

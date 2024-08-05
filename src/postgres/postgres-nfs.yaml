@@ -1,3 +1,5 @@
+# Reference: https://www.itwonderlab.com/kubernetes-nfs/
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -50,7 +52,7 @@ spec:
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: psql
   namespace: postgres
@@ -63,6 +65,7 @@ spec:
     matchLabels:
       app: psql
       ver: homekube-01
+  serviceName: homekube-01
   template: #For the creation of the pod
     metadata:
       labels:

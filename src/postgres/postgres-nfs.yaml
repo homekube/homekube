@@ -72,6 +72,13 @@ spec:
         app: psql
         ver: homekube-01
     spec:
+      initContainers:
+        - name: create-subdir
+          image: busybox
+          command: ["sh", "-c", "mkdir -p /var/lib/postgresql/data/postgres/data"]
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pgdatavol
       containers:
         - name: postgres
           image: postgres:16

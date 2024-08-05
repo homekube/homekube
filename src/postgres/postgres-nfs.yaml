@@ -9,7 +9,7 @@ data:
   POSTGRES_DB: "homekube"
   POSTGRES_USER: "admin"
   POSTGRES_PASSWORD: "${HOMEKUBE_PG_PASSWORD}"
-  PGDATA: "/var/lib/postgresql/data/k8s"
+  PGDATA: "/var/lib/postgresql/data/postgres/homekube"
 
 ---
 apiVersion: v1

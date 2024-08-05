@@ -35,6 +35,7 @@ spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:25.0.2
+          imagePullPolicy: IfNotPresent
           args: ["start-dev"]
           env:
             - name: KEYCLOAK_ADMIN
@@ -43,6 +44,14 @@ spec:
               value: "admin"
             - name: KC_PROXY
               value: "edge"
+            - name: KC_DATABASE
+              value: postgres
+            - name: KC_DB_URL
+              value: jdbc:postgresql://postgres/keycloak
+            - name: KC_DB_USERNAME
+              value: admin
+            - name: KC_DB_PASSWORD
+              value: "${HOMEKUBE_PG_PASSWORD}"
           ports:
             - name: http
               containerPort: 8080

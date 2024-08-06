@@ -1,3 +1,20 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-cm
+  namespace: keycloak
+data:
+  KEYCLOAK_ADMIN: "admin"
+  KEYCLOAK_ADMIN_PASSWORD: "${HOMEKUBE_KEYCLOAK_PASSWORD}"
+  KC_PROXY: "edge"
+  KC_DB: "postgres"
+  KC_DB_URL: "jdbc:postgresql://postgres-service-np.postgres/keycloak"
+  KC_DB_USERNAME: "admin"
+  KC_DB_PASSWORD: "${HOMEKUBE_PG_PASSWORD}"
+
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -37,21 +54,9 @@ spec:
           image: quay.io/keycloak/keycloak:25.0.2
           imagePullPolicy: IfNotPresent
           args: ["start-dev"]
-          env:
-            - name: KEYCLOAK_ADMIN
-              value: "admin"
-            - name: KEYCLOAK_ADMIN_PASSWORD
-              value: "${HOMEKUBE_KEYCLOAK_PASSWORD}"
-            - name: KC_PROXY
-              value: "edge"
-            - name: KC_DB
-              value: postgres
-            - name: KC_DB_URL
-              value: "jdbc:postgresql://postgres-service-np.postgres/keycloak"
-            - name: KC_DB_USERNAME
-              value: "admin"
-            - name: KC_DB_PASSWORD
-              value: "${HOMEKUBE_PG_PASSWORD}"
+          envFrom:
+            - configMapRef:
+                name: keycloak-cm
           ports:
             - name: http
               containerPort: 8080

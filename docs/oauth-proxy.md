@@ -16,7 +16,7 @@ See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#conf
 # /var/snap/microk8s/current/args/kube-apiserver
 
 # edit domain of your auth server, for example auth.sso.homekube.org 
---oidc-issuer-url=https://auth.sso.homekube.org/realms/homekube
+--oidc-issuer-url=https://keycloak.sso.homekube.org/realms/homekube
 --oidc-client-id=homekube-dashboard
 --oidc-username-claim=email
 --oidc-groups-claim=groups

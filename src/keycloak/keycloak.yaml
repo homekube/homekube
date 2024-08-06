@@ -41,15 +41,13 @@ spec:
             - name: KEYCLOAK_ADMIN
               value: "admin"
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: "admin"
+              value: "${HOMEKUBE_KEYCLOAK_PASSWORD}"
             - name: KC_PROXY
               value: "edge"
-            - name: KC_DATABASE
-              value: postgres
             - name: KC_DB_URL
-              value: jdbc:postgresql://postgres/keycloak
+              value: jdbc:postgresql://postgres-service-np.postgres/keycloak
             - name: KC_DB_USERNAME
-              value: admin
+              value: "admin"
             - name: KC_DB_PASSWORD
               value: "${HOMEKUBE_PG_PASSWORD}"
           ports:

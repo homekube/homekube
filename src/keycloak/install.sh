@@ -8,6 +8,12 @@ else
 echo "Install keycloak oauth service"
 
 kubectl create ns keycloak
+
+# create keycloak user and database - errors will be ignored if this step is repeated
+# in case of trouble use the drop-keycloak.sql script
+envsubst < create-db-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
+
+# Installing ingress and keycloak
 envsubst < ingress.yaml | kubectl apply -f -
 envsubst < keycloak.yaml | kubectl apply -f -
 

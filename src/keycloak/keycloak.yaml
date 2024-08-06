@@ -45,9 +45,9 @@ spec:
             - name: KC_PROXY
               value: "edge"
             - name: KC_DB
-              value: postgresql
+              value: postgres
             - name: KC_DB_URL
-              value: "jdbc:postgresql://postgres-service-np.postgres.svc.cluster.local/keycloak"
+              value: "jdbc:postgresql://postgres-service-np.postgres/keycloak"
             - name: KC_DB_USERNAME
               value: "admin"
             - name: KC_DB_PASSWORD

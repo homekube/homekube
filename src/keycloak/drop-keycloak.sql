@@ -1,3 +1,4 @@
 -- Drop the keycloak database and user
-DROP user keycloak;
-DROP DATABASE keycloak;
+DROP DATABASE keycloak (FORCE);
+DROP ROLE keycloak;
+DROP ROLE keycloak_role;

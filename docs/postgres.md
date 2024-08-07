@@ -28,7 +28,7 @@ statefulset.apps/psql   1/1     21h
 
 ## Checking pod-local availability
 
-```shell
+```bash
 # Step into the postgres pod with a bash shell
 kubectl exec -it -n postgres psql-0 -- bash 
 # Connect with the postgres (or homekube) database
@@ -67,7 +67,7 @@ root@psql-0:/#
 Now lets do another check to confirm that we can connect to the database from inside the cluster. For this we install
 another instance of postgres. Actually we only need the psql client but its just simpler to use the same image.
 
-```shell
+```bash
 kubectl run -it postgres --image=postgres:16 --restart=Never -- bash
 # then execute
 psql -U admin postgresql://postgres-service-np.postgres/homekube
@@ -77,7 +77,7 @@ in the namespace ``postgres`` to the database ``homekube``.
 As this is cluster-local in contrast to pod-local
 [Trust authentication](https://www.postgresql.org/docs/current/auth-trust.html) doesn't kick in and we need to supply credentials for authorization.
 
-```shell
+```bash
 root@postgres:/# psql -U admin postgresql://postgres-service-np.postgres/homekube
 Password for user admin: 
 psql (16.3 (Debian 16.3-1.pgdg120+1))
@@ -112,7 +112,7 @@ Or as an alternative we can use a client wih a visual ui. There a various option
 option for the different os and a web based version too.
 
 Lets first check the ip address of our lxc container containing our homekube cluster in the local network:
-```
+```bash
 ubuntu@pi1:~$ lxc list homekube
 +----------+---------+-----------------------------+------+-----------+-----------+
 | NAME     |  STATE  |            IPV4             | IPV6 |   TYPE    | SNAPSHOTS |
@@ -138,3 +138,43 @@ Create a server with the following properties:
 ![](images/2-pgAdmin.png)
 
 
+## Useful tips
+
+### Create a scram-sha-256 hash
+
+This is useful to avoid using plain text passwords. Postgres supports md5 and scram-sha-256 hashes.
+It is a better approach to use passwords in environment variables. Thats what we do in our install.sh scripts.
+This is an alternative way (which is considered less safe) to supply passwords. 
+Here is an easy way to create one.
+
+```bash
+# psql into our homekube database with admin permissions
+root@auth:~# kubectl exec -it -n postgres psql-0 -- psql -U admin -d homekube
+psql (16.3 (Debian 16.3-1.pgdg120+1))
+Type "help" for help.
+
+homekube=# 
+```
+
+Lets create a user 'test' and assign a password of your choice (e.g. 'your_password')
+```psql
+show password_encryption; -- should be 'scram-sha-256' (default from Postgres version 14) or older 'md5'
+-- SET password_encryption  = 'scram-sha-256'; -- or ALTER SYSTEM SET password_encryption = 'scram-sha-256';
+CREATE USER test with password 'your_password';
+SELECT rolpassword FROM pg_catalog.pg_authid WHERE rolname = 'test';
+drop user test;
+\q
+```
+
+Use the rolpassword from console output
+```
+CREATE ROLE
+                                                              rolpassword                                                              
+---------------------------------------------------------------------------------------------------------------------------------------
+ SCRAM-SHA-256$4096:tTGGLga+/GtT1SeNTvE84w==$omR6+uiZE2VQlW6afdI/Q1+5P9i+G3ush3YqSeXn46I=:7JYgIBChLnwjIHpmjkflyUTWnp97laRChQRxdex5to8=
+(1 row)
+
+```
+
+Use the whole prompt as password e.g.  
+``SCRAM-SHA-256$4096:tTGGLga+/GtT1SeNTvE84w==$omR6+uiZE2VQlW6afdI/Q1+5P9i+G3ush3YqSeXn46I=:7JYgIBChLnwjIHpmjkflyUTWnp97laRChQRxdex5to8=``

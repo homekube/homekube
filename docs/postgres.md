@@ -137,6 +137,12 @@ Create a server with the following properties:
 
 ![](images/2-pgAdmin.png)
 
+## Cleanup
+
+```bash
+kubectl delete ns postgres
+kubectl delete pv psql-pv
+```
 
 ## Useful tips
 

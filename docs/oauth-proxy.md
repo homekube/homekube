@@ -16,8 +16,8 @@ See https://kubernetes.io/docs/reference/access-authn-authz/authentication/#conf
 # /var/snap/microk8s/current/args/kube-apiserver
 
 # edit domain of your auth server, for example auth.sso.homekube.org 
---oidc-issuer-url=https://keycloak.sso.homekube.org/realms/homekube
---oidc-client-id=homekube-dashboard
+--oidc-issuer-url=https://keycloak.auth.homekube.org/realms/homekube
+--oidc-client-id=homekube-client
 --oidc-username-claim=email
 --oidc-groups-claim=groups
 
@@ -36,13 +36,13 @@ This version can then be parametrized.
 It can be installed for **remote access to your cluster** on any workstation anywhere provided it is accessible from your local network. See also https://microk8s.io/docs/working-with-kubectl  
 Then retrieve the **access token** from the keycloak server:
 ```
-curl -X POST https://auth.oops.de/realms/homekube/protocol/openid-connect/token \
+curl -X POST https://keycloak.auth.homekube.org/realms/homekube/protocol/openid-connect/token \
 -H "Content-Type: application/x-www-form-urlencoded" \
 -d "username=auth-user" \
 -d "password=auth-password" \
 -d "grant_type=password" \
--d "client_secret=iUxp1njMnX5iwfwwj4MLRKnT6KI80PHU" \
--d "client_id=homekube-dashboard"
+-d "client_secret=<client-secret-as-generated-by-keycloak>" \
+-d "client_id=homekube-client"
 ```
 
 You can inspect tokens online on https://jwt.io/
@@ -65,7 +65,7 @@ For session cleanup you need to invalidate the session and clear oauth2 cookies.
 ### TODO Update links
 ```
 # invalidate session 
-https://auth.oops.de/realms/homekube/protocol/openid-connect/logout
+https://keycloak.auth.homekube.org/realms/homekube/protocol/openid-connect/logout
 
 # clear oauth2 cookies
 https://dashboard.auth.homekube.org/oauth2/sign_out
@@ -93,7 +93,7 @@ https://oauth2-proxy.github.io/oauth2-proxy/docs/features/endpoints/
 https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/  
 https://github.com/kubernetes/ingress-nginx/tree/main  
 
-https://auth.oops.de/realms/homekube/.well-known/openid-configuration
+https://keycloak.auth.homekube.org/realms/homekube/.well-known/openid-configuration
 
 https://quay.io/repository/oauth2-proxy/oauth2-proxy?tab=tags&tag=latest
 

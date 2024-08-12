@@ -29,7 +29,7 @@ spec:
             - --cookie-expire=30m
             - --insecure-oidc-allow-unverified-email=true
             - --set-authorization-header=true
-            - --oidc-issuer-url=https://auth.oops.de/realms/homekube
+            - --oidc-issuer-url=https://keycloak.auth.homekube.org/realms/homekube
             - --oidc-email-claim=email
             - --oidc-groups-claim=groups
             # - --show-debug-on-error=true

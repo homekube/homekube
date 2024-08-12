@@ -13,6 +13,11 @@ kubectl create ns keycloak
 # in case of trouble use the drop-keycloak.sql script
 envsubst < create-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
 
+# use a secret for passwords
+kubectl create secret generic keycloak-secret -n keycloak \
+--from-literal=KEYCLOAK_ADMIN_PASSWORD=${HOMEKUBE_KEYCLOAK_PASSWORD} \
+--from-literal=KC_DB_PASSWORD=${HOMEKUBE_PG_PASSWORD}
+
 # Installing ingress and keycloak
 envsubst < ingress.yaml | kubectl apply -f -
 envsubst < keycloak.yaml | kubectl apply -f -

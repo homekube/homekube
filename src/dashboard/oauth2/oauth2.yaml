@@ -26,6 +26,7 @@ spec:
             - --client-secret=${HOMEKUBE_OAUTH2_CLIENT_SECRET}
             - --code-challenge-method=S256
             - --cookie-secret=${HOMEKUBE_OAUTH2_COOKIE_SECRET}
+            - --cookie-domain=.${HOMEKUBE_DOMAIN}
             - --cookie-expire=30m
             - --insecure-oidc-allow-unverified-email=true
             - --set-authorization-header=true

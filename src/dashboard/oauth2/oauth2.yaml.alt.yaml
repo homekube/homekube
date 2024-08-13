@@ -26,6 +26,7 @@ spec:
             - --client-secret=Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
             - --code-challenge-method=S256
             - --cookie-secret=kgKUT3IMmESA81VWXvRpYIYwMSo1xndwIogUks6IS00=
+            - --cookie-domain=.${HOMEKUBE_DOMAIN}
             - --cookie-expire=30m
             - --insecure-oidc-allow-unverified-email=true
             - --set-authorization-header=true
@@ -37,7 +38,6 @@ spec:
             # - --redirect-url=https://dashboard.${HOMEKUBE_DOMAIN}/oauth2/callback
             # - --allowed-group=/demo
             # - --pass-authorization-header=true
-            # - --cookie-domain=.${HOMEKUBE_DOMAIN}
             # - --cookie-samesite=lax
             # - --cookie-csrf-per-request=true
             # - --cookie-csrf-expire=30m

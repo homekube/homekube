@@ -69,9 +69,11 @@ https://keycloak.auth.homekube.org/realms/homekube/protocol/openid-connect/logou
 
 # clear oauth2 cookies
 https://dashboard.auth.homekube.org/oauth2/sign_out
+https://whoami.auth.homekube.org/oauth2/sign_out
 
 # In one (With url encoded parrms)
 https://dashboard.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout
+https://whoami.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout
 ```
 
 https://www.enricobassetti.it/2021/04/protect-kubernetes-dashboard-using-oauth2-proxy-and-keycloak/

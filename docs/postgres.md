@@ -127,11 +127,11 @@ Create a server with the following properties:
 
 1) On the **General** tab name the service as you like, e.g. "Homekube"  
 2) On the **Connection** tab fill in the values from our configuration.  
-2.1) The hostname/address is the IP of the clusters host in your local network  
-2.2) The port is the ``nodePort`` we configured [during database creation](../src/postgres/postgres-nfs.yaml)   
+2.1) The hostname/address is the IP of the clusters host in your local network (e.g. ``192.168.1.104``)  
+2.2) The port is the ``nodePort`` (``30100``) we configured [during database creation](../src/postgres/postgres-nfs.yaml)   
 2.3) As the maintenance database we can either specify ``postgres`` or ``homekube``   
-2.4) Username is ``admin```as given during installation  
-2.5) Password   
+2.4) Username is ``admin`` as given during installation  
+2.5) Password is the ``${HOMEKUBE_PG_PASSWORD}`` from your environment settings during installation 
 
 ![](images/1-pgAdmin.png)  
 

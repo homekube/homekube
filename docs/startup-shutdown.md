@@ -3,6 +3,7 @@
 
 # Shutdown lxc k8s container  
 
+Filesystems mounted in pods prevent a lxc container from shutting down. Forcefully shutting down nodes can take very long time. 
 While in the container check if there are filesystems mounted
 ```bash
 root@auth:~# df -h -t nfs4

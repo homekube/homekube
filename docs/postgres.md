@@ -1,6 +1,9 @@
 # Postgres
 
 ## Preparation
+As we want to make use of the database from all kinds of clients - 
+particualarly arm clients that don't have mass storage (e.g. raspberry pi) - 
+we will put the database data files on external persistent storage which was created before.
 
 Prerequisites are:
 - A storage provisioner to fullfill persistence storage claims (e.g.
@@ -105,7 +108,7 @@ kubectl delete po postgres
 
 ## Checking external availability
 
-External availability is a very useful option for deeper inspection of the database during developmenet.
+External availability is a very useful option for deeper inspection of the database during development.
 For this we need to install the postgres client on our developer machine in the local network.
 Or as an alternative we can use a client wih a visual ui. There a various options and I'm using "official" 
 [postgres frontend pgAdmin](https://www.pgadmin.org). It offers numerous installation 

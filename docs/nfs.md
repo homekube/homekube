@@ -91,7 +91,7 @@ helm install nfs-client --version=4.0.17 \
     --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
     --set nfs.server=192.168.1.100 \
     --set nfs.path=/srv/nfs/kubedata \
-    --set nfs.mountOptions={nfsvers=3} \
+    --set nfs.mountOptions={nfsvers=4} \
     --namespace nfs-storage \ 
     nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 ```
@@ -124,6 +124,16 @@ Inside the folder there is an empty file `SUCCESS` created by the test pod.
 Now lets remove our test code
 ```bash
 kubectl delete -f test-nfs-storage.yaml
+```
+### Troubleshooting
+
+When the volume claims are left in state ``Pending`` troubleshooting can become quite cumbersome as there are no obvious error
+messages. Especially when binding to nfs storage it can be helpful to try out the different mount
+options of the nfs storage. There exist different nfs versions (2,3,4) and especially when using NAS devices for storage
+and after a software update of the NAS device used for Homekube the former ``nfsvers=3`` didn't work anymore.
+
+```
+  --set nfs.mountOptions={nfsvers=3} \
 ```
 
 ### Installation options

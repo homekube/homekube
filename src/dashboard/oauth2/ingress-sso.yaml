@@ -1,0 +1,55 @@
+# Usage:
+# envsubst < ingress-sso.yaml | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/auth-url: "https://dashboard.${HOMEKUBE_DOMAIN}/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://dashboard.${HOMEKUBE_DOMAIN}/oauth2/start"
+    nginx.ingress.kubernetes.io/auth-response-headers: >- 
+      X-Auth-Request-Email,X-Auth-Request-Preferred-,X-Auth-Request-Access-Token,
+      X-Auth-Request-Roles,X-Auth-Request-User,X-Auth-Request-Groups,X-Forwarded-Groups,
+      Authorization
+  name: ingress-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dashboard.${HOMEKUBE_DOMAIN}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubernetes-dashboard-kong-proxy
+            port:
+              number: 443
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+  name: ingress-oauth2-proxy
+  namespace: kubernetes-dashboard
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: dashboard.${HOMEKUBE_DOMAIN}
+    http:
+      paths:
+      - path: /oauth2
+        pathType: Prefix
+        backend:
+          service:
+            name: oauth2-proxy
+            port:
+              number: 4180
+

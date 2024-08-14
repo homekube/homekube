@@ -9,7 +9,7 @@ and applies 3 profiles in the order of specification. Later profile specs overri
 so we can be sure that our macvlan network settings are honored:
 
 ```
-lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
+lxc launch -p default -p microk8s -p macvlan ubuntu:24.04 homekube
 ```
 
 Lets check if we were successful ``lxc list`` results in something like
@@ -31,12 +31,20 @@ Now we install ``microk8s`` inside a container named ``homekube`` and give it ac
 ```bash
 cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
 lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
-lxc exec homekube -- snap install microk8s --classic --channel=1.25/stable
-lxc exec homekube -- microk8s status --wait-ready
-lxc exec homekube -- microk8s enable dns rbac helm3
+lxc exec homekube -- bash
+# Execute within container NOTE: If executed from host the self signed certificates will be based
+# on the hosts ips and it will not be possible to step into pods
+#
+# NOTE !!! --channel=1.28/stable does NOT work on amd arch due to certificate failures when
+# debugging containers (kubectl exec or kubectl logs) !!!
+#
+snap install microk8s --classic --channel=1.30/stable
+microk8s status --wait-ready
 ```
 
-Execute ``lxc list`` again and you should see something like
+**On the host** execute ``lxc list`` again and you should see something like.
+Sidenote: You can step out of containers with the same command when leaving a shell: ``exit``
+
 ```bash
 +----------+---------+----------------------------+------+-----------+-----------+
 |   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
@@ -53,7 +61,7 @@ When the LXD container boots it needs to load the AppArmor profiles required by 
 
 ``cannot change profile for the next exec call: No such file or directory``
 
-**Now step into the fresh container**
+**Now step again into the container**
 
 ```bash
 lxc exec homekube -- bash
@@ -93,13 +101,13 @@ EOF
 Reenter the container `lxc exec homekube -- bash` and verify the installation:
 
 ```bash
-kubectl version --short
+kubectl version
 ```
 
 ```text
-Client Version: v1.25.4
-Kustomize Version: v4.5.7
-Server Version: v1.25.4
+Client Version: v1.25.16
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.25.16
 ```
 
 Now We are done with installation in a Microk8s container
@@ -111,7 +119,7 @@ Now We are done with installation in a Microk8s container
 ```bash
 lxc exec homekube -- bash
 cd ~/homekube/src
-# NOTE! edit env variables in install-all.sh to match your installation
+# NOTE! edit env variables in homekube.env.sh to match your installation
 bash -i install-all.sh
 ```
 

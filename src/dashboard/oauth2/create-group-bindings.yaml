@@ -1,0 +1,57 @@
+
+# Clusterrolebinding for admin user via oidc (keycloak)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: keycloak-admin-group
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: /admins
+
+---
+
+# Clusterrolebinding for simple user (read-only) via oidc (keycloak)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: keycloak-simple-group
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: /readonly
+
+---
+
+# ClusterRole and Clusterrolebinding for demo user (only view pods and namespaces) (keycloak)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: keycloak-demo-group
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces","pods","pods/log"]
+    verbs: ["get", "watch", "list"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: keycloak-demo-group
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: keycloak-demo-group
+subjects:
+  - kind: Group
+    name: /demo
+    apiGroup: rbac.authorization.k8s.io

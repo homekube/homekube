@@ -21,7 +21,10 @@ The common term for the method we use is **ACME/DNS01** provider where ACME stan
 
 Prerequisites are: 
 - A domain you own, e.g. homekube.org, example.com, yourdomain.org, ...
-- ![](images/ico/color/homekube_16.png) [Ingress](ingress.md)
+
+**NOTE** that we don't need **ingress** being configured as long as we only care about **ACME/DNS01** configurations
+explained here. We need access to our DNS service provider to perform the acme challenge handshake to prove the domains
+ownership. (See below).
 
 Execute
 ```bash
@@ -33,7 +36,7 @@ cd ~/homekube/src/cert-manager
 Following the [![](images/ico/color/kubernetes_16.png) Cert-Manager installation](https://cert-manager.io/docs/installation/kubernetes/) instructions:    
 
 ```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.10.1/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
 kubectl get pod -n cert-manager --watch
 ```
 The containers are getting up and running:
@@ -75,7 +78,7 @@ First we will register at the service manually and its response data is then use
 Next we will register at the service manually:
 ```bash
 # jq . is just for readability and can be omitted
-curl -s -X POST https://auth.acme-dns.io/register | jq .
+curl -s -X POST ${HOMEKUBE_CERT_URL} | jq .
 
 # if jq is not installed you might install it with suddo apt install jq
 ```
@@ -153,7 +156,8 @@ with the name of your top-level domain.
 ```bash
 export HOMEKUBE_DOMAIN=homekube.org 
 export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
-export HOMEKUBE_CERT_URL=https://auth.acme-dns.io # https://acmedns.a-hahn.org
+#export HOMEKUBE_CERT_URL=https://acmedns.a-hahn.org
+export HOMEKUBE_CERT_URL=https://auth.acme-dns.io
 
 kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json
@@ -225,8 +229,21 @@ Finally we will update our Ingress configuration to take advantage of our certif
 The simplest solution is to update Ingress controllers deployment to use our 
 fresh certificate by default:
 
+The `kubectl patch` command adds the certificate to the controller:
+
 ```bash
-kubectl edit deployment.apps/nginx-helm-ingress-nginx-controller -n ingress-nginx
+kubectl patch deployment "nginx-helm-ingress-nginx-controller" \
+    -n "ingress-nginx" \
+    --type "json" \
+    --patch '[
+      {"op":"add","path":"/spec/template/spec/containers/0/args/-",
+      "value":"--default-ssl-certificate=cert-manager-'${HOMEKUBE_DOMAIN_DASHED}'/tls-prod"}]'
+```
+
+Check patch validity
+
+```bash
+EDITOR=nano kubectl edit deployment.apps/nginx-helm-ingress-nginx-controller -n ingress-nginx
 ```
 
 That command opens an editor with lots of deployment configuration and we scroll down and look for
@@ -249,9 +266,9 @@ the commands that configure the arguments of the controller:
 ...
 ```
 
-Leave all those lines as they are and add a single argument at the bottom of this code block with correct indentation:  
+If patch did work as expected there should be an additional container argument with correct indentation:
 `- --default-ssl-certificate=cert-manager-acme-secrets/homekube-tls-prod`.  
-The code snippet above already shows the final result.
+The code snippet above already shows the final result. If this line does not exist so just add it as above.
 
 Now saving the editor will immediately activate the updated configuration.
 Open a browser on any of the supported subdomains, e.g. `https://dashboard.homekube.org`.

@@ -1,0 +1,66 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-cm
+  namespace: keycloak
+data:
+  KEYCLOAK_ADMIN: "admin"
+  KC_PROXY: "edge"
+  KC_DB: "postgres"
+  KC_DB_URL: "jdbc:postgresql://postgres-service-np.postgres/keycloak"
+  KC_DB_USERNAME: "keycloak"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  namespace: keycloak
+  labels:
+    app: keycloak
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: keycloak
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:25.0.2
+          imagePullPolicy: IfNotPresent
+          args: ["start-dev"]
+          envFrom:
+            - configMapRef:
+                name: keycloak-cm
+            - secretRef:
+                name: keycloak-secret
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080

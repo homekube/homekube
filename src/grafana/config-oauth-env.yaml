@@ -1,0 +1,19 @@
+## Configure oauth2 authentication
+assertNoLeakedSecrets: false
+grafana.ini:
+  auth:
+    disable_login_form: true
+  auth.generic_oauth:
+    enabled: true
+    name: Keycloak-OAuth
+    allow_sign_up: true
+    client_id: ${HOMEKUBE_OIDC_CLIENT_ID}
+    client_secret: ${HOMEKUBE_OAUTH2_CLIENT_SECRET}
+    scopes: openid email profile offline_access roles
+    email_attribute_path: email
+    login_attribute_path: email
+    name_attribute_path: email
+    auth_url: ${HOMEKUBE_OIDC_ISSUER}/protocol/openid-connect/auth
+    token_url: ${HOMEKUBE_OIDC_ISSUER}/protocol/openid-connect/token
+    api_url: ${HOMEKUBE_OIDC_ISSUER}/protocol/openid-connect/userinfo
+    role_attribute_path: contains(groups[*], '/admins') && 'Admin' || 'Viewer'

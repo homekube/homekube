@@ -82,6 +82,7 @@ helm search repo
 
 **Congrats** - Now we have direct access to a broad range of applications - many of them ready to install with a single command.
 
+**NOTE :** Chart source moved to https://github.com/traefik/whoami
 ## Next steps
 
 ![](images/ico/color/homekube_16.png)[ More about helm by example](helm-basics.md).

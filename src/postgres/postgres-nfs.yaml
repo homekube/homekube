@@ -1,0 +1,108 @@
+# Reference: https://www.itwonderlab.com/kubernetes-nfs/
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: psql-cm
+  namespace: postgres
+data:
+  POSTGRES_DB: "homekube"
+  POSTGRES_USER: "admin"
+  PGDATA: "/var/lib/postgresql/data/postgres/homekube"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: psql-pv
+  namespace: postgres
+  labels: #Labels
+    app: psql
+    ver: homekube
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: ${HOMEKUBE_NFS_SERVER_URL}
+    path: "${HOMEKUBE_NFS_SERVER_PATH}"
+  storageClassName: managed-nfs-storage
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: psql-pvc
+  namespace: postgres
+spec:
+  storageClassName: managed-nfs-storage
+  selector:
+    matchLabels:  #Select a volume with this labels
+      app: psql
+      ver: homekube
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: psql
+  namespace: postgres
+  labels:
+    app: psql
+    ver: homekube-01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: psql
+      ver: homekube-01
+  serviceName: homekube-01
+  template: #For the creation of the pod
+    metadata:
+      labels:
+        app: psql
+        ver: homekube-01
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: psql-cm
+            - secretRef:
+                name: psql-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pgdatavol
+      volumes:
+        - name: pgdatavol
+          persistentVolumeClaim:
+            claimName: psql-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service-np
+  namespace: postgres
+spec:
+  type: NodePort
+  selector:
+    app: psql
+  ports:
+    - name: psql
+      port: 5432
+      nodePort: 30100   # Exposing nodePort
+      protocol: TCP

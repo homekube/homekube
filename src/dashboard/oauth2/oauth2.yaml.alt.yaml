@@ -1,0 +1,70 @@
+# Usage:
+# envsubst < oauth2-proxy-kubernetes-dashboard.yaml | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: oauth2-proxy
+  name: oauth2-proxy
+  namespace: kubernetes-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        k8s-app: oauth2-proxy
+    spec:
+      containers:
+        - args:
+            - --provider=oidc
+            - --email-domain="*"
+            - --http-address=0.0.0.0:4180
+            - --client-id=homekube-dashboard
+            - --client-secret=Lyzym6uI7dUYjyeKf40syWPnBH9IIOCI
+            - --code-challenge-method=S256
+            - --cookie-secret=kgKUT3IMmESA81VWXvRpYIYwMSo1xndwIogUks6IS00=
+            - --cookie-domain=.${HOMEKUBE_DOMAIN}
+            - --cookie-expire=30m
+            - --insecure-oidc-allow-unverified-email=true
+            - --set-authorization-header=true
+            - --oidc-issuer-url=https://keycloak.auth.homekube.org/realms/homekube
+            - --oidc-email-claim=email
+            - --oidc-groups-claim=groups
+            # - --show-debug-on-error=true
+            # - --upstream=https://dashboard.${HOMEKUBE_DOMAIN} # is taken from ingress ${escaped_request_uri}
+            # - --redirect-url=https://dashboard.${HOMEKUBE_DOMAIN}/oauth2/callback
+            # - --allowed-group=/demo
+            # - --pass-authorization-header=true
+            # - --cookie-samesite=lax
+            # - --cookie-csrf-per-request=true
+            # - --cookie-csrf-expire=30m
+            # - --ssl-insecure-skip-verify=true
+            # - --ssl-upstream-insecure-skip-verify=true
+            # - --skip-provider-button=true
+          image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+          imagePullPolicy: IfNotPresent
+          name: oauth2-proxy
+          ports:
+            - containerPort: 4180
+              protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: oauth2-proxy
+  name: oauth2-proxy
+  namespace: kubernetes-dashboard
+spec:
+  ports:
+    - name: http
+      port: 4180
+      protocol: TCP
+      targetPort: 4180
+  selector:
+    k8s-app: oauth2-proxy
+

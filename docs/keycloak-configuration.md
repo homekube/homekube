@@ -154,7 +154,7 @@ The important parts (e.g. ``groups`` attribute) are highlighted.
 
 ### Finetuning configuration
 
-There are a couple of settings to finetune the behaviour and lets increase the token lifespan to a more generous setting (30 mins).  
+There are a couple of settings to fine tune the behaviour and lets increase the token lifespan to a more generous setting (30 mins).  
 
 ![](/docs/images/keycloak/80-Realm-settings-token.png)
 

@@ -8,38 +8,34 @@ The focus is getting something done first and improve your kubernetes skills ste
 Following this tutorial you should have Kubernetes and a sample application installed 
 along with the most useful and popular administration components on your local Ubuntu server(s):
 
-| App |![](docs/images/ico/color/homekube_16.png) Tutorial| ![](docs/images/ico/color/homekube_link_16.png) Service (AMD64)                                                            | ![](docs/images/ico/color/raspi_20.png) Service (ARM64 /Raspberry) |
-|--------|--------|----------------------------------------------------------------------------------------------------------------------------|---------|
-| 'Who am I' echo service  |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) | [![](docs/images/ico/color/homekube_link_16.png) live](https://whoami.homekube.org)                                        | [![](docs/images/ico/color/raspi_20.png) live](https://whoami.pi.homekube.org)|
-| Kubernetes dashboard |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)| [![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://dashboard.homekube.org/#/pod?namespace=_all) | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://dashboard.pi.homekube.org/#/pod?namespace=_all) | 
-| Grafana monitoring |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)| [![](docs/images/ico/color/homekube_link_16.png) login **demo/demo**](https://grafana.homekube.org)                        | [![](docs/images/ico/color/raspi_20.png) login **demo/demo**](https://grafana.pi.homekube.org) | 
-| Prometheus metrics |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)| [![](docs/images/ico/color/homekube_link_16.png) live](https://prometheus.homekube.org)                                    |[![](docs/images/ico/color/raspi_20.png) live](https://prometheus.pi.homekube.org)| 
-| Testing payloads and response times |![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md)| [![](docs/images/ico/color/homekube_link_16.png) Grafana](https://grafana.homekube.org) open 'Request Handling Performance' | 
+| App                                          |Tutorial| Online <br> AMD64                                                               | Online <br> Raspberry                                      | Online IAM<br> Keycloak                  
+|----------------------------------------------|--------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| 'Who am I' echo service                      |![](docs/images/ico/color/homekube_16.png) [whoami.md](docs/whoami.md) | [![](docs/images/homekube_64.png)](https://whoami.homekube.org)                 | [![](docs/images/raspberry_64.png) ](https://whoami.pi.homekube.org)                         | [![](docs/images/keycloak_64.png) ](https://whoami.auth.homekube.org) |
+| Kubernetes dashboard                         |![](docs/images/ico/color/homekube_16.png) [dashboard.md](docs/dashboard.md)| [![](docs/images/homekube_64.png) ](https://dashboard.homekube.org/#/pod?namespace=_all) | [![](docs/images/raspberry_64.png) ](https://dashboard.pi.homekube.org/#/pod?namespace=_all) | [![](docs/images/keycloak_64.png) ](https://dashboard.auth.homekube.org/#/pod?namespace=_all) |
+| Grafana monitoring                           |![](docs/images/ico/color/homekube_16.png) [grafana.md](docs/grafana.md)| [![](docs/images/homekube_64.png)](https://grafana.homekube.org)                | [![](docs/images/raspberry_64.png) ](https://grafana.pi.homekube.org)                        | [![](docs/images/keycloak_64.png) ](https://grafana.auth.homekube.org) | 
+| Prometheus metrics                           |![](docs/images/ico/color/homekube_16.png) [prometheus.md](docs/prometheus.md)| [![](docs/images/homekube_64.png)](https://prometheus.homekube.org)             | [![](docs/images/raspberry_64.png) ](https://prometheus.pi.homekube.org)                     | [![](docs/images/keycloak_64.png) ](https://prometheus.auth.homekube.org) | 
+| Testing payloads and response times <br> *1) |![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md)| [![](docs/images/homekube_64.png) ](https://grafana.homekube.org)               |                                                                                                    |
 
+Where logins are required use **demo/demo**. For a demonstration of different access levels logins also use **simple-user/s3cr3t** (supported by Keycloak SSO IAM) 
 
 ## Project philosophy
+The idea of this project is to set up a fully functional kubernetes environment on budget hardware - a PC / Server or a Raspberry Pi. While learning step by step the final setup 
+is a complete professional appliance with all major components integrated. All steps are explained in detail and accompanied by publicly accessible online demos. 
+
 There are many ways to install Kubernetes locally but for simplicity we'll follow Ubuntu's recommended [![](docs/images/ico/color/ubuntu_16.png) **MicroK8s installation recipes**](https://microk8s.io/docs).
-With just a few commands we will setup a Kubernetes single node locally. For all further installs we'll primarily use helm commands so we are very close to what you'd do in a cloud environment.
-For more complex setups including **Multi-Host Multi-Cluster** on a pile of Raspberrys see also the ![](docs/images/ico/color/homekube_16.png) [installation variants](docs/inst_readme.md).
+With just a few commands we will setup a Kubernetes single node locally. For more complex setups including **Multi-Host Multi-Cluster** on a pile of Raspberrys see also the ![](docs/images/ico/color/homekube_16.png) [installation variants](docs/inst_readme.md).
 
 ## Requirements
-Server requirements are:
 
-* A 64bit PC or arm64 (e.g. Raspberry 4) or a Virtual Machine on any supporting OS
-* An Ubuntu 22.04 LTS (20.04 LTS or 18.04 LTS will do also [or alternatives linux distros supporting snapd](https://snapcraft.io/docs/installing-snapd))
-* At least 20G of disk space and 4G of memory are recommended
-* An internet connection
+* A PC / Server or arm64 (e.g. Raspberry 4 or 5) or a Virtual Machine with 4GB memory (8GB recommended) *2)
+* When using a device without persistent memory (e.g. Raspberry) an external NAS drive supporting NFS filesystem.
 
-## Base Installation
+## Base Setup
 
-| Host                                                                                   | Container                                                                                                      |
-|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| ![](docs/images/ico/color/homekube_16.png)[-> Host installation](docs/installation.md) | ![](docs/images/ico/color/homekube_16.png)[ -> 1) Setup environment](docs/inst_microk8s-lxc-macvlan.md)        |
-|                                                                                        | ![](docs/images/ico/color/homekube_16.png)[ -> 2) Provision container(s)](docs/inst_provision-microk8s-lxc.md) |
-|                                                                                        | [![](docs/images/ico/color/ubuntu_16.png) Read more about **Linux containers**](https://linuxcontainers.org)   |
-| Very easy                                                                              | A few simple steps required                                                                                    |
-| Single host / Single node                                                              | Single host / multiple clusters                                                                                |
-| Not extendible                                                                         | Extendible see ![](docs/images/ico/color/homekube_16.png) [ installation variants](docs/inst_readme.md)        |
+This tutorial focuses on setting up a containerized environment using a container runtime. *3)  
+While its more complex than direct installation it offers the additional benefit of running multiple containers / instances of the target hardware.
+
+![](docs/images/ico/color/homekube_16.png)[ Setup environment](docs/inst_microk8s-lxc-macvlan.md)  -> ![](docs/images/ico/color/homekube_16.png)[ Provision container(s)](docs/inst_provision-microk8s-lxc.md) 
 
 ## Service installation
 
@@ -50,7 +46,7 @@ Server requirements are:
 ![](docs/images/ico/color/homekube_16.png)[ Helm / Echo Service](docs/helm-basics.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Echo service II](docs/whoami.md) 
 
-#### Advanced tour
+#### Advanced tour I
 **Quick tour** ->
 ![](docs/images/ico/color/homekube_16.png)[ Ingress](docs/ingress.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Dashboard II](docs/dashboard-auth.md) ->
@@ -58,7 +54,22 @@ Server requirements are:
 ![](docs/images/ico/color/homekube_16.png)[ Prometheus Metrics](docs/prometheus.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Grafana](docs/grafana.md)
 
-#### Pro tour
-**Advanced tour** ->
+#### Advanced tour II
+**Advanced tour I** ->
 ![](docs/images/ico/color/homekube_16.png)[ Cert manager](docs/cert-manager.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Testing response times and payloads](docs/workload-testing.md)
+
+#### Pro tour 
+**Advanced tour II** ->
+![](docs/images/ico/color/homekube_16.png)[ Dashboard SSO / Oauth2-proxy](docs/oauth-proxy.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Postgres Storage](docs/postgres.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Keycloak installation](docs/keycloak-installation.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Keycloak config](docs/keycloak-configuration.md)
+
+<br>
+
+##### Footnotes
+*1)  -> open dashboard 'Request Handling Performance'  
+*2)  An ethernet connection to the target device is required. WLAN does not work out of the box.  
+**NOTE** that if you want to use a VM on your developers workstation as a target the installation requires additional steps not covered in this tutorial.  
+*3) If you prefer a simpler approach follow ![](docs/images/ico/color/homekube_16.png)[ skipping containers](docs/installation.md) 

@@ -29,10 +29,10 @@ statefulset.apps/psql   1/1     21h
 
 ```
 
-## Checking pod-local availability
+## Checking container-local availability
 
 ```bash
-# Step into the postgres pod with a bash shell
+# Step into the postgres container with a bash shell
 kubectl exec -it -n postgres psql-0 -- bash 
 # Connect with the postgres (or homekube) database
 psql -U admin -d postgres
@@ -65,7 +65,7 @@ postgres=# \q
 root@psql-0:/# 
 ```
 
-## Checking availability from inside the cluster
+## Checking cluster-local availability
 
 Now lets do another check to confirm that we can connect to the database from inside the cluster. For this we install
 another instance of postgres. Actually we only need the psql client but its just simpler to use the same image.
@@ -77,7 +77,7 @@ psql -U admin postgresql://postgres-service-np.postgres/homekube
 ```
 We connect with user ``admin`` via the ``postgresql`` driver to the service instance ``postgres-service-np``
 in the namespace ``postgres`` to the database ``homekube``.  
-As this is cluster-local in contrast to pod-local
+As this is cluster-local in contrast to container-local
 [Trust authentication](https://www.postgresql.org/docs/current/auth-trust.html) doesn't kick in and we need to supply credentials for authorization.
 
 ```bash
@@ -106,9 +106,9 @@ root@postgres:/#
 kubectl delete po postgres
 ```
 
-## Checking external availability
+## Checking local network availability
 
-External availability is a very useful option for deeper inspection of the database during development.
+Local network availability is a very useful option for deeper inspection of the database during development.
 For this we need to install the postgres client on our developer machine in the local network.
 Or as an alternative we can use a client wih a visual ui. There a various options and I'm using "official" 
 [postgres frontend pgAdmin](https://www.pgadmin.org). It offers numerous installation 

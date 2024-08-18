@@ -19,7 +19,7 @@ This advice seemed to help (with restart and delay however)
 
 kube-apiserver args as a reference:
 ```bash
-root@auth:/var/snap/microk8s/current/args# cat kube-apiserver
+root@homekube:/var/snap/microk8s/current/args# cat kube-apiserver
 --cert-dir=${SNAP_DATA}/certs
 --service-cluster-ip-range=10.152.183.0/24
 --authorization-mode=RBAC,Node

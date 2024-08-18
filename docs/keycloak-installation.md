@@ -22,7 +22,7 @@ envsubst < create-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U a
 You should be able to log into the keycloak database as the keycloak user and list the content:
 
 ```bash
-root@auth:~/homekube/src/keycloak# kubectl exec psql-0 -it -n postgres -- psql -U keycloak -d keycloak
+root@homekube:~/homekube/src/keycloak# kubectl exec psql-0 -it -n postgres -- psql -U keycloak -d keycloak
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
 
@@ -42,7 +42,7 @@ keycloak=> \l
 (5 rows)
 
 keycloak=> \q
-root@auth:~/homekube/src/keycloak#
+root@homekube:~/homekube/src/keycloak#
 ```
 
 Now lets complete the installation. During initial setup all keycloak tables will be created automatically.
@@ -53,14 +53,14 @@ Lets execute the installation script.
 ```bash
 set -a
 . ../homekube.env.sh # set your env vars with the -a option
-root@auth:~/homekube/src/keycloak# . ./install.sh
+root@homekube:~/homekube/src/keycloak# . ./install.sh
 ```
 
 Initial setup takes a while. Be patient.
 On successful installation your keycloak namespace should look like:
 
 ```bash
-root@auth:~/homekube/src/keycloak# kubectl get all -n keycloak
+root@homekube:~/homekube/src/keycloak# kubectl get all -n keycloak
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/keycloak-74dd784dd9-xjld2   1/1     Running   0          17h
 

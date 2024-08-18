@@ -209,7 +209,7 @@ envsubst < prod-template.yaml | kubectl apply -f -
 **Be patient** It may take a couple of minutes until the ``tls-prod`` secret becomes available in the namespace.
 The option ``--watch`` monitors the namespace.
 ```bash
-root@cert-manager:~/homekube/src/cert-manager# kubectl get secrets -n cert-manager-homekube-org --watch
+root@homekube:~/homekube/src/cert-manager# kubectl get secrets -n cert-manager-homekube-org --watch
 NAME                      TYPE                DATA   AGE
 acme-dns-secret           Opaque              1      3m40s
 cert-issuer-account-key   Opaque              1      3m39s

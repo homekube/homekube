@@ -17,7 +17,7 @@ cd ~/homekube/src/postgres
 ```
 Once installed the postgres namespace should look like
 ```bash
-root@auth:~# kubectl get all -n postgres
+root@homekube:~# kubectl get all -n postgres
 NAME         READY   STATUS    RESTARTS      AGE
 pod/psql-0   1/1     Running   1 (19h ago)   21h
 
@@ -158,7 +158,7 @@ Here is an easy way to create one.
 
 ```bash
 # psql into our homekube database with admin permissions
-root@auth:~# kubectl exec -it -n postgres psql-0 -- psql -U admin -d homekube
+root@homekube:~# kubectl exec -it -n postgres psql-0 -- psql -U admin -d homekube
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
 

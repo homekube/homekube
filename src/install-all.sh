@@ -1,8 +1,9 @@
 #!/bin/bash
 
-set -a
-. ./homekube.env.sh
-set +a
+# environment variables must have been set before executing the script !
+#set -a
+#. ./homekube.env.sh
+#set +a
 
 apt update
 echo "Waiting for Microk8s ready state"

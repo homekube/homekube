@@ -116,7 +116,11 @@ Now We are done with installation in a Microk8s container
 ```bash
 lxc exec homekube -- bash
 cd ~/homekube/src
-# NOTE! edit env variables in homekube.env.sh to match your installation
+
+# modify and set your environment variables !
+set -a
+. ./homekube.env.sh
+set +a
 
 # Plain installation (without Keycloak SSO)
 bash -i install-all.sh

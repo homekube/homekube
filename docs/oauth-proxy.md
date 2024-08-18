@@ -3,6 +3,13 @@
 Keycloak authentication allows true oidc2 auth for the dashboard for managing various access rights
 (Demo user, Admin user, ...)
 
+## Preparation
+
+Requirements:
+
+- ![](images/ico/color/homekube_16.png)[ Keycloak installation](keycloak-installation.md)
+- ![](images/ico/color/homekube_16.png)[ Keycloak configuration](keycloak-configuration.md)
+
 ## Tasks
 
 ### Kube-Apiserver

@@ -68,13 +68,12 @@ A step by step approach
 
 ### Pro tour 
 **Advanced tour II** ->
-![](docs/images/ico/color/homekube_16.png)[ Dashboard SSO / Oauth2-proxy](docs/oauth-proxy.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Postgres Storage](docs/postgres.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Keycloak installation](docs/keycloak-installation.md) ->
-![](docs/images/ico/color/homekube_16.png)[ Keycloak config](docs/keycloak-configuration.md)
+![](docs/images/ico/color/homekube_16.png)[ Keycloak config](docs/keycloak-configuration.md) ->
+![](docs/images/ico/color/homekube_16.png)[ Dashboard SSO / Oauth2-proxy](docs/oauth-proxy.md)
 
 <br>
-
 
 
 ##### Footnotes

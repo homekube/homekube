@@ -6,9 +6,9 @@ Keycloak is a very powerful and well established solution for providing IAM solu
 
 ## Preparation
 
+Requirements are:
 
-- Postgres database
-
+- ![](images/ico/color/homekube_16.png)[ Postgres database](postgres.md) 
 
 ## Installation
 

@@ -37,16 +37,23 @@ While its more complex than direct installation it offers the additional benefit
 
 ![](docs/images/ico/color/homekube_16.png)[ Setup environment](docs/inst_microk8s-lxc-macvlan.md)  -> ![](docs/images/ico/color/homekube_16.png)[ Provision container(s)](docs/inst_provision-microk8s-lxc.md) 
 
+## TLDR; Service installation
+
+Use the (semi-) automated scripts in ``src/install-all.sh`` (without Keycloak SSO)  
+or ``src/install-with-sso1.sh`` and ``src/install-with-sso2.sh`` (includes postgres db and keycloak)
+
 ## Service installation
 
-#### Quick tour
+A step by step approach
+
+### Quick tour
 
 ![](docs/images/ico/color/homekube_16.png) [ Dashboard](docs/dashboard.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm I](docs/helm.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Helm / Echo Service](docs/helm-basics.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Echo service II](docs/whoami.md) 
 
-#### Advanced tour I
+### Advanced tour I
 **Quick tour** ->
 ![](docs/images/ico/color/homekube_16.png)[ Ingress](docs/ingress.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Dashboard II](docs/dashboard-auth.md) ->
@@ -54,12 +61,12 @@ While its more complex than direct installation it offers the additional benefit
 ![](docs/images/ico/color/homekube_16.png)[ Prometheus Metrics](docs/prometheus.md) ->
 ![](docs/images/ico/color/homekube_16.png) [ Grafana](docs/grafana.md)
 
-#### Advanced tour II
+### Advanced tour II
 **Advanced tour I** ->
 ![](docs/images/ico/color/homekube_16.png)[ Cert manager](docs/cert-manager.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Testing response times and payloads](docs/workload-testing.md)
 
-#### Pro tour 
+### Pro tour 
 **Advanced tour II** ->
 ![](docs/images/ico/color/homekube_16.png)[ Dashboard SSO / Oauth2-proxy](docs/oauth-proxy.md) ->
 ![](docs/images/ico/color/homekube_16.png)[ Postgres Storage](docs/postgres.md) ->
@@ -67,6 +74,8 @@ While its more complex than direct installation it offers the additional benefit
 ![](docs/images/ico/color/homekube_16.png)[ Keycloak config](docs/keycloak-configuration.md)
 
 <br>
+
+
 
 ##### Footnotes
 *1)  -> open dashboard 'Request Handling Performance'  

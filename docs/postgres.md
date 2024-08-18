@@ -120,7 +120,7 @@ ubuntu@pi1:~$ lxc list homekube
 +----------+---------+-----------------------------+------+-----------+-----------+
 | NAME     |  STATE  |            IPV4             | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+-----------------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.104 (eth0)        |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0)        |      | CONTAINER | 0         |
 |          |         | 10.1.103.192 (vxlan.calico) |      |           |           |
 +----------+---------+-----------------------------+------+-----------+-----------+
 ```
@@ -130,7 +130,7 @@ Create a server with the following properties:
 
 1) On the **General** tab name the service as you like, e.g. "Homekube"  
 2) On the **Connection** tab fill in the values from our configuration.  
-2.1) The hostname/address is the IP of the clusters host in your local network (e.g. ``192.168.1.104``)  
+2.1) The hostname/address is the IP of the clusters host in your local network (e.g. ``192.168.1.100``)  
 2.2) The port is the ``nodePort`` (``30100``) we configured [during database creation](../src/postgres/postgres-nfs.yaml)   
 2.3) As the maintenance database we can either specify ``postgres`` or ``homekube``   
 2.4) Username is ``admin`` as given during installation  

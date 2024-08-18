@@ -1,8 +1,22 @@
 # Keycloak Identity and Access Management
 
+A SSO (Single Sign On) solution to safeguard all apps.
+
 ## Keycloak Online configuration
 
 [Keycloak installation](keycloak-installation.md) needs to be completed.
+
+As long as our installation is incomplete we will access Keycloak in our local network.
+Port-forward is just a temporary solution during configuration. When the session is terminated the port is no longer accessible.
+
+```bash
+kubectl port-forward -n keycloak service/keycloak 8080:8080 --address 0.0.0.0
+``` 
+
+In the **local browser open `http://192.168.1.100:8080`** and login with  
+
+username: **admin**   
+password: **${HOMEKUBE_KEYCLOAK_PASSWORD}** (default is s3cr3t)
 
 ### Create a realm for homekube
 

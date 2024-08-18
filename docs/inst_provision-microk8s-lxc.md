@@ -17,7 +17,7 @@ Lets check if we were successful ``lxc list`` results in something like
 +----------+---------+----------------------+------+-----------+-----------+
 |   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.101 (eth0) |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
 +----------+---------+----------------------+------+-----------+-----------+
 ```
 
@@ -49,7 +49,7 @@ Sidenote: You can step out of containers with the same command when leaving a sh
 +----------+---------+----------------------------+------+-----------+-----------+
 |   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0)       |      | CONTAINER | 0         |
 |          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
 +----------+---------+----------------------------+------+-----------+-----------+
 ```
@@ -120,7 +120,11 @@ Now We are done with installation in a Microk8s container
 lxc exec homekube -- bash
 cd ~/homekube/src
 # NOTE! edit env variables in homekube.env.sh to match your installation
+
+# Plain installation (without Keycloak SSO)
 bash -i install-all.sh
+# or install with Keycloak Single Sign On (more complex)
+bash -i install-with-sso-1.sh
 ```
 
 ### Learn the individual steps and take the quick tour

@@ -126,7 +126,7 @@ First we need to find out our hosts primary network interface name: ``ip a s``. 
        valid_lft forever preferred_lft forever
 2: enp4s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether f0:79:59:5f:c1:5d brd ff:ff:ff:ff:ff:ff
-    inet 192.168.1.95/16 brd 192.168.255.255 scope global dynamic enp4s0
+    inet 192.168.1.100/16 brd 192.168.255.255 scope global dynamic enp4s0
        valid_lft 62681sec preferred_lft 62681sec
     inet6 fe80::f279:59ff:fe5f:c15d/64 scope link 
        valid_lft forever preferred_lft forever
@@ -165,7 +165,7 @@ Lets check if we were successful ``lxc list`` results in something like
 +----------+---------+----------------------+------+-----------+-----------+
 |   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.105 (eth0) |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
 +----------+---------+----------------------+------+-----------+-----------+
 ```
 
@@ -186,5 +186,9 @@ Install homekube
 ```bash
 lxc exec homekube -- bash
 cd /root/homekube/src
+
+# Plain installation (without Keycloak SSO)
 bash -i install-all.sh
+# or install with Keycloak Single Sign On (more complex)
+bash -i install-with-sso-1.sh
 ```

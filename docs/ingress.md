@@ -34,7 +34,7 @@ kubectl apply -f metallb-config.yaml
 helm install metallb --version=0.12.0 -n metallb-system stable/metallb
 ```
 These commands are a helm based replacements for microk8s LoadBalancer enablement `microk8s enable metallb`.
-If you need to reconfigure the default portrange `192.168.1.200-192.168.1.220` please
+If you need to reconfigure the default portrange `192.168.1.200-192.168.1.201` please
 edit `metallb-config.yaml` to match your environment.
 
 Next we'll install ingress-nginx. The notable difference to `microk8s enable ingress` is that this configuration 

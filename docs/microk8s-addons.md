@@ -10,7 +10,7 @@ It is the default implementation for service discovery in a kubernetes environme
 [![](images/ico/book_16.png) Metallb](https://metallb.universe.tf) is a substitute for a cloud loadbalancer provided by a cloud service provider.
 That's the gateway from where all incoming traffic will flow into our kube.
 MetalLb will assign an IP from your local network to each consuming service of type `LoadBalancer`. 
-You will be prompted for the portrange as commented [Prerequisites](../Readme.md#prerequisites) 3) `192.168.1.200 - 192.168.1.220`  
+You will be prompted for the portrange as commented [Prerequisites](../Readme.md#prerequisites) 3) `192.168.1.200 - 192.168.1.201`  
 [![](images/ico/github_16.png) More details ...](https://github.com/metallb/metallb)
 
 ### Helm(3) charts

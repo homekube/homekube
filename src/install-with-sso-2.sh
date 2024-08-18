@@ -4,29 +4,26 @@ set -a
 . ./homekube.env.sh
 set +a
 
-apt update
-echo "Waiting for Microk8s ready state"
-microk8s status --wait-ready
-microk8s kubectl version
-microk8s enable rbac
-microk8s enable metallb:${HOMEKUBE_PUBLIC_IPS}
-
 INSTALL_DIR=$(pwd)
-
 cd ${INSTALL_DIR}/whoami
-. ./install.sh
+. ./install-with-sso.sh
 cd ${INSTALL_DIR}/ingress
 . ./install.sh
 cd ${INSTALL_DIR}/dashboard
-. ./install.sh
-cd ${INSTALL_DIR}/storage/nfs
-. ./install.sh
+. ./install-with-sso.sh
 cd ${INSTALL_DIR}/prometheus
 . ./install.sh
 cd ${INSTALL_DIR}/grafana
-. ./install.sh
+. ./install-with-sso.sh
 cd ${INSTALL_DIR}
+
+. ./whoami/install.sh
+. ./ingress/install.sh
+. ./dashboard/install.sh
+. ./storage/nfs/install.sh
+. ./prometheus/install.sh
+. ./grafana/install.sh
 
 echo "Next steps: Installation of cert-manager"
 echo "Cert manager automates creation and renewal of LetsEncrypt certificates"
-echo "Follow docs/cert-manager.md"
+echo "Follow ${INSTALL_DIR}/../docs/cert-manager.md"

@@ -12,6 +12,7 @@ kubectl create ns keycloak
 
 # create keycloak user and database - errors will be ignored if this step is repeated
 # in case of trouble use the drop-keycloak.sql script
+kubectl wait -n postgres --for=condition=Ready pod/postgres-0 --timeout=120s
 envsubst < create-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
 
 # use a secret for passwords

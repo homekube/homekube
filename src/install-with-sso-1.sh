@@ -13,6 +13,8 @@ microk8s enable rbac
 microk8s enable metallb:${HOMEKUBE_PUBLIC_IPS}
 
 INSTALL_DIR=$(pwd)
+cd ${INSTALL_DIR}/ingress
+. ./install.sh
 cd ${INSTALL_DIR}/storage/nfs
 . ./install.sh
 cd ${INSTALL_DIR}/postgres
@@ -22,5 +24,5 @@ cd ${INSTALL_DIR}/keycloak
 cd ${INSTALL_DIR}
 
 echo "Next steps: Configuration of Keycloak SSO. This needs to be done manually by "
-echo "following the instructions Installation ${${INSTALL_DIR}/../docs/keycloak-configuration.md}"
+echo "following the instructions Installation ${INSTALL_DIR}/../docs/keycloak-configuration.md"
 echo "Then proceed with part 2 (install-with-sso-2.sh)"

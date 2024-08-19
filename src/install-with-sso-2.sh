@@ -6,8 +6,6 @@
 #set +a
 
 INSTALL_DIR=$(pwd)
-cd ${INSTALL_DIR}/ingress
-. ./install.sh
 cd ${INSTALL_DIR}/whoami
 . ./install-with-sso.sh
 cd ${INSTALL_DIR}/dashboard

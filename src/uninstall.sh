@@ -14,6 +14,8 @@ fi
 if [[ $# -ne 1 ]]; then
   echo "Usage is: '. ./uninstall.sh <namespace> or . ./uninstall.sh all'"
   echo
+  echo "List of namespaces: "
+  kubectl get ns
 fi
 
 if [[ $1 == "all" ]]; then
@@ -26,7 +28,4 @@ if [[ $1 == "all" ]]; then
   . ./uninstall.sh prometheus
   . ./uninstall.sh whoami
 fi
-
-echo "List of namespaces: "
-kubectl get ns
 

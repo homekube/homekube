@@ -1,7 +1,6 @@
 #!/bin/bash
 
-kubectl get ns whoami
-if [[ $?  -eq 0 ]]; then
+if kubectl get ns | grep -q "^whoami$"; then
   echo "Skipping installation of demo whoami app because the namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns whoami' and run this script again"
 else

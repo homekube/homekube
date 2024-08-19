@@ -2,7 +2,13 @@
 
 if [[ $(kubectl get ns | grep -q "^$1") ]] ; then
   kubectl delete ns $1
+  if [[ $? -eq 0 ]] ; then
+    echo "Namespace $1 deleted"
+  fi
   kubectl delete $1-pv
+  if [[ $? -eq 0 ]] ; then
+    echo "Persistent volume $1 deleted"
+  fi
 fi
 
 if [[ $# -ne 1 ]]; then

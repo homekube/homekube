@@ -10,7 +10,7 @@ if [[ $# -ne 1 ]]; then
   echo
 fi
 
-if [[ $1 -eq "all" ]]; then
+if [[ $1 == "all" ]]; then
   . ./uninstall.sh grafana
   . ./uninstall.sh ingress-nginx
   . ./uninstall.sh keycloak

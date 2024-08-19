@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-pv
+  namespace: prometheus
+  labels: #Labels
+    app: prometheus
+    ver: homekube
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: managed-nfs-storage
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-pvc
+  namespace: prometheus
+spec:
+  storageClassName: managed-nfs-storage
+  selector:
+    matchLabels:  #Select a volume with this labels
+      app: prometheus
+      ver: homekube
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

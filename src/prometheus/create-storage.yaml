@@ -11,7 +11,10 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
+  nfs:
+    server: ${HOMEKUBE_NFS_SERVER_URL}
+    path: "${HOMEKUBE_NFS_SERVER_PATH}"
   storageClassName: managed-nfs-storage
 
 ---

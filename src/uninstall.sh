@@ -11,14 +11,14 @@ if [[ $# -ne 1 ]]; then
 fi
 
 if [[ $1 -eq "all" ]]; then
-  ./uninstall.sh grafana
-  ./uninstall.sh ingress-nginx
-  ./uninstall.sh keycloak
-  ./uninstall.sh kubernetes-dashboard
-  ./uninstall.sh nfs-storage
-  ./uninstall.sh postgres
-  ./uninstall.sh prometheus
-  ./uninstall.sh whoami
+  . ./uninstall.sh grafana
+  . ./uninstall.sh ingress-nginx
+  . ./uninstall.sh keycloak
+  . ./uninstall.sh kubernetes-dashboard
+  . ./uninstall.sh nfs-storage
+  . ./uninstall.sh postgres
+  . ./uninstall.sh prometheus
+  . ./uninstall.sh whoami
 fi
 
 echo "List of namespaces: "

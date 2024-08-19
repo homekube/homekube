@@ -12,7 +12,7 @@ helm repo update
 
 echo "Install prometheus"
 kubectl create namespace prometheus
-envsubst < create-storage.yaml | kubectl apply -f
+envsubst < create-storage.yaml | kubectl apply -f -
 
 helm install prometheus -n prometheus --version=25.22.1 \
   --set alertmanager.enabled=false \

@@ -1,12 +1,17 @@
 #!/bin/bash
 
-kubectl get ns whoami
-if [[ $?  -eq 0 ]]; then
-  echo "Skipping installation of demo whoami app because the namespace already exists"
-  echo "If you want to reinstall execute 'kubectl delete ns whoami' and run this script again"
+if kubectl get ns | grep -q "^whoami"; then
+  echo "Skipping installation of whoami because namespace already exists"
+  echo "If you want to reinstall execute: "
+  echo "'kubectl delete ns whoami'"
 else
+
+if ! helm repo list | grep -q "^whoami"; then
+  helm repo add halkeye https://halkeye.github.io/helm-charts/
+  helm repo update halkeye
+fi
+
 echo "Install who-am-i demo application"
-helm repo add halkeye https://halkeye.github.io/helm-charts/
 kubectl create namespace whoami
 helm install whoami halkeye/whoami -n whoami --version 1.0.1
 kubectl scale --replicas=5 deployment.apps/whoami -n whoami

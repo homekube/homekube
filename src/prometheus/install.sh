@@ -2,13 +2,15 @@
 
 if kubectl get ns | grep -q "^prometheus"; then
   echo "Skipping installation of prometheus because namespace already exists"
-  echo "If you want to reinstall execute 'kubectl delete ns prometheus'"
+  echo "If you want to reinstall execute: "
+  echo "'kubectl delete ns prometheus'"
+  echo "'kubectl delete pv prometheus-pv'"
 else
 
 if ! helm repo list | grep -q "^prometheus-community"; then
   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo update prometheus-community
 fi
-helm repo update
 
 echo "Install prometheus"
 kubectl create namespace prometheus

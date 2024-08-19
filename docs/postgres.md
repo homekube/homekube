@@ -18,14 +18,14 @@ cd ~/homekube/src/postgres
 Once installed the postgres namespace should look like
 ```bash
 root@homekube:~# kubectl get all -n postgres
-NAME         READY   STATUS    RESTARTS      AGE
-pod/psql-0   1/1     Running   1 (19h ago)   21h
+NAME             READY   STATUS    RESTARTS      AGE
+pod/postgres-0   1/1     Running   1 (19h ago)   21h
 
 NAME                          TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 service/postgres-service-np   NodePort   10.152.183.37   <none>        5432:30100/TCP   21h
 
-NAME                    READY   AGE
-statefulset.apps/psql   1/1     21h
+NAME                        READY   AGE
+statefulset.apps/postgres   1/1     21h
 
 ```
 
@@ -33,7 +33,7 @@ statefulset.apps/psql   1/1     21h
 
 ```bash
 # Step into the postgres container with a bash shell
-kubectl exec -it -n postgres psql-0 -- bash 
+kubectl exec -it -n postgres postgres-0 -- bash 
 # Connect with the postgres (or homekube) database
 psql -U admin -d postgres
 ```
@@ -45,7 +45,7 @@ to authenticate as long as
 2) [Trust authentication](https://www.postgresql.org/docs/current/auth-trust.html) is configured for local access (default)
 
 ```bash
-root@psql-0:/# psql -U admin -d postgres
+root@postgres-0:/# psql -U admin -d postgres
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
 
@@ -62,7 +62,7 @@ postgres=# \l
 (4 rows)
 
 postgres=# \q
-root@psql-0:/# 
+root@postgres-0:/# 
 ```
 
 ## Checking cluster-local availability
@@ -71,7 +71,7 @@ Now lets do another check to confirm that we can connect to the database from in
 another instance of postgres. Actually we only need the psql client but its just simpler to use the same image.
 
 ```bash
-kubectl run -it postgres --image=postgres:16 --restart=Never -- bash
+kubectl run -it postgres-client --image=postgres:16 --restart=Never -- bash
 # then execute
 psql -U admin postgresql://postgres-service-np.postgres/homekube
 ```
@@ -81,7 +81,7 @@ As this is cluster-local in contrast to container-local
 [Trust authentication](https://www.postgresql.org/docs/current/auth-trust.html) doesn't kick in and we need to supply credentials for authorization.
 
 ```bash
-root@postgres:/# psql -U admin postgresql://postgres-service-np.postgres/homekube
+root@postgres-client:/# psql -U admin postgresql://postgres-service-np.postgres/homekube
 Password for user admin: 
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
@@ -99,11 +99,11 @@ homekube=# \l
 (4 rows)
 
 homekube=# \q
-root@postgres:/# 
+root@postgres-client:/# 
 ```
 ```shell
 # cleanup - remove the helper pod
-kubectl delete po postgres
+kubectl delete po postgres-client
 ```
 
 ## Checking local network availability
@@ -144,7 +144,7 @@ Create a server with the following properties:
 
 ```bash
 kubectl delete ns postgres
-kubectl delete pv psql-pv
+kubectl delete pv postgres-pv
 ```
 
 ## Useful tips
@@ -158,7 +158,7 @@ Here is an easy way to create one.
 
 ```bash
 # psql into our homekube database with admin permissions
-root@homekube:~# kubectl exec -it -n postgres psql-0 -- psql -U admin -d homekube
+root@homekube:~# kubectl exec -it -n postgres postgres-0 -- psql -U admin -d homekube
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
 

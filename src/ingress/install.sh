@@ -1,13 +1,19 @@
 #!/bin/bash
 
-kubectl get ns ingress-nginx
-if [[ $?  -eq 0 ]]; then
-  echo "Skipping installation of nginx webserver because the namespace already exists"
-  echo "If you want to reinstall execute 'kubectl delete ns ingress-nginx' and run this script again"
+if kubectl get ns | grep -q "^ingress-nginx"; then
+  echo "Skipping installation of ingress-nginx because namespace already exists"
+  echo "If you want to reinstall execute: "
+  echo "'kubectl delete ns ingress-nginx'"
 else
+
+if ! helm repo list | grep -q "^ingress-nginx"; then
+  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+  helm repo update ingress-nginx
+fi
+
 echo "Install ingress web server"
+
 kubectl create namespace ingress-nginx
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm install nginx-helm -n ingress-nginx --version=4.10.1 \
     -f - ingress-nginx/ingress-nginx << EOF
 controller:

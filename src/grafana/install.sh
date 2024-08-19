@@ -25,7 +25,7 @@ kubectl create secret generic grafana-creds -n grafana \
 helm install grafana -n grafana --version=8.3.2 \
   --set persistence.enabled=true \
   --set persistence.storageClassName=managed-nfs-storage \
-  --set server.persistentVolume.existingClaim=grafana-pvc \
+  --set persistence.persistentVolume.existingClaim=grafana-pvc \
   --set admin.existingSecret=grafana-creds \
   -f datasource-dashboards.yaml \
   grafana/grafana

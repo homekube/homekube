@@ -9,8 +9,8 @@ else
 
 if ! helm repo list | grep -q "^grafana"; then
   helm repo add grafana https://grafana.github.io/helm-charts
+  helm repo update grafana
 fi
-helm repo update
 
 echo "Install grafana"
 
@@ -22,7 +22,7 @@ envsubst < create-storage.yaml | kubectl apply -f -
 helm install grafana -n grafana --version=8.3.2 \
   --set persistence.enabled=true \
   --set persistence.storageClassName=managed-nfs-storage \
-  --set server.persistentVolume.existingClaim=grafana-pvc \
+  --set persistence.persistentVolume.existingClaim=grafana-pvc \
   -f datasource-dashboards.yaml \
   -f config-oauth.yaml \
   -f - grafana/grafana << EOF

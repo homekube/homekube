@@ -11,7 +11,7 @@ kubectl create ns keycloak
 
 # create keycloak user and database - errors will be ignored if this step is repeated
 # in case of trouble use the drop-keycloak.sql script
-envsubst < create-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
+envsubst < create-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
 
 # use a secret for passwords
 kubectl create secret generic keycloak-secret -n keycloak \

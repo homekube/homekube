@@ -6,9 +6,8 @@ if [[ $(kubectl get ns | grep -q "^$1") ]] ; then
 fi
 
 if [[ $# -ne 1 ]]; then
-  kubectl get ns
-  echo "Usage is: './uninstall.sh <namespace> or ./uninstall.sh all'"
-  exit 2
+  echo "Usage is: '. ./uninstall.sh <namespace> or . ./uninstall.sh all'"
+  echo
 fi
 
 if [[ $1 -eq "all" ]]; then
@@ -22,4 +21,6 @@ if [[ $1 -eq "all" ]]; then
   ./uninstall.sh whoami
 fi
 
+echo "List of namespaces: "
 kubectl get ns
+

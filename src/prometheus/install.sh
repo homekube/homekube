@@ -20,6 +20,7 @@ helm install prometheus -n prometheus --version=25.22.1 \
   --set alertmanager.enabled=false \
   --set pushgateway.enabled=false \
   --set server.persistentVolume.existingClaim=prometheus-pvc \
+  --set server.persistentVolume.subPath=prometheus \
   prometheus-community/prometheus
 echo "Installation done prometheus"
 

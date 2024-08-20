@@ -12,6 +12,9 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
+  mountOptions:
+    - hard
+    - nfsvers=4.1
   nfs:
     server: ${HOMEKUBE_NFS_SERVER_URL}
     path: "${HOMEKUBE_NFS_SERVER_PATH}"

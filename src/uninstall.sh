@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# Usage 'bash -i' else shell container is terminated on exit
+# bash -i uninstall.sh <namespace>
+#
+
 if [[ $# -ne 1 ]]; then
   echo "Usage is: '. ./uninstall.sh <namespace> or . ./uninstall.sh all'"
   echo
   echo "List of namespaces: "
   kubectl get ns
-  exit 2
+  exit
 fi
 
 if kubectl get ns | grep -q "^$1"; then

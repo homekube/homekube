@@ -16,7 +16,7 @@ Filesystem                                                                      
 Drain the node. This stops all pods. After drain repeat the filesystem check.
 There should be no more file systems listed
 ```bash
-kubectl drain auth --ignore-daemonsets --delete-emptydir-data --timeout 60s
+kubectl drain <container> --ignore-daemonsets --delete-emptydir-data --timeout 60s
 ```
 
 Stopping microk8s

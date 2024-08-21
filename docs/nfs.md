@@ -76,7 +76,7 @@ This parameter needs to match all correspondings pvc storage class references
 (see test below).
 - storageClass.defaultClass=**true**  
 All pvc that do not specify a storageClass ref will use this default. Can be ommitted.
-- nfs.server=**192.168.1.100**  
+- nfs.server=**192.168.1.250**  
 Ip of any nfs-server in the network (or server on local node).  
 **NOTE** that `localhost` or `127.0.0.1` will not work !
 - nfs.path=**/srv/nfs/kubedata** is the path to our data storage on the server.  
@@ -89,7 +89,7 @@ kubectl create namespace nfs-storage
 
 helm install nfs-client --version=4.0.17 \
     --set storageClass.name=managed-nfs-storage --set storageClass.defaultClass=true \
-    --set nfs.server=192.168.1.100 \
+    --set nfs.server=192.168.1.250 \
     --set nfs.path=/srv/nfs/kubedata \
     --set nfs.mountOptions={nfsvers=4} \
     --namespace nfs-storage \ 

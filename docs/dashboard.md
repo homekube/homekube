@@ -23,7 +23,7 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 Lets quickly check the installation. `192.168.1.100` is our server ip when following the prerequisites.
 
 ```bash
-kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 10443:443 --address 0.0.0.0
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 10443:443 --address 0.0.0.0
 ``` 
 Port-forward is just a temporary solution for development. When the session is terminated the port is no longer accessible.
 Alternatively you might prefer a 

@@ -1,17 +1,19 @@
 #!/bin/bash
 
-kubectl get ns keycloak
-if [[ $?  -eq 0 ]]; then
+if kubectl get ns | grep -q "^keycloak"; then
   echo "Skipping installation of keycloak because namespace already exists"
-  echo "If you want to reinstall execute 'kubectl delete ns keycloak'"
+  echo "If you want to reinstall execute: "
+  echo "'kubectl delete ns keycloak'"
 else
+
 echo "Install keycloak oauth service"
 
 kubectl create ns keycloak
 
 # create keycloak user and database - errors will be ignored if this step is repeated
 # in case of trouble use the drop-keycloak.sql script
-envsubst < create-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
+kubectl wait -n postgres --for=condition=Ready pod/postgres-0 --timeout=120s
+envsubst < create-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
 
 # use a secret for passwords
 kubectl create secret generic keycloak-secret -n keycloak \

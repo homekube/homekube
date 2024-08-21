@@ -1,18 +1,26 @@
 #!/bin/bash
 
-kubectl get ns prometheus
-if [[ $?  -eq 0 ]]; then
+if kubectl get ns | grep -q "^prometheus"; then
   echo "Skipping installation of prometheus because namespace already exists"
-  echo "If you want to reinstall execute 'kubectl delete ns prometheus'"
+  echo "If you want to reinstall execute: "
+  echo "'kubectl delete ns prometheus'"
+  echo "'kubectl delete pv prometheus-pv'"
 else
+
+if ! helm repo list | grep -q "^prometheus-community"; then
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo update prometheus-community
+fi
+
 echo "Install prometheus"
 kubectl create namespace prometheus
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+envsubst < create-storage.yaml | kubectl apply -f -
 
 helm install prometheus -n prometheus --version=25.22.1 \
   --set alertmanager.enabled=false \
   --set pushgateway.enabled=false \
-  --set server.persistentVolume.storageClass=managed-nfs-storage \
+  --set server.persistentVolume.existingClaim=prometheus-pvc \
+  --set server.persistentVolume.subPath=prometheus \
   prometheus-community/prometheus
 echo "Installation done prometheus"
 

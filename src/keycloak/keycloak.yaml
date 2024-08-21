@@ -51,6 +51,7 @@ spec:
         - name: keycloak
           image: quay.io/keycloak/keycloak:25.0.2
           imagePullPolicy: IfNotPresent
+          # args: ["import","--dir=/tmp/uploads","--optimized"] # is troublesome
           args: ["start-dev"]
           envFrom:
             - configMapRef:
@@ -64,3 +65,10 @@ spec:
             httpGet:
               path: /realms/master
               port: 8080
+          volumeMounts:
+            - mountPath: /tmp/uploads
+              name: upload-volume
+      volumes:
+        - name: upload-volume
+          hostPath:
+            path: /tmp/uploads

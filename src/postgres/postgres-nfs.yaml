@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: psql-cm
+  name: postgres-cm
   namespace: postgres
 data:
   POSTGRES_DB: "homekube"
@@ -14,10 +14,10 @@ data:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: psql-pv
+  name: postgres-pv
   namespace: postgres
   labels: #Labels
-    app: psql
+    app: postgres
     ver: homekube
 spec:
   capacity:
@@ -35,13 +35,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: psql-pvc
+  name: postgres-pvc
   namespace: postgres
 spec:
   storageClassName: managed-nfs-storage
   selector:
     matchLabels:  #Select a volume with this labels
-      app: psql
+      app: postgres
       ver: homekube
   accessModes:
     - ReadWriteMany
@@ -53,22 +53,22 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: psql
+  name: postgres
   namespace: postgres
   labels:
-    app: psql
+    app: postgres
     ver: homekube-01
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: psql
+      app: postgres
       ver: homekube-01
   serviceName: homekube-01
   template: #For the creation of the pod
     metadata:
       labels:
-        app: psql
+        app: postgres
         ver: homekube-01
     spec:
       containers:
@@ -79,16 +79,16 @@ spec:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: psql-cm
+                name: postgres-cm
             - secretRef:
-                name: psql-secret
+                name: postgres-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: pgdatavol
       volumes:
         - name: pgdatavol
           persistentVolumeClaim:
-            claimName: psql-pvc
+            claimName: postgres-pvc
 
 ---
 
@@ -100,9 +100,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: psql
+    app: postgres
   ports:
-    - name: psql
+    - name: postgres
       port: 5432
       nodePort: 30100   # Exposing nodePort
       protocol: TCP

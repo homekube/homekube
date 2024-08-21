@@ -1,7 +1,10 @@
 
 # Installing Microk8s in LXC container using Macvlan
 
-The steps on this page are a one time requirement per host.
+The steps on this page are a one time requirement per host.  
+If these steps are already executed proceed with the next step
+![](images/ico/color/homekube_16.png)[ Microk8s provisioning](inst_provision-microk8s-lxc.md).
+
 
 ## Preparation host
 Ubuntu default installations enable disk swapping.  
@@ -126,7 +129,7 @@ First we need to find out our hosts primary network interface name: ``ip a s``. 
        valid_lft forever preferred_lft forever
 2: enp4s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
     link/ether f0:79:59:5f:c1:5d brd ff:ff:ff:ff:ff:ff
-    inet 192.168.1.95/16 brd 192.168.255.255 scope global dynamic enp4s0
+    inet 192.168.1.100/16 brd 192.168.255.255 scope global dynamic enp4s0
        valid_lft 62681sec preferred_lft 62681sec
     inet6 fe80::f279:59ff:fe5f:c15d/64 scope link 
        valid_lft forever preferred_lft forever
@@ -165,7 +168,7 @@ Lets check if we were successful ``lxc list`` results in something like
 +----------+---------+----------------------+------+-----------+-----------+
 |   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.105 (eth0) |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
 +----------+---------+----------------------+------+-----------+-----------+
 ```
 
@@ -174,17 +177,5 @@ But always keep in mind that this container will not be reachable from the host.
 Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
 Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
 
-## Provisioning Microk8s
-
-```bash
-lxc exec homekube -- snap install microk8s --classic --channel=1.30/stable
-lxc exec homekube -- microk8s status --wait-ready
-lxc exec homekube -- microk8s enable dns rbac helm3
-```
-
-Install homekube
-```bash
-lxc exec homekube -- bash
-cd /root/homekube/src
-bash -i install-all.sh
-```
+Now proceed with the next step
+![](images/ico/color/homekube_16.png)[ Microk8s provisioning](inst_provision-microk8s-lxc.md).

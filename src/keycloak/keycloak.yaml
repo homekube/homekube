@@ -64,3 +64,10 @@ spec:
             httpGet:
               path: /realms/master
               port: 8080
+          volumeMounts:
+            - mountPath: /tmp/uploads
+              name: upload-volume
+      volumes:
+        - name: upload-volume
+          hostPath:
+            path: /tmp/uploads

@@ -6,9 +6,9 @@ Keycloak is a very powerful and well established solution for providing IAM solu
 
 ## Preparation
 
+Requirements are:
 
-- Postgres database
-
+- ![](images/ico/color/homekube_16.png)[ Postgres database](postgres.md) 
 
 ## Installation
 
@@ -16,13 +16,13 @@ As a postgres admin we create a keycloak user and role and the keycloak database
 
 ```bash
 cd ~/homekube/src/keycloak
-envsubst < create-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
+envsubst < create-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
 ```
 
 You should be able to log into the keycloak database as the keycloak user and list the content:
 
 ```bash
-root@auth:~/homekube/src/keycloak# kubectl exec psql-0 -it -n postgres -- psql -U keycloak -d keycloak
+root@homekube:~/homekube/src/keycloak# kubectl exec postgres-0 -it -n postgres -- psql -U keycloak -d keycloak
 psql (16.3 (Debian 16.3-1.pgdg120+1))
 Type "help" for help.
 
@@ -42,7 +42,7 @@ keycloak=> \l
 (5 rows)
 
 keycloak=> \q
-root@auth:~/homekube/src/keycloak#
+root@homekube:~/homekube/src/keycloak#
 ```
 
 Now lets complete the installation. During initial setup all keycloak tables will be created automatically.
@@ -53,14 +53,14 @@ Lets execute the installation script.
 ```bash
 set -a
 . ../homekube.env.sh # set your env vars with the -a option
-root@auth:~/homekube/src/keycloak# . ./install.sh
+root@homekube:~/homekube/src/keycloak# . ./install.sh
 ```
 
 Initial setup takes a while. Be patient.
 On successful installation your keycloak namespace should look like:
 
 ```bash
-root@auth:~/homekube/src/keycloak# kubectl get all -n keycloak
+root@homekube:~/homekube/src/keycloak# kubectl get all -n keycloak
 NAME                            READY   STATUS    RESTARTS   AGE
 pod/keycloak-74dd784dd9-xjld2   1/1     Running   0          17h
 
@@ -114,10 +114,30 @@ Here is a list of commands of the [psql command line tool](https://www.postgresq
 Be careful. Its easy to riun the installation.
 
 ```
-kubectl exec psql-0 -it -n postgres -- psql -U admin -d postgres
+kubectl exec postgres-0 -it -n postgres -- psql -U admin -d postgres
 ```
 
 Drop DB and users
 ```
-envsubst < drop-keycloak.sql | kubectl exec psql-0 -i -n postgres -- psql -U admin -d postgres
+envsubst < drop-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
+```
+
+## Backup and restore
+
+Use a helper psql client:
+
+```bash
+kubectl run -it postgres-client --image=postgres:16 --restart=Never -- bash
+```
+
+### Backup 
+```bash
+pg_dump -f /tmp/keycloak.backup --host <from-host-ip> --port "30100" --username "keycloak" --format=c -v keycloak
+```
+
+### Restore
+```bash
+psql -U admin -d postgres -c "drop database keycloak;"
+psql -U admin -d postgres -c "create database keycloak;"
+pg_restore -d keycloak /tmp/keycloak.backup --host <to-host-ip> --port "30100" --username "admin" --format=c
 ```

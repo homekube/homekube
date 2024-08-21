@@ -265,12 +265,12 @@ lxc list
 +----------+---------+----------------------------+------+-----------+-----------+
 |   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------------+------+-----------+-----------+
-| microk8s | RUNNING | 192.168.1.120 (eth0)       |      | CONTAINER | 0         |
+| microk8s | RUNNING | 192.168.1.100 (eth0)       |      | CONTAINER | 0         |
 +----------+---------+----------------------------+------+-----------+-----------+
 ```
 Now we have created an empty Ubuntu 22.04 container named **microk8s** .
-This container has been assigned the ip **192.168.1.120** from our networks dhcp service.
-Now confirm with **ping 192.168.1.120** from other hosts in the network **and from your host**
+This container has been assigned the ip **192.168.1.100** from our networks dhcp service.
+Now confirm with **ping 192.168.1.100** from other hosts in the network **and from your host**
 that your container is fully accessible on the network.  
 
 If its not pingable from your host the network bridge is not set up properly.

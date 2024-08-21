@@ -17,7 +17,7 @@ Lets check if we were successful ``lxc list`` results in something like
 +----------+---------+----------------------+------+-----------+-----------+
 |   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.101 (eth0) |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
 +----------+---------+----------------------+------+-----------+-----------+
 ```
 
@@ -32,14 +32,10 @@ Now we install ``microk8s`` inside a container named ``homekube`` and give it ac
 cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
 lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
 lxc exec homekube -- bash
-# Execute within container NOTE: If executed from host the self signed certificates will be based
-# on the hosts ips and it will not be possible to step into pods
-#
-# NOTE !!! --channel=1.28/stable does NOT work on amd arch due to certificate failures when
-# debugging containers (kubectl exec or kubectl logs) !!!
-#
+
 snap install microk8s --classic --channel=1.30/stable
 microk8s status --wait-ready
+microk8s enable dns rbac helm3
 ```
 
 **On the host** execute ``lxc list`` again and you should see something like.
@@ -49,7 +45,7 @@ Sidenote: You can step out of containers with the same command when leaving a sh
 +----------+---------+----------------------------+------+-----------+-----------+
 |   NAME   |  STATE  |            IPV4            | IPV6 |   TYPE    | SNAPSHOTS |
 +----------+---------+----------------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.101 (eth0)       |      | CONTAINER | 0         |
+| homekube | RUNNING | 192.168.1.100 (eth0)       |      | CONTAINER | 0         |
 |          |         | 10.1.74.128 (vxlan.calico) |      |           |           |
 +----------+---------+----------------------------+------+-----------+-----------+
 ```
@@ -105,9 +101,10 @@ kubectl version
 ```
 
 ```text
-Client Version: v1.25.16
+root@homekube:~# kubectl version
+Client Version: v1.30.1
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.25.16
+Server Version: v1.30.1
 ```
 
 Now We are done with installation in a Microk8s container
@@ -119,8 +116,16 @@ Now We are done with installation in a Microk8s container
 ```bash
 lxc exec homekube -- bash
 cd ~/homekube/src
-# NOTE! edit env variables in homekube.env.sh to match your installation
+
+# modify and set your environment variables !
+set -a
+. ./homekube.env.sh
+set +a
+
+# Plain installation (without Keycloak SSO)
 bash -i install-all.sh
+# or install with Keycloak Single Sign On (more complex)
+bash -i install-with-sso-1.sh
 ```
 
 ### Learn the individual steps and take the quick tour
@@ -142,4 +147,3 @@ Error: [cannot change profile for the next exec call: No such file or directory]
   [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 
 - [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 28:51 [ Kube 30 ] Deploying Kubernetes Cluster using LXC Containers](https://www.youtube.com/watch?v=XQvQUE7tAsk)  
   [[Just me and Opensource](https://www.youtube.com/channel/UC6VkhPuCCwR_kG0GExjoozg)] 
-

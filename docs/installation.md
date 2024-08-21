@@ -11,8 +11,7 @@ For the purpose of this tutorial it is assumed that
 We will use these addresses to substitute the functionality of a cloud providers LoadBalancer for all your incoming traffic.
 These addresses may not be used by any other device in your network. Here we assume this (randomly chosen) 
 portrange is 
-`192.168.1.200-192.168.1.220`  
-You'll need a minimum of 5 IPs but its better to have some headroom for extensions and your own exercises. 
+`192.168.1.200-192.168.1.201`  
 
 Of course you can choose whatever is appropriate for your environment as long as you modify the commands accordingly.
   

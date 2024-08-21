@@ -51,7 +51,7 @@ spec:
         - name: keycloak
           image: quay.io/keycloak/keycloak:25.0.2
           imagePullPolicy: IfNotPresent
-          # args: ["import" "--dir=/tmp/uploads" "--optimized"]
+          # args: ["import","--dir=/tmp/uploads","--optimized"] # is troublesome
           args: ["start-dev"]
           envFrom:
             - configMapRef:

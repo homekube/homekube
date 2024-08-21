@@ -121,3 +121,23 @@ Drop DB and users
 ```
 envsubst < drop-keycloak.sql | kubectl exec postgres-0 -i -n postgres -- psql -U admin -d postgres
 ```
+
+## Backup and restore
+
+Use a helper psql client:
+
+```bash
+kubectl run -it postgres-client --image=postgres:16 --restart=Never -- bash
+```
+
+### Backup 
+```bash
+pg_dump -f /tmp/keycloak.backup --host <from-host-ip> --port "30100" --username "keycloak" --format=c -v keycloak
+```
+
+### Restore
+```bash
+psql -U admin -d postgres -c "drop database keycloak;"
+psql -U admin -d postgres -c "create database keycloak;"
+pg_restore -d keycloak /tmp/keycloak.backup --host <to-host-ip> --port "30100" --username "admin" --format=c
+```

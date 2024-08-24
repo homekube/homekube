@@ -63,25 +63,17 @@ kubectl run -it --rm --image=curlimages/curl curly -- sh
 When everything is setup properly you can access the dashboard https://dashboard.auth.homekube.org/#/pod?namespace=_all
 
 
+## Logging out
+
+[Invalidate session](https://keycloak.auth.homekube.org/realms/homekube/protocol/openid-connect/logout)
+
+[Sign out dashbaord](https://dashboard.auth.homekube.org/oauth2/sign_out)    
+[Sign out whoami](https://whoami.auth.homekube.org/oauth2/sign_out)
+
+[Sign out & clear cookies](https://dashboard.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout)    
+[Sign out an clear cookies](https://whoami.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout)
+
 ## Resources and links
-
-### Logging out
-
-For session cleanup you need to invalidate the session and clear oauth2 cookies.
- 
-### TODO Update links
-```
-# invalidate session 
-https://keycloak.auth.homekube.org/realms/homekube/protocol/openid-connect/logout
-
-# clear oauth2 cookies
-https://dashboard.auth.homekube.org/oauth2/sign_out
-https://whoami.auth.homekube.org/oauth2/sign_out
-
-# In one (With url encoded parrms)
-https://dashboard.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout
-https://whoami.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout
-```
 
 https://www.enricobassetti.it/2021/04/protect-kubernetes-dashboard-using-oauth2-proxy-and-keycloak/
 https://stackoverflow.com/questions/70584157/unable-to-load-kubernetes-dashboard-after-successful-oauth2

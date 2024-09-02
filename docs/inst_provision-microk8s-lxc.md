@@ -4,7 +4,7 @@ These steps need to be repeated for each container on the host
 
 ## Installation
 
-This command installs and launches an empty OS Ubuntu 22.04 inside a container named ``homekube``
+This command installs and launches an empty OS Ubuntu 24.04 inside a container named ``homekube``
 and applies 3 profiles in the order of specification. Later profile specs override earlier specs
 so we can be sure that our macvlan network settings are honored:
 
@@ -122,6 +122,8 @@ set -a
 . ./homekube.env.sh
 set +a
 
+echo "Please make sure that ${HOMEKUBE_NFS_SERVER_PATH} exists on ${HOMEKUBE_NFS_SERVER_URL} before proceeding with the installation !"
+ 
 # Plain installation (without Keycloak SSO)
 bash -i install-all.sh
 # or install with Keycloak Single Sign On (more complex)

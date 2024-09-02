@@ -3,7 +3,7 @@
 
 The steps on this page are a one time requirement per host.  
 If these steps are already executed proceed with the next step
-![](images/ico/color/homekube_16.png)[ Microk8s provisioning](inst_provision-microk8s-lxc.md).
+![](images/ico/color/homekube_16.png)[ Microk8s provisioning with lxc](inst_provision-microk8s-lxc.md).
 
 
 ## Preparation host

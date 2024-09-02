@@ -15,7 +15,9 @@ fi
 echo "Install kubernetes dashboard"
 
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+--set controller.allowSnippetAnnotations=true \
+--create-namespace --namespace kubernetes-dashboard --version 7.5.0
 
 cat << EOF | kubectl apply -f -
 apiVersion: v1

@@ -78,7 +78,7 @@ First we will register at the service manually and its response data is then use
 Next we will register at the service manually:
 ```bash
 # jq . is just for readability and can be omitted
-curl -s -X POST ${HOMEKUBE_CERT_URL} | jq .
+curl -s -X POST ${HOMEKUBE_CERT_URL}/register | jq .
 
 # if jq is not installed you might install it with suddo apt install jq
 ```
@@ -167,7 +167,7 @@ envsubst < staging-template.yaml | kubectl apply -f -
 Lets verify our installation 
 
 ```bash
-kubectl describe secret tls-staging -n cert-manager-homekube-org
+kubectl describe secret tls-staging -n cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 ```
 should evaluate to 
 ```
@@ -219,7 +219,7 @@ tls-prod                  kubernetes.io/tls   2      9s
 
 Check the resulting secret 
 ```bash
-kubectl describe secret tls-prod -n cert-manager-homekube-org
+kubectl describe secret tls-prod -n cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 ```
 contains non-empty **tls.crt** and **tls.key** you are done
 

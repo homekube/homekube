@@ -17,6 +17,7 @@ kubectl create namespace ingress-nginx
 helm install nginx-helm -n ingress-nginx --version=4.10.1 \
     -f - ingress-nginx/ingress-nginx << EOF
 controller:
+  allowSnippetAnnotations: true
   metrics:
     enabled: true
     service:

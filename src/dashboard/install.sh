@@ -55,7 +55,6 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/auth-url: https://httpbin.org/basic-auth/demo/demo
@@ -64,6 +63,7 @@ metadata:
   name: ingress-dashboard-service
   namespace: kubernetes-dashboard
 spec:
+  ingressClassName: nginx
   rules:
     - host: dashboard.${HOMEKUBE_DOMAIN}
       http:

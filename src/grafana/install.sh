@@ -22,13 +22,12 @@ kubectl create secret generic grafana-creds -n grafana \
   --from-literal=admin-user=admin \
   --from-literal=admin-password=admin1234
 
-helm install grafana -n grafana --version=8.3.2 \
+helm upgrade --install grafana grafana/grafana -n grafana --version=8.5.0 \
   --set persistence.enabled=true \
   --set persistence.existingClaim=grafana-pvc \
   --set persistence.subPath=grafana \
   --set admin.existingSecret=grafana-creds \
-  -f datasource-dashboards.yaml \
-  grafana/grafana
+  -f datasource-dashboards.yaml
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
 cat << EOF | envsubst | kubectl apply -f -

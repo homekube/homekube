@@ -135,7 +135,8 @@ First we need to find out our hosts primary network interface name: ``ip a s``. 
        valid_lft forever preferred_lft forever
 ...
 ```
-For macvlan creation you need to replace parent value **enp4s0** with your local settings:
+For macvlan creation you need to replace parent value **enp4s0** with your local settings. 
+A typical value for link/ether is **eth0**. You need to take your local value.
 ```
 lxc profile create macvlan
 lxc profile device add macvlan eth0 nic nictype=macvlan parent=enp4s0
@@ -155,12 +156,12 @@ used_by: []
 
 ### Install an empty Ubuntu container
 
-This command installs and launches an empty OS Ubuntu 20.04 inside a container named ``homekube``
+This command installs and launches an empty OS Ubuntu 24.04 inside a container named ``homekube``
 and applies 3 profiles in the order of specification. Later profile specs override earlier specs
 so we can be sure that our macvlan network settings are honored:
 
 ```
-lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
+lxc launch -p default -p microk8s -p macvlan ubuntu:24.04 homekube
 ```
 
 Lets check if we were successful ``lxc list`` results in something like

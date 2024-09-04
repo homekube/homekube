@@ -50,5 +50,6 @@ spec:
                 port:
                   number: 80
 EOF
+echo "Important NOTE: If this is installation connects to an existing pv credentials are taken from the existing database !!!"
 echo "Installation done grafana"
 fi # end of installation of grafana

@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/auth-url: https://httpbin.org/basic-auth/demo/demo
@@ -14,6 +13,7 @@ metadata:
 # when deployed on homekube.org
 #   - host: dashboard.homekube.org
 spec:
+  ingressClassName: nginx
   rules:
     - host: dashboard.homekube.org
       http:

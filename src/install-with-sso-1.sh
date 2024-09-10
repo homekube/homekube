@@ -9,8 +9,7 @@
 . ./helpers.sh
 
 # check if specified persistent storage exists or can be mounted
-checkmount
-if [[$? -ne 0]]; then
+if [[ $(checkmount) -ne 0 ]]; then
   exit 1
 fi
 

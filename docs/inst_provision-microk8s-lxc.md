@@ -1,6 +1,6 @@
 # MicroK8s / Homekube Installation
 
-In the previous step ![](images/ico/color/homekube_16.png)[we created the container](inst-microk8s-lxc.md).
+In the previous step ![](images/ico/color/homekube_16.png)[we created the container](inst_microk8s-lxc-macvlan.md).
 
 These steps need to be repeated for each Homekube container on the host
 

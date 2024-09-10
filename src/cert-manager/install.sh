@@ -5,17 +5,17 @@ if [[ ! -f acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json ]]; then
     exit 2
 fi
 
-if kubectl get ns | grep -q "^cert-manager"; then
+if kubectl get ns | grep -q "^cert-manager$"; then
   echo "Skipping installation of cert-manager because namespace already exists"
   echo "If you want to reinstall execute: "
-  echo "'kubectl delete ns cert-maanger'"
+  echo "'kubectl delete ns cert-manager'"
   exit 1
 else
 
 echo "Install cert-manager (Automating LetsEncrypt DNS01 wildcard certificates)"
 
 # Creates ns cert-manager
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
+kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
 
 kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json

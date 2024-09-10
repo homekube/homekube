@@ -7,11 +7,14 @@
 #
 # Usage: bash -i install-all.sh
 
+
+
 # source helper functions
-. helpers.sh
+. ./helpers.sh
 
 # check if specified persistent storage exists or can be mounted
-if [[checkmount -ne 0]]; then
+checkmount
+if [[$? -ne 0]]; then
   exit 1
 fi
 

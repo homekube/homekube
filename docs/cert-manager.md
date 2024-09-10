@@ -80,7 +80,7 @@ Next we will register at the service manually:
 # jq . is just for readability and can be omitted
 curl -s -X POST ${HOMEKUBE_CERT_URL}/register | jq .
 
-# if jq is not installed you might install it with suddo apt install jq
+# if jq is not installed you might install it with suddo apt install jq. It just helps readability and can be ommitted at all.
 ```
 
 A random response will be generated. Example:
@@ -121,13 +121,15 @@ The response will contain a line like
 _acme-challenge.homekube.org. 599 IN	CNAME	84bba6b0-b446-42ff-8d22-11b27f4ff717.auth.acme-dns.io.
 ```
 
+On success the CNAME is the **fulldomain** line of the generated registration response above.
+
 [![](images/ico/color/youtube_16.png) ![](images/ico/terminal_16.png) 4:15 Acme-Dns manual update demo](https://asciinema.org/a/94903)
 
 Next we follow the 
 [![](images/ico/color/kubernetes_16.png) ACME-DNS configuration instructions](https://cert-manager.io/docs/configuration/acme/dns01/acme-dns/)
 and save the registration response into a **.json** file **`acme-dns-homekube-org.json`** on the server in your current directory 
 with the **domain name as a key** and the **response as its value**.   
-Replace ``homekube.org`` with a domain name of your choice.
+Replace ``homekube.org`` part with ${HOMEKUBE_DOMAIN}
 **Example** **`acme-dns-homekube-org.json`** looks like:
 
 ```json
@@ -144,20 +146,14 @@ Replace ``homekube.org`` with a domain name of your choice.
 
 ## Configuration Cert-Manager
 
-Now that we have the helpers in place we need a last step to complete the installation
-* Create a secret from the previously saved registration response
-* Create a Certficate template that will be signed
-* by an Issuer to be defined
+Now that we have the helpers in place we need a last step to complete the installation. 
+First lets create a secret from the previously saved registration response.
 
-Lets create our own namespace first to prevent cluttering the default namespace and edit a local copy 
-of `homekube-staging.yaml` and `homekube-prod.yaml` to replace the occurrences of `homekube.org` and `homekube`
-with the name of your top-level domain.
- 
 ```bash
-export HOMEKUBE_DOMAIN=homekube.org 
-export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
-#export HOMEKUBE_CERT_URL=https://acmedns.a-hahn.org
-export HOMEKUBE_CERT_URL=https://auth.acme-dns.io
+## env vars should already exist - if not create them
+#export HOMEKUBE_DOMAIN=homekube.org 
+#export HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # all dots in domain name are replaced by dashes to comply with rfc requirements
+#export HOMEKUBE_CERT_URL=https://auth.acme-dns.io
 
 kubectl create ns cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --from-file=acme-dns-secret-key=acme-dns-${HOMEKUBE_DOMAIN_DASHED}.json

@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^whoami"; then
   echo "Skipping installation of whoami because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns whoami'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^whoami"; then

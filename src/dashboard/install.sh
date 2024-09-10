@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^kubernetes-dashboard"; then
   echo "Skipping installation of kubernetes-dashboard because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns kubernetes-dashboard'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^kubernetes-dashboard"; then
@@ -46,7 +47,7 @@ HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-u
 if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
-  exit 1
+  exit 2
 fi
 
 cat << EOF | envsubst | kubectl apply -f -

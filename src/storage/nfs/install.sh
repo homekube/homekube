@@ -1,10 +1,11 @@
 #!/bin/bash
 
-kubectl get ns nfs-storage
-if [[ $?  -eq 0 ]]; then
+if kubectl get ns | grep -q "^nfs-storage"; then
   echo "Skipping installation of nfs storage because namespace already exists"
   echo "If you want to reinstall execute 'kubectl delete ns nfs-storage'"
-else
+  exit 1
+fi
+
 echo "Install nfs service (client needs existing server)"
 sudo apt install nfs-common -y
 
@@ -19,5 +20,4 @@ helm install nfs-client --version=4.0.17 \
   --namespace nfs-storage \
   nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 echo "Installation done nfs client"
-fi # end of installation of nfs storage
 

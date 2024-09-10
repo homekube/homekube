@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^ingress-nginx"; then
   echo "Skipping installation of ingress-nginx because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns ingress-nginx'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^ingress-nginx"; then

@@ -17,7 +17,7 @@ HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token ${HOMEKU
 if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
-  exit 1
+  exit 2
 fi
 
 

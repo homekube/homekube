@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^kubernetes-dashboard"; then
   echo "Skipping installation of kubernetes-dashboard because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns kubernetes-dashboard'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^kubernetes-dashboard"; then

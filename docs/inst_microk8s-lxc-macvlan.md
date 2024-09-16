@@ -74,7 +74,8 @@ in case it was updated.
 
 ```
 lxc profile create microk8s
-cat ~/homekube/src/installation/k8s/lxc/host/microk8s-profile.yaml | lxc profile edit microk8s
+wget https://raw.githubusercontent.com/ubuntu/microk8s/master/tests/lxc/microk8s.profile -O microk8s.profile
+cat microk8s.profile | lxc profile edit microk8s
 ```
 
 Check the result ``lxc profile show microk8s``. It looks like

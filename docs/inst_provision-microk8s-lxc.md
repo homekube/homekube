@@ -4,6 +4,30 @@ In the previous step ![](images/ico/color/homekube_16.png)[we created the contai
 
 These steps need to be repeated for each Homekube container on the host
 
+## Install an empty Ubuntu container
+
+This command installs and launches an empty OS Ubuntu 24.04 inside a container named ``homekube``
+and applies 3 profiles in the order of specification. Later profile specs override earlier specs
+so we can be sure that our macvlan network settings are honored:
+
+```
+lxc launch -p default -p microk8s -p macvlan ubuntu:24.04 homekube
+```
+
+Lets check if we were successful ``lxc list`` results in something like
+```
++----------+---------+----------------------+------+-----------+-----------+
+|   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
++----------+---------+----------------------+------+-----------+-----------+
+| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
++----------+---------+----------------------+------+-----------+-----------+
+```
+
+Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
+But always keep in mind that this container will not be reachable from the host.
+Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
+Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
+
 ## Clone the github repo
 Its recommended to fork the repo on github and clone your fork to your server.
 This way you might save all your local changes or additions to your own repo and if you notice errors

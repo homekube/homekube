@@ -23,21 +23,29 @@ kubectl create secret generic acme-dns-secret -n cert-manager-${HOMEKUBE_DOMAIN_
 # Verify the setup by creating a staging (test) secret
 envsubst < staging-template.yaml | kubectl apply -f -
 echo "Waiting for the staging secret from LetsEncypt up to 120s - be patient"
-kubectl wait --for=condition=Exists -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --timeout=120s secrets/tls-staging
-if [[ $? -ne 0 ]]; then
-    echo "Could not obtain a staging secret - read and check that all preconditions are met ../docs/cert-manager.md"
-    exit 3
-fi
+while true; do
+  secret_data=$(kubectl get secret tls-staging -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} -o jsonpath='{.data.tls\.crt}')
+  if [[ "$secret_data" != "" ]]; then
+    echo "Secret data found!"
+    break
+  fi
+  echo "Waiting for secret data..."
+  sleep 5
+done
 kubectl describe secret tls-staging -n cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 
 # Obtain the production secret from LetsEncrypt
 envsubst < prod-template.yaml | kubectl apply -f -
 echo "Waiting for the production /real) from LetsEcypt secret up to 120s - be patient"
-kubectl wait --for=condition=Exists -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} --timeout=120s secrets/tls-prod
-if [[ $? -ne 0 ]]; then
-    echo "Could not obtain a production secret - read and check that all preconditions are met ../docs/cert-manager.md"
-    exit 3
-fi
+while true; do
+  secret_data=$(kubectl get secret tls-prod -n cert-manager-${HOMEKUBE_DOMAIN_DASHED} -o jsonpath='{.data.tls\.crt}')
+  if [[ "$secret_data" != "" ]]; then
+    echo "Secret data found!"
+    break
+  fi
+  echo "Waiting for secret data..."
+  sleep 5
+done
 kubectl describe secret tls-prod -n cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 
 # Patch ingress to use the secret

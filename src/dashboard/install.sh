@@ -20,6 +20,8 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 --set controller.allowSnippetAnnotations=true \
 --create-namespace --namespace kubernetes-dashboard --version 7.5.0
 
+sleep 20s   # wait for availability
+
 cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: ServiceAccount

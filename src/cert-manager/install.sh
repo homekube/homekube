@@ -34,7 +34,6 @@ while true; do
 done
 kubectl describe secret tls-staging -n cert-manager-${HOMEKUBE_DOMAIN_DASHED}
 
-sleep 30s
 # Obtain the production secret from LetsEncrypt
 envsubst < prod-template.yaml | kubectl apply -f -
 echo "Waiting for the production secret from LetsEcypt - be patient"

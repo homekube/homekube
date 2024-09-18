@@ -16,7 +16,10 @@ fi
 echo "Install kubernetes dashboard"
 
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+--create-namespace --namespace kubernetes-dashboard --version 7.5.0
+
+sleep 20s   # wait for availability
 
 envsubst < oauth2/create-group-bindings.yaml | kubectl apply -f -
 envsubst < oauth2/ingress-sso.yaml | kubectl apply -f -

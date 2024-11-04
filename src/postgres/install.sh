@@ -5,6 +5,7 @@ if kubectl get ns | grep -q "^postgres"; then
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns postgres'"
   echo "'kubectl delete pv postgres-pv'"
+  exit 1
 else
 
 echo "Install postgres"

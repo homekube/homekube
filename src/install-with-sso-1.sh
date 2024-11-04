@@ -5,6 +5,14 @@
 #. ./homekube.env.sh
 #set +a
 
+# source helper functions
+. ./helpers.sh
+
+# check if specified persistent storage exists or can be mounted
+if [[ $(checkmount) -ne 0 ]]; then
+  exit 1
+fi
+
 apt update
 echo "Waiting for Microk8s ready state"
 microk8s status --wait-ready

@@ -10,7 +10,7 @@ HOMEKUBE_DOMAIN=homekube.org  # the public domain of this site
 
 # Settings for NFS server
 HOMEKUBE_NFS_SERVER_URL=url_of_your_nfs_server # e.g. 192.168.1.250  # The url of the nfs server
-HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/kubedata # The path to your data on the nfs server
+HOMEKUBE_NFS_SERVER_PATH=/Public/nfs/kubedata # The path to your data on the nfs server **MUST EXIST**
 
 # Settings for cert-manager
 HOMEKUBE_DOMAIN_DASHED=${HOMEKUBE_DOMAIN//./-}  # required for cert-manager

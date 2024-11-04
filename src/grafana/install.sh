@@ -5,6 +5,7 @@ if kubectl get ns | grep -q "^grafana"; then
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns grafana'"
   echo "'kubectl delete pv grafana-pv'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^grafana"; then
@@ -22,13 +23,12 @@ kubectl create secret generic grafana-creds -n grafana \
   --from-literal=admin-user=admin \
   --from-literal=admin-password=admin1234
 
-helm install grafana -n grafana --version=8.3.2 \
+helm upgrade --install grafana grafana/grafana -n grafana --version=8.5.0 \
   --set persistence.enabled=true \
   --set persistence.existingClaim=grafana-pvc \
   --set persistence.subPath=grafana \
   --set admin.existingSecret=grafana-creds \
-  -f datasource-dashboards.yaml \
-  grafana/grafana
+  -f datasource-dashboards.yaml
 
 #kubectl apply -f ~/homekube/src/grafana/ingress-grafana.yaml
 cat << EOF | envsubst | kubectl apply -f -
@@ -51,5 +51,6 @@ spec:
                 port:
                   number: 80
 EOF
+echo "Important NOTE: If this is installation connects to an existing pv credentials are taken from the existing database !!!"
 echo "Installation done grafana"
 fi # end of installation of grafana

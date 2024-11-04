@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^kubernetes-dashboard"; then
   echo "Skipping installation of kubernetes-dashboard because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns kubernetes-dashboard'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^kubernetes-dashboard"; then
@@ -15,7 +16,10 @@ fi
 echo "Install kubernetes dashboard"
 
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+--create-namespace --namespace kubernetes-dashboard --version 7.5.0
+
+sleep 20s   # wait for availability
 
 envsubst < oauth2/create-group-bindings.yaml | kubectl apply -f -
 envsubst < oauth2/ingress-sso.yaml | kubectl apply -f -

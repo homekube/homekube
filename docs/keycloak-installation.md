@@ -141,3 +141,40 @@ psql -U admin -d postgres -c "drop database keycloak;"
 psql -U admin -d postgres -c "create database keycloak;"
 pg_restore -d keycloak /tmp/keycloak.backup --host <to-host-ip> --port "30100" --username "admin" --format=c
 ```
+
+### Backup from inside postgres container
+
+```bash
+# step into postgres container
+kubectl exec postgres-0 -it -n postgres -- bash
+
+# dump the database to /tmp/keycloak.backup in postgres container
+pg_dump -f /tmp/keycloak.backup --username "keycloak" --format=c -v keycloak
+
+# copy to parent (e.g. /root/keycloak.backup)
+kubectl cp postgres/postgres-0:tmp/keycloak.backup keycloak.backup
+
+# pull file to lxc host
+lxc file pull homekube/root/keycloak.backup . 
+```
+
+### Restore from host
+
+```bash
+# push file from host to lxc container homekube
+lxc file push keycloak.backup homekube/root/keycloak.backup 
+
+# copy from parent (homekube) to postgres container
+kubectl cp keycloak.backup postgres/postgres-0:tmp/keycloak.backup
+
+# step into postgres container
+kubectl exec postgres-0 -it -n postgres -- bash
+
+# start with a clean keycloak db before restoring a backup
+psql -U admin -d postgres -c "drop database keycloak;"
+psql -U admin -d postgres -c "create database keycloak;"
+
+# restore the database from /tmp/keycloak.backup
+pg_restore -d keycloak /tmp/keycloak.backup --username "admin" --format=c
+```
+

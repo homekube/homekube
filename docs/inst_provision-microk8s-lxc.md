@@ -1,10 +1,12 @@
-# MicroK8s Installation
+# MicroK8s / Homekube Installation
 
-These steps need to be repeated for each container on the host
+In the previous step ![](images/ico/color/homekube_16.png)[we created the container](inst_microk8s-lxc-macvlan.md).
 
-## Installation
+These steps need to be repeated for each Homekube container on the host
 
-This command installs and launches an empty OS Ubuntu 22.04 inside a container named ``homekube``
+## Install an empty Ubuntu container
+
+This command installs and launches an empty OS Ubuntu 24.04 inside a container named ``homekube``
 and applies 3 profiles in the order of specification. Later profile specs override earlier specs
 so we can be sure that our macvlan network settings are honored:
 
@@ -26,6 +28,19 @@ But always keep in mind that this container will not be reachable from the host.
 Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
 Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
 
+## Clone the github repo
+Its recommended to fork the repo on github and clone your fork to your server.
+This way you might save all your local changes or additions to your own repo and if you notice errors
+or suggest improvements you might easily sumbit a PR to improve homekube.
+
+```bash
+# Recommended
+git clone git@github.com:<your clone>/homekube.git
+
+# Alternative
+git clone https://github.com/homekube/homekube.git
+```
+
 Now we install ``microk8s`` inside a container named ``homekube`` and give it access to our cloned homekube repository on the host.
 
 ```bash
@@ -33,7 +48,7 @@ cd ~/homekube   # your fork of https://github.com/homekube/homekube.git
 lxc config device add homekube homekube disk source=$(pwd) path=/root/homekube
 lxc exec homekube -- bash
 
-snap install microk8s --classic --channel=1.30/stable
+snap install microk8s --classic --channel=1.31/stable
 microk8s status --wait-ready
 microk8s enable dns rbac helm3
 ```
@@ -102,9 +117,9 @@ kubectl version
 
 ```text
 root@homekube:~# kubectl version
-Client Version: v1.30.1
-Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
-Server Version: v1.30.1
+Client Version: v1.31.0
+Kustomize Version: v5.4.2
+Server Version: v1.31.0
 ```
 
 Now We are done with installation in a Microk8s container
@@ -122,6 +137,8 @@ set -a
 . ./homekube.env.sh
 set +a
 
+echo "Please make sure that ${HOMEKUBE_NFS_SERVER_PATH} exists on ${HOMEKUBE_NFS_SERVER_URL} before proceeding with the installation !"
+ 
 # Plain installation (without Keycloak SSO)
 bash -i install-all.sh
 # or install with Keycloak Single Sign On (more complex)

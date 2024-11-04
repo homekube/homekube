@@ -5,6 +5,7 @@ if kubectl get ns | grep -q "^grafana"; then
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns grafana'"
   echo "'kubectl delete pv grafana-pv'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^grafana"; then

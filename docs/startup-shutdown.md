@@ -16,21 +16,26 @@ Filesystem                                                                      
 Drain the node. This stops all pods. After drain repeat the filesystem check.
 There should be no more file systems listed
 ```bash
+# Execute in container
 kubectl drain <container> --ignore-daemonsets --delete-emptydir-data --timeout 60s
 ```
 
 Stopping microk8s
 ```bash
+# Execute on lxc host
 lxc exec <container> -- microk8s stop
 lxc exec <container> -- microk8s status
 #lxc exec <container> -- snap stop microk8s --disable
-#lxc stop <container> -f
+lxc stop <container> -f
 ```
 
 ## Restart the container
 ```bash
+# Execute on lxc host
 lxc exec <container> -- microk8s start
 lxc exec <container> -- microk8s status
+lxc exec <container> -- snap start microk8s
+lxc exec <container> -- bash # step into container
 ```
 
 ```bash

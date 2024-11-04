@@ -5,6 +5,7 @@ if kubectl get ns | grep -q "^prometheus"; then
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns prometheus'"
   echo "'kubectl delete pv prometheus-pv'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^prometheus-community"; then

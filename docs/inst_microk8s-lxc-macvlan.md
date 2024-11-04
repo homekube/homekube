@@ -3,7 +3,7 @@
 
 The steps on this page are a one time requirement per host.  
 If these steps are already executed proceed with the next step
-![](images/ico/color/homekube_16.png)[ Microk8s provisioning](inst_provision-microk8s-lxc.md).
+![](images/ico/color/homekube_16.png)[ Microk8s provisioning with lxc](inst_provision-microk8s-lxc.md).
 
 
 ## Preparation host
@@ -74,7 +74,8 @@ in case it was updated.
 
 ```
 lxc profile create microk8s
-cat ~/homekube/src/installation/k8s/lxc/host/microk8s-profile.yaml | lxc profile edit microk8s
+wget https://raw.githubusercontent.com/ubuntu/microk8s/master/tests/lxc/microk8s.profile -O microk8s.profile
+cat microk8s.profile | lxc profile edit microk8s
 ```
 
 Check the result ``lxc profile show microk8s``. It looks like
@@ -135,7 +136,8 @@ First we need to find out our hosts primary network interface name: ``ip a s``. 
        valid_lft forever preferred_lft forever
 ...
 ```
-For macvlan creation you need to replace parent value **enp4s0** with your local settings:
+For macvlan creation you need to replace parent value **enp4s0** with your local settings. 
+A typical value for link/ether is **eth0**. You need to take your local value.
 ```
 lxc profile create macvlan
 lxc profile device add macvlan eth0 nic nictype=macvlan parent=enp4s0
@@ -152,30 +154,6 @@ devices:
 name: macvlan
 used_by: []
 ```
-
-### Install an empty Ubuntu container
-
-This command installs and launches an empty OS Ubuntu 20.04 inside a container named ``homekube``
-and applies 3 profiles in the order of specification. Later profile specs override earlier specs
-so we can be sure that our macvlan network settings are honored:
-
-```
-lxc launch -p default -p microk8s -p macvlan ubuntu:22.04 homekube
-```
-
-Lets check if we were successful ``lxc list`` results in something like
-```
-+----------+---------+----------------------+------+-----------+-----------+
-|   NAME   |  STATE  |         IPV4         | IPV6 |   TYPE    | SNAPSHOTS |
-+----------+---------+----------------------+------+-----------+-----------+
-| homekube | RUNNING | 192.168.1.100 (eth0) |      | CONTAINER | 0         |
-+----------+---------+----------------------+------+-----------+-----------+
-```
-
-Note the IP V4 indicates that the container got an IP from DHCP service of our local network.
-But always keep in mind that this container will not be reachable from the host.
-Thats the limitation of macvlan networks. In case thats too limiting for you you need to install a bridge.
-Read more [![](images/ico/book_16.png) about bridge configuration here](https://blog.simos.info/how-to-make-your-lxd-containers-get-ip-addresses-from-your-lan-using-a-bridge/)
 
 Now proceed with the next step
 ![](images/ico/color/homekube_16.png)[ Microk8s provisioning](inst_provision-microk8s-lxc.md).

@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^kubernetes-dashboard"; then
   echo "Skipping installation of kubernetes-dashboard because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns kubernetes-dashboard'"
+  exit 1
 else
 
 if ! helm repo list | grep -q "^kubernetes-dashboard"; then
@@ -15,7 +16,11 @@ fi
 echo "Install kubernetes dashboard"
 
 # Deploy a Helm Release named "kubernetes-dashboard" using the kubernetes-dashboard chart
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard --version 7.5.0
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+--set controller.allowSnippetAnnotations=true \
+--create-namespace --namespace kubernetes-dashboard --version 7.5.0
+
+sleep 20s   # wait for availability
 
 cat << EOF | kubectl apply -f -
 apiVersion: v1
@@ -44,7 +49,7 @@ HOMEKUBE_DASHBOARD_TOKEN=$(kubectl -n kubernetes-dashboard create token simple-u
 if [ -z "$HOMEKUBE_DASHBOARD_TOKEN" ]
 then
   echo "User ${HOMEKUBE_USER_NAME} not found. Probably you need to create the user first. See the 'create-admin-user.yaml'"
-  exit 1
+  exit 2
 fi
 
 cat << EOF | envsubst | kubectl apply -f -
@@ -53,7 +58,6 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "true"
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/auth-url: https://httpbin.org/basic-auth/demo/demo
@@ -62,6 +66,7 @@ metadata:
   name: ingress-dashboard-service
   namespace: kubernetes-dashboard
 spec:
+  ingressClassName: nginx
   rules:
     - host: dashboard.${HOMEKUBE_DOMAIN}
       http:

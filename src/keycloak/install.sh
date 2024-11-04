@@ -4,6 +4,7 @@ if kubectl get ns | grep -q "^keycloak"; then
   echo "Skipping installation of keycloak because namespace already exists"
   echo "If you want to reinstall execute: "
   echo "'kubectl delete ns keycloak'"
+  exit 1
 else
 
 echo "Install keycloak oauth service"

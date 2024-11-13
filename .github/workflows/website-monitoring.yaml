@@ -69,8 +69,8 @@ jobs:
               if not site_config.get('auth_required'):
                   return None
           
-              username = os.getenv(site_config['username_secret'])
-              password = os.getenv(site_config['password_secret'])
+              username = "demo" # os.getenv(site_config['username_secret'])
+              password = "demo" # os.getenv(site_config['password_secret'])
           
               if not username or not password:
                   raise Exception(f"Missing credentials for {site_config['url']}")

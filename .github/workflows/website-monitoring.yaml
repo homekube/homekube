@@ -134,33 +134,41 @@ jobs:
           EOF
           
           python check_sites.py
-
-      - name: Create issue on failure
-        if: failure()
-        uses: actions/github-script@v6
+          
+      - name: Upload status report
+        uses: actions/upload-artifact@v3
         with:
-          script: |
-            const fs = require('fs');
-            const statusData = JSON.parse(fs.readFileSync('status.json', 'utf8'));
-            const failedSites = statusData.filter(site => !site.success);
-            
-            const issueBody = `
-            # 🚨 Website Monitoring Alert
-            
-            The following sites are experiencing issues:
-            
-            ${failedSites.map(site => `
-            ## ${site.url}
-            - Status: ${site.status}
-            - Time: ${site.timestamp}
-            ${site.error ? `- Error: ${site.error}` : ''}
-            `).join('\n')}
-            `;
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
-              body: issueBody,
-              labels: ['incident']
-            });
+          name: status-report
+          path: status.json
+
+
+
+#      - name: Create issue on failure
+#        if: failure()
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+#            const fs = require('fs');
+#            const statusData = JSON.parse(fs.readFileSync('status.json', 'utf8'));
+#            const failedSites = statusData.filter(site => !site.success);
+#
+#            const issueBody = `
+#            # 🚨 Website Monitoring Alert
+#
+#            The following sites are experiencing issues:
+#
+#            ${failedSites.map(site => `
+#            ## ${site.url}
+#            - Status: ${site.status}
+#            - Time: ${site.timestamp}
+#            ${site.error ? `- Error: ${site.error}` : ''}
+#            `).join('\n')}
+#            `;
+#
+#            await github.rest.issues.create({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
+#              body: issueBody,
+#              labels: ['incident']
+#            });

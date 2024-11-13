@@ -13,8 +13,8 @@ jobs:
       SITES: |
         https://whoami.homekube.org
         https://dashboard.homekube.org/#/workloads?namespace=_all
-        https://prometheus.homekube.com
-        https://grafana.homekube.com
+        https://prometheus.homekube.org
+        https://grafana.homekube.org
 
     steps:
       - name: Check out repository

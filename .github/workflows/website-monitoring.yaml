@@ -12,9 +12,9 @@ jobs:
     env:
       SITES: |
         https://whoami.homekube.org
-        https://dashboard.homekube.org
-        https://prometheus.example.com
-        https://grafana.example.com
+        https://dashboard.homekube.org/#/workloads?namespace=_all
+        https://prometheus.homekube.com
+        https://grafana.homekube.com
 
     steps:
       - name: Check out repository
@@ -88,15 +88,15 @@ jobs:
           
           python check_sites.py
       
-      - name: Send notification on failure
-        if: failure()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const issue = await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
-              body: 'One or more websites are experiencing issues. Check the workflow logs for details.',
-              labels: ['incident']
-            });
+#      - name: Send notification on failure
+#        if: failure()
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+#            const issue = await github.rest.issues.create({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
+#              body: 'One or more websites are experiencing issues. Check the workflow logs for details.',
+#              labels: ['incident']
+#            });

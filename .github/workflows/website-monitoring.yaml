@@ -10,16 +10,34 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      SITES: |
-        https://whoami.homekube.org
-        https://dashboard.homekube.org/#/workloads?namespace=_all
-        https://prometheus.homekube.org
-        https://grafana.homekube.org
+      # Define sites with their config. We'll use GitHub Secrets for credentials
+      SITES_CONFIG: |
+        {
+          "sites": [
+            {
+              "url": "https://dashboard.homekube.org/#/workloads?namespace=_all",
+              "auth_required": true,
+              "username_secret": "demo",
+              "password_secret": "demo"
+            },
+            {
+              "url": "https://https://whoami.homekube.org",
+              "auth_required": false
+            },
+            {
+              "url": "https://prometheus.homekube.org",
+              "auth_required": false
+            },
+            {
+              "url": "https://grafana.homekube.org",
+              "auth_required": false
+            }
+          ]
+        }
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      
+      - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -28,8 +46,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
-      
+          pip install requests jinja2
+
       - name: Check website availability
         run: |
           echo "Starting website availability check..."
@@ -40,63 +58,109 @@ jobs:
           import requests
           import os
           import time
+          import json
           from datetime import datetime
           
-          def check_site(url):
+          def get_auth_credentials(site_config):
+              if not site_config.get('auth_required'):
+                  return None
+          
+              username = os.getenv(site_config['username_secret'])
+              password = os.getenv(site_config['password_secret'])
+          
+              if not username or not password:
+                  raise Exception(f"Missing credentials for {site_config['url']}")
+          
+              return (username, password)
+          
+          def check_site(site_config):
+              url = site_config['url']
+              auth = get_auth_credentials(site_config)
+          
               try:
                   start_time = time.time()
-                  response = requests.get(url, timeout=30)
+                  response = requests.get(
+                      url,
+                      auth=auth,
+                      timeout=30,
+                      verify=True  # SSL verification
+                  )
                   response_time = time.time() - start_time
-                  
+          
                   return {
+                      'url': url,
                       'status': response.status_code,
                       'response_time': round(response_time * 1000, 2),
-                      'success': response.status_code < 400
+                      'success': response.status_code < 400,
+                      'timestamp': datetime.now().isoformat(),
+                      'badge_color': 'brightgreen' if response.status_code < 400 else 'red'
                   }
-              except Exception as e:
+              except requests.exceptions.RequestException as e:
                   return {
+                      'url': url,
                       'status': 'Error',
                       'response_time': 0,
                       'success': False,
-                      'error': str(e)
+                      'error': str(e),
+                      'timestamp': datetime.now().isoformat(),
+                      'badge_color': 'red'
                   }
           
-          # Get sites from environment variable
-          sites = os.getenv('SITES').strip().split('\n')
-          
-          # Track if any failures occurred
+          # Load sites configuration
+          sites_config = json.loads(os.getenv('SITES_CONFIG'))
+          results = []
           has_failures = False
           
           # Check each site
-          for site in sites:
-              site = site.strip()
-              print(f"\nChecking {site}")
-              
-              result = check_site(site)
-              
+          for site_config in sites_config['sites']:
+              print(f"\nChecking {site_config['url']}")
+          
+              result = check_site(site_config)
+              results.append(result)
+          
               if result['success']:
                   print(f"✅ Status: {result['status']}")
                   print(f"⚡ Response Time: {result['response_time']}ms")
               else:
                   has_failures = True
                   print(f"❌ Failed: {result.get('error', f'Status code: {result['status']}')}") 
-                  print(f"::error::Website {site} is down!")
+          
+          # Save results (removing sensitive information)
+          with open('status.json', 'w') as f:
+              json.dump(results, f, indent=2)
           
           if has_failures:
               sys.exit(1)
           EOF
           
           python check_sites.py
-      
-#      - name: Send notification on failure
-#        if: failure()
-#        uses: actions/github-script@v6
-#        with:
-#          script: |
-#            const issue = await github.rest.issues.create({
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
-#              body: 'One or more websites are experiencing issues. Check the workflow logs for details.',
-#              labels: ['incident']
-#            });
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const statusData = JSON.parse(fs.readFileSync('status.json', 'utf8'));
+            const failedSites = statusData.filter(site => !site.success);
+            
+            const issueBody = `
+            # 🚨 Website Monitoring Alert
+            
+            The following sites are experiencing issues:
+            
+            ${failedSites.map(site => `
+            ## ${site.url}
+            - Status: ${site.status}
+            - Time: ${site.timestamp}
+            ${site.error ? `- Error: ${site.error}` : ''}
+            `).join('\n')}
+            `;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
+              body: issueBody,
+              labels: ['incident']
+            });

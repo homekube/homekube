@@ -17,8 +17,8 @@ jobs:
             {
               "url": "https://dashboard.homekube.org/#/workloads?namespace=_all",
               "auth_required": true,
-              "username_secret": "demo",
-              "password_secret": "demo"
+              "username_secret": "SITE1_USERNAME",
+              "password_secret": "SITE1_PASSWORD"
             },
             {
               "url": "https://https://whoami.homekube.org",
@@ -49,6 +49,10 @@ jobs:
           pip install requests jinja2
 
       - name: Check website availability
+        env:
+          # Add all your secrets here
+          SITE1_USERNAME: ${{ secrets.SITE1_USERNAME }}
+          SITE1_PASSWORD: ${{ secrets.SITE1_PASSWORD }}
         run: |
           echo "Starting website availability check..."
           

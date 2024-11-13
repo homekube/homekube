@@ -1,0 +1,102 @@
+name: Website Monitoring
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    env:
+      SITES: |
+        https://whoami.homekube.org
+        https://dashboard.homekube.org
+        https://prometheus.example.com
+        https://grafana.example.com
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Check website availability
+        run: |
+          echo "Starting website availability check..."
+          
+          # Create Python script for checking
+          cat << 'EOF' > check_sites.py
+          import sys
+          import requests
+          import os
+          import time
+          from datetime import datetime
+          
+          def check_site(url):
+              try:
+                  start_time = time.time()
+                  response = requests.get(url, timeout=30)
+                  response_time = time.time() - start_time
+                  
+                  return {
+                      'status': response.status_code,
+                      'response_time': round(response_time * 1000, 2),
+                      'success': response.status_code < 400
+                  }
+              except Exception as e:
+                  return {
+                      'status': 'Error',
+                      'response_time': 0,
+                      'success': False,
+                      'error': str(e)
+                  }
+          
+          # Get sites from environment variable
+          sites = os.getenv('SITES').strip().split('\n')
+          
+          # Track if any failures occurred
+          has_failures = False
+          
+          # Check each site
+          for site in sites:
+              site = site.strip()
+              print(f"\nChecking {site}")
+              
+              result = check_site(site)
+              
+              if result['success']:
+                  print(f"✅ Status: {result['status']}")
+                  print(f"⚡ Response Time: {result['response_time']}ms")
+              else:
+                  has_failures = True
+                  print(f"❌ Failed: {result.get('error', f'Status code: {result['status']}')}") 
+                  print(f"::error::Website {site} is down!")
+          
+          if has_failures:
+              sys.exit(1)
+          EOF
+          
+          python check_sites.py
+      
+      - name: Send notification on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Website Monitoring Alert - ${new Date().toISOString()}`,
+              body: 'One or more websites are experiencing issues. Check the workflow logs for details.',
+              labels: ['incident']
+            });

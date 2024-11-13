@@ -60,14 +60,13 @@ jobs:
           import time
           import json
           from datetime import datetime
-          from github import context
           
           def get_auth_credentials(site_config):
               if not site_config.get('auth_required'):
                   return None
           
-              username = context.secrets[site_config['username_secret']]
-              password = context.secrets[site_config['password_secret']]
+              username = os.getenv(site_config['username_secret'])
+              password = os.getenv(site_config['password_secret'])
           
               if not username or not password:
                   raise Exception(f"Missing credentials for {site_config['url']}")

@@ -6,7 +6,8 @@ websites:
 #    basic_auth: true
 #    headers:
 #      Content-Type: "application/json"
-      
+
+# homekube.org
   - name: "Dashboard"
     id: "dashboard"
     url: "https://dashboard.homekube.org/#/workloads?namespace=_all"
@@ -18,11 +19,71 @@ websites:
     basic_auth: true
 
   - name: "Prometheus"
-    url: "https://dashboard.homekube.org/#/workloads?namespace=_all"
+    url: "https://prometheus.homekube.org"
     basic_auth: false
 
   - name: "Grafana"
     id: "grafana"
     url: "https://grafana.homekube.org"
+    basic_auth: true
+
+# pi.homekube.org
+  - name: "Dashboard"
+    id: "dashboard.pi"
+    url: "https://dashboard.pi.homekube.org/#/workloads?namespace=_all"
+    basic_auth: true
+
+  - name: "Whoami"
+    id: "whoami.pi"
+    url: "https://whoami.pi.homekube.org"
+    basic_auth: true
+
+  - name: "Prometheus"
+    url: "https://prometheus.pi.homekube.org"
+    basic_auth: false
+
+  - name: "Grafana"
+    id: "grafana.pi"
+    url: "https://grafana.pi.homekube.org"
+    basic_auth: true
+
+# piincus.homekube.org
+  - name: "Dashboard"
+    id: "dashboard.piincus"
+    url: "https://dashboard.piincus.homekube.org/#/workloads?namespace=_all"
+    basic_auth: true
+
+  - name: "Whoami"
+    id: "whoami.piincus"
+    url: "https://whoami.piincus.homekube.org"
+    basic_auth: true
+
+  - name: "Prometheus"
+    url: "https://prometheus.piincus.homekube.org"
+    basic_auth: false
+
+  - name: "Grafana"
+    id: "grafana.piincus"
+    url: "https://grafana.piincus.homekube.org"
+    basic_auth: true
+
+# proxmox.homekube.org
+  - name: "Dashboard"
+    id: "dashboard.pm1"
+    url: "https://dashboard.pm1.homekube.org/#/workloads?namespace=_all"
+    basic_auth: true
+
+  - name: "Whoami"
+    id: "whoami.pm1"
+    url: "https://whoami.pm1.homekube.org"
+    basic_auth: true
+
+  - name: "Prometheus"
+    url: "https://prometheus.pm1.homekube.org"
+    basic_auth: false
+
+  - name: "Grafana"
+    id: "grafana.pm1"
+    url: "https://grafana.pm1.homekube.org"
     basic_auth: true
 

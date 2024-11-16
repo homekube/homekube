@@ -51,7 +51,7 @@ jobs:
               return (username, password)
           
           def load_config():
-              config_path = Path('.github/config/websites.yml')
+              config_path = Path('.github/config/websites.yaml')
               if not config_path.exists():
                   raise FileNotFoundError(f"Configuration file not found at {config_path}")
                   

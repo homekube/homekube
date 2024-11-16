@@ -1,0 +1,28 @@
+# .github/config/websites.yml
+websites:
+#  - name: "Secured API"
+#    id: "api1"  # This ID maps to the credentials in GitHub secrets
+#    url: "https://api.example.com/health"
+#    basic_auth: true
+#    headers:
+#      Content-Type: "application/json"
+      
+  - name: "Dashboard"
+    id: "dashboard"
+    url: "https://dashboard.homekube.org/#/workloads?namespace=_all"
+    basic_auth: true
+
+  - name: "Whoami"
+    id: "whoami"
+    url: "https://whoami.homekube.org"
+    basic_auth: true
+
+  - name: "Prometheus"
+    url: "https://dashboard.homekube.org/#/workloads?namespace=_all"
+    basic_auth: false
+
+  - name: "Grafana"
+    id: "grafana"
+    url: "https://grafana.homekube.org"
+    basic_auth: true
+

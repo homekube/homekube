@@ -1,0 +1,174 @@
+name: Website Availability Monitor
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Runs every 15 minutes
+  workflow_dispatch:  # Allows manual trigger
+
+env:
+  TIMEOUT_SECONDS: 10
+  SUCCESS_THRESHOLD: 200
+  FAILURE_THRESHOLD: 499
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pyyaml
+          
+      - name: Check website availability
+        id: availability
+        env:
+          DEMO_USERNAME: ${{ secrets.DEMO_USERNAME }}
+          DEMO_PASSWORD: ${{ secrets.DEMO_PASSWORD }}
+        run: |
+          cat << 'EOF' > check_sites.py
+          import requests
+          import sys
+          import json
+          import yaml
+          import os
+          from datetime import datetime
+          from pathlib import Path
+          
+          def get_auth_credentials():
+              """Load basic auth credentials from environment variables"""
+              username = os.getenv('DEMO_USERNAME', '')
+              password = os.getenv('DEMO_PASSWORD', '')
+              
+              return (username, password)
+          
+          def load_config():
+              config_path = Path('.github/config/websites.yml')
+              if not config_path.exists():
+                  raise FileNotFoundError(f"Configuration file not found at {config_path}")
+                  
+              with open(config_path) as f:
+                  config = yaml.safe_load(f)
+                  
+              if not isinstance(config.get('websites'), list):
+                  raise ValueError("Configuration must contain a 'websites' list")
+                  
+              return config['websites']
+          
+          def check_website(site_config, timeout, auth_credentials):
+              url = site_config['url']
+              site_id = site_config.get('id')
+              
+              # Prepare request kwargs
+              request_kwargs = {
+                  'timeout': timeout,
+                  'headers': site_config.get('headers', {})
+              }
+              
+              # Add basic auth if configured
+              if site_config.get('basic_auth'):
+                  request_kwargs['auth'] = auth_credentials
+              
+              try:
+                  response = requests.get(url, **request_kwargs)
+                  return {
+                      "url": url,
+                      "name": site_config.get('name', url),
+                      "status_code": response.status_code,
+                      "response_time": response.elapsed.total_seconds(),
+                      "success": 200 <= response.status_code < 400
+                  }
+              except Exception as e:
+                  return {
+                      "url": url,
+                      "name": site_config.get('name', url),
+                      "status_code": 0,
+                      "response_time": 0,
+                      "success": False,
+                      "error": str(e)
+                  }
+          
+          # Load credentials and websites
+          try:
+              auth_credentials = get_auth_credentials()
+              websites = load_config()
+          except Exception as e:
+              print(f"Error loading configuration: {e}")
+              sys.exit(1)
+          
+          results = []
+          has_failures = False
+          
+          for website in websites:
+              result = check_website(website, float(sys.argv[1]), auth_credentials)
+              results.append(result)
+              if not result["success"]:
+                  has_failures = True
+          
+          # Create detailed report
+          report = f"## Website Monitoring Report - {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}\n\n"
+          for result in results:
+              status = "✅" if result["success"] else "❌"
+              report += f"{status} {result['name']} ({result['url']})\n"
+              report += f"  - Status Code: {result['status_code']}\n"
+              report += f"  - Response Time: {result['response_time']:.2f}s\n"
+              if not result["success"] and "error" in result:
+                  report += f"  - Error: {result['error']}\n"
+              report += "\n"
+          
+          # Set output variables
+          print(f"::set-output name=has_failures::{str(has_failures).lower()}")
+          with open("monitoring_report.md", "w") as f:
+              f.write(report)
+          
+          EOF
+          
+          python check_sites.py ${{ env.TIMEOUT_SECONDS }}
+          
+      - name: Create or update monitoring issue
+        if: steps.availability.outputs.has_failures == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('monitoring_report.md', 'utf8');
+            
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['website-monitoring'],
+              state: 'open'
+            });
+            
+            const issueBody = `
+            🚨 Website Availability Alert 🚨
+            
+            ${report}
+            
+            This issue was automatically generated by the website monitoring workflow.
+            `;
+            
+            if (issues.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🚨 Website Availability Alert',
+                body: issueBody,
+                labels: ['website-monitoring']
+              });
+            } else {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issues.data[0].number,
+                body: issueBody
+              });
+            }

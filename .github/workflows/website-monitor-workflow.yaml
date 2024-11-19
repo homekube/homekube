@@ -2,7 +2,7 @@ name: Website Availability Monitor
 
 on:
   schedule:
-    - cron: '* * */1 * *'  # Runs daily
+    - cron: '0 0 * * *'  # Runs daily
   workflow_dispatch:  # Allows manual trigger
 
 env:

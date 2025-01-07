@@ -6,6 +6,18 @@ This documentation contains the provisioning steps for **Incus**. Incus is an al
 of lxd created a fork of lxd recently as a reaction of Canonicals licence change.
 See also https://linuxcontainers.org/
 
+## Install Incus
+
+```
+apt install incus -y
+sudo adduser $USER incus-admin
+newgrp incus-admin
+
+incus admin init
+# or 
+# incus admin init --minimal
+```
+
 ## Install an empty Ubuntu container
 
 This command installs and launches an empty OS Ubuntu 24.04 inside a container named ``homekube``
@@ -13,7 +25,6 @@ and applies 3 profiles in the order of specification. Later profile specs overri
 so we can be sure that our macvlan network settings are honored:
 
 ```
-apt install incus -y
 incus launch -p default -p microk8s -p macvlan images:ubuntu/24.04/cloud homekube
 ```
 
@@ -159,7 +170,10 @@ Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ individual 
 
 ## Further reading
 
-[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Recommendations about using lxd](https://ubuntu.com/blog/lxd-5-easy-pieces)
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Howto install Incus](https://linuxcontainers.org/incus/docs/main/installing/)  
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus first steps](https://linuxcontainers.org/incus/docs/main/tutorial/first_steps/)  
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus networking guide](https://blog.simos.info/useful-networking-tips-with-incus/)  
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus tips and tricks](https://discussion.scottibyte.com/t/incus-profile-tricks-power-shortcuts-to-creating-containers/418)  
 
 ## Troubleshooting
 

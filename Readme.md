@@ -20,8 +20,10 @@ PC (AMD64), ARM64 (Raspbery Pi5), Proxmox and secured operation using Identity A
 | Testing payloads and <br/>response times *1) <br/> ![](docs/images/ico/color/homekube_16.png) [workload-testing.md](docs/workload-testing.md) | [![](docs/images/homekube_64.png) ](https://grafana.homekube.org)               |  |                                                                                 |                                                                                             |
 |                                                                                                                                               | | | |                                                                                             | [ **Logoff** <br/>![](docs/images/keycloak_64.png) ](https://dashboard.auth.homekube.org/oauth2/sign_out?rd=https%3A%2F%2Fkeycloak.auth.homekube.org%2Frealms%2Fhomekube%2Fprotocol%2Fopenid-connect%2Flogout) |
 
-Where logins are required use **demo/demo** with only basic dashboard permissions to view namespaces, pods and logs.  
-Or use **simple-user/s3cr3t** (supported by Keycloak SSO IAM) with dashboard read access on (almost) all objects.
+Where logins are required use **demo/demo** with basic dashboard permissions to view namespaces, pods and logs.  
+For Keycloak **SSO IAM** you can also use **simple-user/s3cr3t** which provides dashboard access with elevated permissions 
+(read access) on almost all objects. Only administrator (pw only available to site admins) may write settings. 
+Use logoff to switch user accounts.
 
 ## Project philosophy
 The idea of this project is to set up a fully functional kubernetes environment on budget hardware - a PC / Server or a Raspberry Pi. While learning step by step the final setup

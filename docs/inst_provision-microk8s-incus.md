@@ -173,6 +173,7 @@ Now proceed with the ![](../docs/images/ico/color/homekube_16.png) [ individual 
 [![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Howto install Incus](https://linuxcontainers.org/incus/docs/main/installing/)  
 [![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus first steps](https://linuxcontainers.org/incus/docs/main/tutorial/first_steps/)  
 [![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus networking guide](https://blog.simos.info/useful-networking-tips-with-incus/)  
+[![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus and Ubuntu](https://stgraber.org/2024/04/29/incus-and-ubuntu-24-04-lts/)  
 [![](images/ico/book_16.png) ![](images/ico/color/ubuntu_16.png) Incus tips and tricks](https://discussion.scottibyte.com/t/incus-profile-tricks-power-shortcuts-to-creating-containers/418)  
 
 ## Troubleshooting

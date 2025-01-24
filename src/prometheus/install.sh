@@ -17,7 +17,7 @@ echo "Install prometheus"
 kubectl create namespace prometheus
 envsubst < create-storage.yaml | kubectl apply -f -
 
-helm install prometheus -n prometheus --version=25.22.1 \
+helm install prometheus -n prometheus --version=27.1.0 \
   --set alertmanager.enabled=false \
   --set pushgateway.enabled=false \
   --set server.persistentVolume.existingClaim=prometheus-pvc \
